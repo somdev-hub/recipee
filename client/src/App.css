@@ -1,0 +1,13 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --yellow: #f5a504;
+  --dark-gray: #28282b;
+  --black: #1e1e1e;
+  --dark-blue: #273b4a;
+  --white: #fff;
+  --text-gray: #686767;
+  --light-gray: #d9d9d9;
+}

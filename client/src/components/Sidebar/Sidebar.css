@@ -1,0 +1,53 @@
+.sidebar {
+  background-color: var(--dark-gray);
+  width: 15%;
+}
+
+.sidebar-options {
+  color: var(--white);
+}
+
+.share-now {
+  background-color: var(--yellow);
+  color: var(--white);
+  height: 12rem;
+  width: 11rem;
+  border-radius: 20px;
+}
+
+.sidebar h1 {
+  font-size: 1.5rem;
+  color: var(--white);
+  text-align: center;
+  font-weight: 600;
+  margin-top: 5%;
+}
+
+.sidebar-options ul li {
+  display: flex;
+  gap: 5%;
+  margin-bottom: 20%;
+}
+
+.sidebar-options span {
+  font-size: 16px;
+}
+.share-now p {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.share-now img {
+  width: 70%;
+  top: -30%;
+}
+
+.share-now button {
+  background-color: var(--white);
+  color: var(--black);
+  border-radius: 5px;
+  width: 80%;
+  height: 2rem;
+  margin-top: 8%;
+  font-weight: 600;
+}

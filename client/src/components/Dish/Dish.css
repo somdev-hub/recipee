@@ -1,0 +1,19 @@
+.dish {
+  background-color: var(--dark-blue);
+  border-radius: 20px;
+  width: 10rem;
+  height: 12rem;
+  border: none;
+}
+
+.dish::hover {
+  border: 1px solid var(--yellow);
+}
+
+.dish img {
+  width: 70%;
+}
+
+.dish p {
+  color: var(--light-gray);
+}

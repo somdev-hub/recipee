@@ -1,0 +1,57 @@
+.dashboard {
+  background-color: var(--black);
+}
+
+.main-content {
+  color: var(--white);
+  width: 60%;
+}
+
+nav h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  width: 45%;
+}
+
+.filter {
+  background-color: var(--dark-blue);
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 5px;
+  color: var(--white);
+}
+
+.search input {
+  border: none;
+  background-color: var(--dark-blue);
+  height: 2.5rem;
+  width: 14rem;
+  border-radius: 5px;
+  padding: 3%;
+}
+
+.ad1 {
+  background-color: var(--yellow);
+  height: 8rem;
+  border-radius: 20px;
+}
+
+.ad1 h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1%;
+}
+
+.ad1 p {
+  width: 60%;
+}
+
+.ad1 img {
+  width: 15%;
+  top: -23%;
+  right: 5%;
+}
+
+.view {
+  color: var(--text-gray);
+}
