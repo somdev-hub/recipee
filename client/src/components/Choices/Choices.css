@@ -1,0 +1,14 @@
+.choice {
+  background-color: var(--dark-blue);
+  border-radius: 20px;
+  width: 40rem;
+}
+
+.main {
+  width: 30%;
+  border-right: 2px solid var(--yellow);
+}
+
+.cuis-item p {
+  color: var(--light-gray);
+}

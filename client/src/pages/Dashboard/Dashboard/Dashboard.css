@@ -4,7 +4,8 @@
 
 .main-content {
   color: var(--white);
-  width: 60%;
+  margin-left: 17%;
+  width: 56%;
 }
 
 nav h2 {
@@ -47,11 +48,32 @@ nav h2 {
 }
 
 .ad1 img {
-  width: 15%;
-  top: -23%;
+  width: 17%;
+  top: -30%;
   right: 5%;
+}
+
+.fav {
+  width: 55rem;
+}
+
+.fav-container {
+  border-radius: 20px;
 }
 
 .view {
   color: var(--text-gray);
+}
+
+.choice-container {
+  border-radius: 20px;
+}
+
+.choice-cards {
+  width: 80rem;
+}
+
+.choice-container::-webkit-scrollbar,
+.fav-container::-webkit-scrollbar {
+  display: none;
 }

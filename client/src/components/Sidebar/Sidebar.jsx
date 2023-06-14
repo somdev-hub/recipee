@@ -11,7 +11,7 @@ import image_1 from "../../utils/image_1.png";
 
 const Sidebar = () => {
   return (
-    <div className="sidebar flex flex-col h-screen">
+    <div className="sidebar flex flex-col h-screen fixed">
       <h1>Recipee</h1>
       <div className="sidebar-options mt-20 ml-5">
         <ul>

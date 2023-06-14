@@ -1,0 +1,19 @@
+.recipe-card {
+  background-color: var(--dark-blue);
+  border-radius: 20px;
+  width: 10rem;
+  height: 14rem;
+}
+
+.recipe-img {
+  width: 8rem;
+  height: 6rem;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.see-more {
+  color: var(--light-gray);
+  text-decoration: underline;
+  font-size: 14px;
+}

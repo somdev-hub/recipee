@@ -1,0 +1,19 @@
+.rightbar {
+  background-color: var(--dark-gray);
+  width: 25%;
+}
+
+.profile-img {
+  border-radius: 5px;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: var(--yellow);
+}
+
+.recipies {
+  width: 45rem;
+}
+
+.recipe-container::-webkit-scrollbar {
+  display: none;
+}
