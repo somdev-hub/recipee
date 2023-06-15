@@ -1,0 +1,51 @@
+.checkout {
+  background-color: var(--dark-gray);
+  width: 31%;
+  right: 0;
+}
+
+.total-cost {
+  background-color: var(--dark-blue);
+  height: 3rem;
+  border-radius: 20px;
+  width: 90%;
+}
+
+.total-orders {
+  width: 80%;
+  border-bottom: 1px solid var(--yellow);
+}
+
+.calculate-sum {
+  width: 80%;
+}
+
+.payment {
+  background-color: var(--dark-blue);
+  width: 100%;
+  border-radius: 20px 20px 0 0;
+  bottom: -28%;
+}
+
+.pay-button {
+  background-color: var(--yellow);
+  color: var(--white);
+  width: 70%;
+  height: 3rem;
+  border-radius: 15px;
+}
+
+.button-container button {
+  background-color: transparent;
+  border: 2px solid var(--yellow);
+  color: var(--yellow);
+  width: 90%;
+  height: 3rem;
+  border-radius: 15px;
+}
+
+.bar {
+  width: 5rem;
+  height: 5px;
+  border-radius: 10px;
+}

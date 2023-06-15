@@ -60,8 +60,8 @@ const RightBar = () => {
         </div>
         <div className="recipe-container mt-5 ml-5 overflow-x-auto">
           <div className="recipies flex">
-            {recipe.map((item) => {
-              return <RecipeCard img={item.img} name={item.name} />;
+            {recipe.map((item, index) => {
+              return <RecipeCard img={item.img} name={item.name} key={index} />;
             })}
           </div>
         </div>

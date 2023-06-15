@@ -7,6 +7,14 @@
   color: var(--white);
 }
 
+.checked {
+  background-color: var(--yellow);
+  height: 2.5rem;
+  border-radius: 0 20px 20px 0;
+  display: flex;
+  align-items: center;
+}
+
 .share-now {
   background-color: var(--yellow);
   color: var(--white);
@@ -26,7 +34,9 @@
 .sidebar-options ul li {
   display: flex;
   gap: 5%;
-  margin-bottom: 20%;
+  margin-bottom: 18%;
+  width: 85%;
+  padding-left: 15%;
 }
 
 .sidebar-options span {

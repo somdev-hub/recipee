@@ -1,0 +1,50 @@
+.infocard {
+  width: 40vw;
+  background-color: var(--dark-gray);
+  border-radius: 30px 0 0 30px;
+  transition: 0.3s linear;
+}
+
+.info-img {
+  height: 30%;
+  width: 100%;
+}
+
+.info-img img {
+  width: 35%;
+}
+
+.info-title p {
+  color: var(--text-gray);
+}
+
+.price {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.price-container {
+  background-color: var(--dark-blue);
+  width: 8rem;
+  height: 3rem;
+  border-radius: 10px;
+}
+
+.info-add button {
+  width: 55%;
+  height: 3rem;
+  background-color: var(--yellow);
+  border-radius: 16px;
+  color: var(--white);
+}
+
+.quantity-button {
+  width: 30%;
+}
+
+.quantity-button button {
+  width: 35%;
+  background-color: var(--yellow);
+  color: var(--white);
+  border-radius: 16px;
+}

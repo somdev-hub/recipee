@@ -1,0 +1,28 @@
+.basketcard {
+  background-color: var(--dark-blue);
+  height: 9rem;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.basketcard p {
+  color: var(--light-gray);
+}
+
+.item-img {
+  width: 18%;
+  height: 80%;
+}
+
+.item-img img {
+  border-radius: 20px;
+}
+
+.item-delete > *,
+.item-delete p {
+  color: var(--text-gray);
+}
+
+.item-end {
+  width: 35%;
+}

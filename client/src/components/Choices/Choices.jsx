@@ -21,8 +21,8 @@ const Choices = (props) => {
         <h3 className="text-xl text-center mt-3">{props.cuisine}</h3>
       </div>
       <div className="cuisine-content grid grid-cols-3 grid-rows-2 gap-x-16 gap-y-5 m-auto">
-        {props.cuisineContent.map((items) => {
-          return <CuisineItems items={items} />;
+        {props.cuisineContent.map((items, index) => {
+          return <CuisineItems items={items} key={index} />;
         })}
       </div>
     </div>
