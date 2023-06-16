@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { RxDashboard } from "react-icons/rx";
 import {
   BsFillBasket2Fill,
@@ -8,10 +8,11 @@ import {
 import { AiOutlineHeart } from "react-icons/ai";
 import "./Sidebar.css";
 import image_1 from "../../utils/image_1.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = ({ blur }) => {
-  const [checked, setChecked] = useState(1);
+  const [checked, setChecked] = useState(null);
+  const location = useLocation();
   const sideOptions = [
     {
       id: 1,
@@ -44,7 +45,13 @@ const Sidebar = ({ blur }) => {
       link: "/settings"
     }
   ];
-  console.log(checked);
+  useEffect(() => {
+    const currPath = window.location.pathname.split("/")[1];
+    const activeIndex = sideOptions.findIndex(
+      (item) => item.link.split("/")[1] === currPath
+    );
+    setChecked(sideOptions[activeIndex].id);
+  }, [location]);
   return (
     <div
       className={`sidebar flex flex-col h-screen fixed ${
@@ -60,7 +67,6 @@ const Sidebar = ({ blur }) => {
                 <li
                   key={index}
                   className={checked === item.id ? "checked" : ""}
-                  onClick={() => setChecked(item.id)}
                 >
                   <item.icon style={{ fontSize: "22px" }} />
                   <span>{item.name}</span>

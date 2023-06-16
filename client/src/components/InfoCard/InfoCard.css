@@ -5,6 +5,10 @@
   transition: 0.3s linear;
 }
 
+.infocard nav {
+  width: 90%;
+}
+
 .info-img {
   height: 30%;
   width: 100%;
@@ -47,4 +51,21 @@
   background-color: var(--yellow);
   color: var(--white);
   border-radius: 16px;
+}
+
+.collapse-bar {
+  background-color: var(--yellow);
+  height: 7rem;
+  width: 5px;
+  border-radius: 20px;
+  top: 45%;
+  left: -2%;
+}
+
+.nutrients {
+  width: 13rem;
+  height: 15rem;
+  background-color: var(--dark-blue);
+  border-radius: 20px;
+  top: 8%;
 }

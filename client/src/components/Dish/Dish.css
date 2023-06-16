@@ -6,8 +6,8 @@
   border: none;
 }
 
-.dish::hover {
-  border: 1px solid var(--yellow);
+.dish:hover {
+  border: 2px solid var(--yellow);
 }
 
 .dish img {

@@ -15,11 +15,7 @@ import InfoCard from "../../components/InfoCard/InfoCard";
 const Dashboard = () => {
   const [pos, setPos] = useState(false);
   const [info, setInfo] = useState({});
-  // const clicked = (e) => {
-  //   console.log("clicked");
-  //   setPos(!pos);
-  //   setInfo;
-  // };
+
   return (
     <div className="dashboard flex relative overflow-hidden">
       <Sidebar blur={pos} />

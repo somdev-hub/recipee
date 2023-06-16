@@ -6,7 +6,7 @@ import Draggable from "react-draggable";
 const Checkout = () => {
   return (
     <div className="checkout flex flex-col fixed h-screen">
-      <h3 className="text-white mt-10 ml-5">Checkout</h3>
+      <h3 className="text-white mt-5 ml-5">Checkout</h3>
       <div className="total-container mt-10 flex flex-col items-center">
         <div className="total-cost  flex items-center ">
           <div className="total-col flex justify-between w-full mx-10">

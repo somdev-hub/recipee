@@ -1,0 +1,26 @@
+.suggestion-card {
+  height: 7rem;
+  width: 95%;
+  border-radius: 20px;
+  background-color: var(--dark-blue);
+}
+
+.suggestion-image {
+  height: 100%;
+  width: 32%;
+  border: 5px solid var(--dark-blue);
+  border-radius: 10px;
+}
+
+.suggestion-image img {
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.suggestion-title p {
+  color: var(--light-gray);
+}
+
+.suggestion-text {
+  width: 68%;
+}
