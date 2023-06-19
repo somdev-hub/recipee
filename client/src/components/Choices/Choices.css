@@ -4,6 +4,11 @@
   width: 40rem;
 }
 
+.choice:hover {
+  border: 2px solid var(--yellow);
+  box-sizing: border-box;
+}
+
 .main {
   width: 30%;
   border-right: 2px solid var(--yellow);

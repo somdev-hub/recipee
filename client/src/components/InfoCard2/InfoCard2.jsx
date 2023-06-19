@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./InfoCard.css";
+import "./InfoCard2.css";
 import {
   AiOutlineHeart,
   AiFillHeart,
@@ -7,17 +7,16 @@ import {
 } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
 
-const InfoCard = ({ props, pos, onClick }) => {
+const InfoCard2 = ({ props, pos2, onClick }) => {
   const [quantity, setQuantity] = useState(0);
   const [liked, setLiked] = useState(false);
   const [bar, setBar] = useState(false);
   return (
     <div
-      className="infocard h-screen fixed flex flex-col items-center"
-      style={{ right: pos }}
+      className="infocard2 h-screen fixed flex flex-col items-center"
+      style={{ right: pos2 }}
     >
-      <div className="collapse-bar absolute"></div>
-      <nav className="flex justify-between mb-2 mt-7 ">
+      <nav className="flex justify-between  mt-5 absolute z-10 w-full px-5">
         <RxCross2
           className="text-white text-2xl cursor-pointer"
           onClick={onClick}
@@ -49,34 +48,37 @@ const InfoCard = ({ props, pos, onClick }) => {
           </div>
         ) : null}
       </nav>
-      <div className="info-img flex justify-center items-center">
-        <img src={props.img} alt="" />
+      <div
+        className="infocard2-img flex items-end  relative"
+        style={{
+          background: `url(${props.cuisineBackground})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover"
+        }}
+      >
+        <h2 className="text-3xl text-white font-bold mb-16 ml-5 absolute">
+          {props.cuisineName}
+        </h2>
       </div>
-      <div className="info-title flex flex-col items-center">
-        <h2 className="text-white text-2xl">{props.title}</h2>
-        <p className="my-3">{props.weight}</p>
-        <div className="price-container flex items-center justify-center">
-          <h2 className="text-xl price">Rs. {props.price}/-</h2>
+
+      <div className="infocard2-main absolute p-5">
+        <div className="infocard2-tags flex flex-wrap gap-3">
+          {props.tags &&
+            props.tags.map((item, index) => {
+              return (
+                <p key={index} className="">
+                  #{item}
+                </p>
+              );
+            })}
         </div>
-      </div>
-      <div className="info-about mx-10 mt-10">
-        <p className="text-white">{props.about}</p>
-      </div>
-      <div className="info-add w-full flex justify-center items-center mt-10">
-        <div className="quantity-button flex items-center">
-          <button
-            onClick={() => quantity > 0 && setQuantity((prev) => prev - 1)}
-            disabled={quantity === 0}
-          >
-            -
-          </button>
-          <span className="text-white text-xl mx-3">{quantity}</span>
-          <button onClick={() => setQuantity((prev) => prev + 1)}>+</button>
+        <div className="infocard2-content mt-5">
+          <h3 className="mb-3">About</h3>
+          <p className="text-sm">{props.cuisineContent}</p>
         </div>
-        <button>Add to basket</button>
       </div>
     </div>
   );
 };
 
-export default InfoCard;
+export default InfoCard2;

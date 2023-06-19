@@ -1,0 +1,20 @@
+.settings-container {
+  margin-left: 17%;
+  width: 80%;
+}
+
+.setting-table {
+  /* width: 80%; */
+  height: 80vh;
+  border-radius: 20px;
+  border: 1px solid var(--yellow);
+}
+
+.setting-head {
+  border-bottom: 2px solid var(--yellow);
+}
+
+.setting-items ul li {
+  color: var(--white);
+  border-bottom: 1px solid var(--yellow);
+}

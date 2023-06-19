@@ -4,9 +4,9 @@ import "./Choices.css";
 const CuisineItems = ({ items }) => {
   return (
     <div className="item">
-      <img src={items.img} alt="" />
+      <img src={items.foodImg} alt="" />
       <div className="flex flex-col items-center cuis-item mt-3">
-        <h3 className="text-sm mb-1">{items.title}</h3>
+        <h3 className="text-sm mb-1">{items.foodName}</h3>
         <p className="text-sm">Rs.{items.price}/-</p>
       </div>
     </div>
@@ -15,7 +15,7 @@ const CuisineItems = ({ items }) => {
 
 const Choices = (props) => {
   return (
-    <div className="choice flex items-center mr-5 p-5">
+    <div className="choice flex items-center mr-5 p-5" onClick={props.click}>
       <div className="main flex flex-col justify-center items-center">
         <img src={props.cuisineImg} alt="" />
         <h3 className="text-xl text-center mt-3">{props.cuisine}</h3>

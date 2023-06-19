@@ -1,4 +1,3 @@
-
 :root {
   --yellow: #f5a504;
   --dark-gray: #28282b;
@@ -7,6 +6,14 @@
   --white: #fff;
   --text-gray: #686767;
   --light-gray: #d9d9d9;
+}
+
+[data-theme="light"] {
+  --dark-gray: #f8e8ee;
+  --black: #eeeeee;
+  --dark-blue: #eee2de;
+  --white: #000;
+  --light-gray: #686767;
 }
 
 body {

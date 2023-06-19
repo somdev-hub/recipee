@@ -1,0 +1,54 @@
+.create-post {
+  background-color: var(--dark-gray);
+  right: 0;
+  width: 26%;
+}
+
+.upload-video {
+  height: 12rem;
+  width: 90%;
+  border: 2px dashed var(--yellow);
+  border-radius: 20px;
+}
+
+.upload {
+  color: var(--yellow);
+}
+
+.upload p {
+  line-height: 2;
+}
+
+.upload label {
+  background-color: var(--yellow);
+  width: 5rem;
+  height: 2rem;
+  border-radius: 7px;
+  color: var(--black);
+  display: inline-block;
+}
+
+.upload input {
+  visibility: hidden;
+  display: none;
+}
+
+.post-upload {
+  background-color: var(--dark-blue);
+  width: 90%;
+  height: 12rem;
+  border-radius: 20px;
+}
+
+.post-upload p {
+  color: var(--light-gray);
+  font-size: 14px;
+}
+
+.post-upload button {
+  width: 90%;
+  height: 2.5rem;
+  background-color: var(--yellow);
+  color: var(--black);
+  border-radius: 7px;
+}

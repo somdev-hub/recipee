@@ -11,17 +11,21 @@ import image_4 from "../../utils/image_4.png";
 import { choices } from "../../utils/providers/choices";
 import RightBar from "../../components/RightBar/RightBar";
 import InfoCard from "../../components/InfoCard/InfoCard";
+import InfoCard2 from "../../components/InfoCard2/InfoCard2";
+import { choice } from "../../utils/providers/choice";
 
 const Dashboard = () => {
   const [pos, setPos] = useState(false);
+  const [pos2, setPos2] = useState(false);
   const [info, setInfo] = useState({});
+  const [info2, setInfo2] = useState({});
 
   return (
     <div className="dashboard flex relative overflow-hidden">
-      <Sidebar blur={pos} />
+      <Sidebar blur={pos || pos2} />
       <div
         className={`main-content mt-5 ${
-          pos ? "brightness-50 transition-all" : ""
+          pos || pos2 ? "brightness-50 transition-all" : ""
         }`}
       >
         <nav className="flex justify-between">
@@ -76,23 +80,48 @@ const Dashboard = () => {
           </div>
           <div className="choice-container mt-10 overflow-x-auto">
             <div className="choice-cards flex">
-              <Choices
+              {choice.map((item, index) => {
+                return (
+                  <Choices
+                    cuisineImg={item.cuisineImg}
+                    cuisine={item.cuisineName}
+                    cuisineContent={item.foods}
+                    click={() => {
+                      setPos2(!pos2);
+                      setInfo2(item);
+                    }}
+                    key={index}
+                  />
+                );
+              })}
+              {/* <Choices
                 cuisineImg={image_4}
                 cuisine={"South Indian Cuisine"}
                 cuisineContent={choices}
+                click={() => setPos2(!pos2)}
               />
               <Choices
                 cuisineImg={image_4}
                 cuisine={"South Indian Cuisine"}
                 cuisineContent={choices}
-              />
+                click={() => setPos2(!pos2)}
+              /> */}
             </div>
           </div>
         </div>
       </div>
-      
+
       <RightBar />
-      <InfoCard pos={pos ? "0" : "-50%"} props={info}/>
+      <InfoCard
+        pos={pos ? "0" : "-50%"}
+        props={info}
+        onClick={() => setPos(false)}
+      />
+      <InfoCard2
+        pos2={pos2 ? "0" : "-50%"}
+        props={info2}
+        onClick={() => setPos2(false)}
+      />
     </div>
   );
 };
