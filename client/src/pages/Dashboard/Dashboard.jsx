@@ -7,18 +7,35 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import Dish from "../../components/Dish/Dish";
 import { favorites } from "../../utils/providers/favorites";
 import Choices from "../../components/Choices/Choices";
-import image_4 from "../../utils/image_4.png";
-import { choices } from "../../utils/providers/choices";
 import RightBar from "../../components/RightBar/RightBar";
 import InfoCard from "../../components/InfoCard/InfoCard";
 import InfoCard2 from "../../components/InfoCard2/InfoCard2";
 import { choice } from "../../utils/providers/choice";
+import { useQuery, gql } from "@apollo/client";
+
+const GET_FAVORITES = gql`
+  query dishes {
+    dishes {
+      id
+      name
+      price
+      image
+      description
+      category
+      weight
+      likes
+    }
+  }
+`;
 
 const Dashboard = () => {
+  const { loading, error, data } = useQuery(GET_FAVORITES);
   const [pos, setPos] = useState(false);
   const [pos2, setPos2] = useState(false);
   const [info, setInfo] = useState({});
   const [info2, setInfo2] = useState({});
+
+  console.log(data?.dishes);
 
   return (
     <div className="dashboard flex relative overflow-hidden">
@@ -55,7 +72,7 @@ const Dashboard = () => {
           </div>
           <div className="fav-container overflow-x-auto mt-10">
             <div className="fav flex justify-between">
-              {favorites.map((item, index) => {
+              {data?.dishes.slice(0, 5).map((item, index) => {
                 return (
                   <Dish
                     props={item}
