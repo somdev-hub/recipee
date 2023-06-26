@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./InfoCard.css";
 import {
   AiOutlineHeart,
@@ -6,11 +6,35 @@ import {
   AiOutlineInfoCircle
 } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
+import { useMutation, useQuery } from "@apollo/client";
+import { ADD_BASKET, SET_FAVOURITE_DISH } from "../../utils/graphql/mutations";
+import { GET_FAVOURITE_DISHES } from "../../utils/graphql/queries";
 
 const InfoCard = ({ props, pos, onClick }) => {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [liked, setLiked] = useState(false);
   const [bar, setBar] = useState(false);
+  const [addBasketItem, { loading }] = useMutation(ADD_BASKET, {
+    variables: { addBasketItemId: props.id, quantity: quantity }
+  });
+  const [addToFavouriteDish] = useMutation(SET_FAVOURITE_DISH, {
+    variables: { addToFavouriteDishId: props.id }
+  });
+  const { loading1, error, data } = useQuery(GET_FAVOURITE_DISHES);
+
+  // console.log(data);
+
+  useEffect(() => {
+    if (data?.favouriteDishes) {
+      data.favouriteDishes.forEach((element) => {
+        const dishname = element.dish.name;
+        if (dishname === props.name) {
+          setLiked(true);
+        }
+      });
+    }
+  }, [data, props.name]);
+
   return (
     <div
       className="infocard h-screen fixed flex flex-col items-center"
@@ -23,7 +47,13 @@ const InfoCard = ({ props, pos, onClick }) => {
           onClick={onClick}
         />
         <div className="collapse-icons flex">
-          <div className="mr-2" onClick={() => setLiked(!liked)}>
+          <div
+            className="mr-2"
+            onClick={() => {
+              setLiked(!liked);
+              addToFavouriteDish();
+            }}
+          >
             {liked ? (
               <AiFillHeart className="mr-2 text-white text-2xl cursor-pointer" />
             ) : (
@@ -50,30 +80,38 @@ const InfoCard = ({ props, pos, onClick }) => {
         ) : null}
       </nav>
       <div className="info-img flex justify-center items-center">
-        <img src={props.img} alt="" />
+        <img src={props.image} alt="" />
       </div>
       <div className="info-title flex flex-col items-center">
-        <h2 className="text-white text-2xl">{props.title}</h2>
-        <p className="my-3">{props.weight}</p>
+        <h2 className="text-white text-2xl">{props.name}</h2>
+        <p className="my-3">{props.weight} gm</p>
         <div className="price-container flex items-center justify-center">
           <h2 className="text-xl price">Rs. {props.price}/-</h2>
         </div>
       </div>
       <div className="info-about mx-10 mt-10">
-        <p className="text-white">{props.about}</p>
+        <p className="text-white">{props.description}</p>
       </div>
       <div className="info-add w-full flex justify-center items-center mt-10">
         <div className="quantity-button flex items-center">
           <button
-            onClick={() => quantity > 0 && setQuantity((prev) => prev - 1)}
-            disabled={quantity === 0}
+            onClick={() => quantity > 1 && setQuantity((prev) => prev - 1)}
+            disabled={quantity === 1}
           >
             -
           </button>
           <span className="text-white text-xl mx-3">{quantity}</span>
           <button onClick={() => setQuantity((prev) => prev + 1)}>+</button>
         </div>
-        <button>Add to basket</button>
+        <button
+          onClick={() => {
+            addBasketItem();
+            setQuantity(1);
+          }}
+          disabled={loading}
+        >
+          {loading ? <span class="loader"></span> : "Add to basket"}
+        </button>
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 import React from "react";
 import "./Checkout.css";
-import { basket } from "../../utils/providers/basket";
+import { baskets } from "../../utils/providers/baskets";
 import Draggable from "react-draggable";
 
-const Checkout = () => {
+const Checkout = ({ items }) => {
   return (
     <div className="checkout flex flex-col fixed h-screen">
       <h3 className="text-white mt-5 ml-5">Checkout</h3>
@@ -15,14 +15,14 @@ const Checkout = () => {
           </div>
         </div>
         <div className="total-orders mt-5 pb-5">
-          {basket.map((item, index) => {
+          {items?.map((item, index) => {
             return (
-              <div className="flex justify-between mb-5">
+              <div className="flex justify-between mb-5" key={index}>
                 <p className="text-white">
-                  {index}. {item.title}
+                  {index}. {item.basketItem.name}
                 </p>
                 <p className="text-white">
-                  {item.quantity} x Rs. {item.price}/-
+                  {item.quantity} x Rs. {item.basketItem.price}/-
                 </p>
               </div>
             );
@@ -32,8 +32,8 @@ const Checkout = () => {
           <p className="text-white">Sum total: </p>
           <p className="text-white">
             Rs.{" "}
-            {basket.reduce(
-              (prev, next) => prev + next.quantity * next.price,
+            {items?.reduce(
+              (prev, next) => prev + next.quantity * next.basketItem.price,
               0
             )}
             /-

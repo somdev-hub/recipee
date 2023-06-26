@@ -19,15 +19,6 @@ const Recipees = mongoose.model("Recipees", {
   ingredientsAmount: [Number]
 });
 
-// const Recipees = {
-//   name: String,
-//   image: String,
-//   description: String,
-//   tags: [String],
-//   ingredients: [String],
-//   ingredientsAmount: [Number]
-// };
-
 const Dishes = mongoose.model("Dishes", {
   name: String,
   price: Number,
@@ -35,8 +26,6 @@ const Dishes = mongoose.model("Dishes", {
   description: String,
   category: String,
   weight: Number,
-  // nutrients: [Nutrients],
-  // recipee: Recipees,
   likes: Number
 });
 

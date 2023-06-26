@@ -6,8 +6,12 @@ import Dish from "../../components/Dish/Dish";
 import { recipe } from "../../utils/providers/recipe";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import Suggested from "../../components/Suggested/Suggested";
+import { useQuery } from "@apollo/client";
+import { GET_FAVOURITE_DISHES } from "../../utils/graphql/queries";
 
 const Favorites = () => {
+  const { loading, error, data } = useQuery(GET_FAVOURITE_DISHES);
+  console.log(data?.favouriteDishes);
   return (
     <div className="favorites flex">
       <Sidebar />
@@ -18,8 +22,8 @@ const Favorites = () => {
         <div className="fav-foods mt-10">
           <h3 className="text-white">Food items</h3>
           <div className="fav-container overflow-x-auto mt-10">
-            <div className="fav flex justify-between">
-              {favorites.map((item, index) => {
+            <div className="fav flex">
+              {data?.favouriteDishes.map((item, index) => {
                 return <Dish props={item} key={index} />;
               })}
             </div>

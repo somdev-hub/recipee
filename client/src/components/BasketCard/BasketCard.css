@@ -9,9 +9,17 @@
   color: var(--light-gray);
 }
 
+.item-img-container {
+  width: 25%;
+}
+
 .item-img {
-  width: 18%;
-  height: 80%;
+  width: 80%;
+  height: 100%;
+}
+
+.item-contents {
+  width: 80%;
 }
 
 .item-img img {

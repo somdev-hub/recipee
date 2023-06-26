@@ -1,0 +1,17 @@
+.pic-upload {
+  border: 2px dashed var(--yellow);
+  border-radius: 10px;
+  /* border-bottom: none; */
+}
+
+.pic-upload input {
+  /* border: none; */
+  display: none;
+}
+
+.pic-upload p label {
+  background-color: var(--yellow);
+  height: 25px;
+  width: 110px;
+  border-radius: 5px;
+}

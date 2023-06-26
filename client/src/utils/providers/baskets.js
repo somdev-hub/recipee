@@ -1,4 +1,4 @@
-export const basket = [
+export const baskets = [
   {
     img: "https://pbs.twimg.com/media/FFqOJ78VkAIlYHz.png",
     title: "Idli Dosa",
@@ -22,5 +22,5 @@ export const basket = [
     title: "Idli Dosa",
     quantity: 2,
     price: 20
-  },
+  }
 ];

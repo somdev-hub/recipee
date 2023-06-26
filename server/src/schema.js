@@ -20,8 +20,55 @@ const typesDefs = gql`
     dishes: [Dishes!]!
     nutrients: [Nutrients!]!
     recipees: [Recipees!]!
+    basket: [Basket!]!
+    favouriteDishes: [FavouriteDish!]!
     # dishes: Dishes
     # dishes: String
+  }
+
+  type Mutation {
+    deleteBasketItem(id: ID!): DeleteBasketItemResponse!
+    addBasketItem(id: ID!, quantity: Int): AddBasketItemResponse!
+    addToFavouriteDish(id: ID!): AddToFavouriteDishResponse!
+    addProfile(
+      firstName: String!
+      lastName: String!
+      email: String!
+      password: String!
+      phone: String!
+      image: Upload
+      address: String!
+      city: String!
+      pincode: String!
+    ): AddProfileResponse!
+  }
+
+  type AddProfileResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    # profile: Profile
+  }
+
+  type AddToFavouriteDishResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    dish: Dishes
+  }
+
+  type AddBasketItemResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    basket: Basket
+  }
+
+  type DeleteBasketItemResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    basket: Basket
   }
 
   type Dishes {
@@ -70,15 +117,28 @@ const typesDefs = gql`
   type Basket {
     id: ID!
     # dishes: [Dishes]
-    basketItems: [BasketItems]
-    total: Int
+    # basketItems: [BasketItem]
+    basketItem: Dishes
+    quantity: Int
+    # total: Int
   }
 
-  type BasketItems {
+  type FavouriteDish {
     id: ID!
     dish: Dishes
-    quantity: Int
   }
+
+  type FavouriteRecipee {
+    id: ID!
+    recipee: Recipees
+  }
+
+  # type BasketItem {
+  #   id: ID!
+  #   dish: Dishes
+  #   quantity: Int
+  #   # price: Int
+  # }
 
   type Posts {
     id: ID!
@@ -92,15 +152,26 @@ const typesDefs = gql`
     lenght: Int
   }
 
+  type File {
+    filename: String!
+    mimetype: String!
+    encoding: String!
+  }
+
+  scalar Upload
+
   type Profile {
     id: ID!
-    name: String!
-    image: String!
-    info: String!
-    profileType: String!
-    posts: [Posts]
-    favorites: [Dishes]
-    followers: Int
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+    phone: String!
+    image: Upload
+    address: String!
+    city: String!
+    pincode: String!
+
   }
 `;
 

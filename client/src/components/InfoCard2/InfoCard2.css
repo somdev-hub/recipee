@@ -24,6 +24,10 @@
   border-radius: 30px 30px 0 0;
 }
 
+.infocard2-main::-webkit-scrollbar {
+  display: none;
+}
+
 .infocard2-content {
   color: var(--white);
 }
@@ -46,4 +50,16 @@
   mix-blend-mode: multiply;
   filter: brightness(90%);
   background-repeat: no-repeat;
+}
+
+.dish-title p {
+  color: var(--light-gray);
+}
+
+.dish-quantity button {
+  width: 2.3rem;
+  height: 2rem;
+  background-color: var(--yellow);
+  border-radius: 10px;
+  color: var(--white);
 }

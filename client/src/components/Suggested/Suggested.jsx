@@ -8,9 +8,10 @@ const Suggested = () => {
     <div className="suggested flex flex-col  h-screen fixed">
       <h3 className="text-white ml-5 mt-5">Suggested items</h3>
       <div className="suggested-container mt-10 ml-5">
-        {suggestions.map((item) => {
+        {suggestions.map((item, index) => {
           return (
             <SuggestionCard
+              key={index}
               img={item.img}
               name={item.name}
               content={item.content}

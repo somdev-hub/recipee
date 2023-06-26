@@ -11,22 +11,8 @@ import RightBar from "../../components/RightBar/RightBar";
 import InfoCard from "../../components/InfoCard/InfoCard";
 import InfoCard2 from "../../components/InfoCard2/InfoCard2";
 import { choice } from "../../utils/providers/choice";
-import { useQuery, gql } from "@apollo/client";
-
-const GET_FAVORITES = gql`
-  query dishes {
-    dishes {
-      id
-      name
-      price
-      image
-      description
-      category
-      weight
-      likes
-    }
-  }
-`;
+import { useQuery } from "@apollo/client";
+import { GET_FAVORITES } from "../../utils/graphql/queries";
 
 const Dashboard = () => {
   const { loading, error, data } = useQuery(GET_FAVORITES);
@@ -35,7 +21,7 @@ const Dashboard = () => {
   const [info, setInfo] = useState({});
   const [info2, setInfo2] = useState({});
 
-  console.log(data?.dishes);
+  // console.log(data?.dishes);
 
   return (
     <div className="dashboard flex relative overflow-hidden">

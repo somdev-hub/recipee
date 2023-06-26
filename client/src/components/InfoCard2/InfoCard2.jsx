@@ -8,7 +8,7 @@ import {
 import { RxCross2 } from "react-icons/rx";
 
 const InfoCard2 = ({ props, pos2, onClick }) => {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [liked, setLiked] = useState(false);
   const [bar, setBar] = useState(false);
   return (
@@ -61,7 +61,7 @@ const InfoCard2 = ({ props, pos2, onClick }) => {
         </h2>
       </div>
 
-      <div className="infocard2-main absolute p-5">
+      <div className="infocard2-main absolute p-5 overflow-scroll">
         <div className="infocard2-tags flex flex-wrap gap-3">
           {props.tags &&
             props.tags.map((item, index) => {
@@ -75,6 +75,56 @@ const InfoCard2 = ({ props, pos2, onClick }) => {
         <div className="infocard2-content mt-5">
           <h3 className="mb-3">About</h3>
           <p className="text-sm">{props.cuisineContent}</p>
+        </div>
+        <div className="dishes-container">
+          <h3 className="mb-5 text-white mt-5">Dishes</h3>
+          <div className="cuisine-dishes grid grid-cols-3 grid-rows-2 gap-3">
+            {props.foods &&
+              props.foods.map((item, index) => {
+                return (
+                  <div
+                    className="cuisine-dish flex flex-col justify-center items-center"
+                    key={index}
+                  >
+                    <div className="dish-img mb-3">
+                      <img src={item.foodImg} alt="" />
+                    </div>
+                    <div className="dish-title flex flex-col justify-center items-center text-sm text-white">
+                      <h4 className="mb-2">{item.foodName}</h4>
+                      <p>Rs. {item.price}/-</p>
+                    </div>
+                    {/* <div className="dish-quantity flex items-center mt-2">
+                      <button>-</button>
+                      <p className="text-white mx-2">{quantity}</p>
+                      <button>+</button>
+                    </div> */}
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+        <div className="info-add w-full flex justify-start items-center mt-10">
+          <div className="quantity-button flex items-center">
+            <button
+              onClick={() => quantity > 1 && setQuantity((prev) => prev - 1)}
+              disabled={quantity === 1}
+            >
+              -
+            </button>
+            <span className="text-white text-xl mx-3">{quantity}</span>
+            <button onClick={() => setQuantity((prev) => prev + 1)}>+</button>
+          </div>
+          <button
+            onClick={() => {
+              // addBasketItem();
+              setQuantity(1);
+            }}
+            // disabled={loading}
+          >
+            {/* {loading ? <span class="loader"></span> : "Add to basket"} */}
+            Add to basket
+          </button>
+          <h4 className="text-white ml-2 ">Rs. 500/-</h4>
         </div>
       </div>
     </div>
