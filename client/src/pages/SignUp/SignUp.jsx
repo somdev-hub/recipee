@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./SignUp.css";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import SignUpForm2 from "../../components/SignUpForm2/SignUpForm2";
-import { CREATE_PROFILE } from "../../utils/graphql/mutations";
+import { ADD_IMAGE, CREATE_PROFILE } from "../../utils/graphql/mutations";
 import { useMutation } from "@apollo/client";
 
 const SignUp = () => {
@@ -16,7 +16,7 @@ const SignUp = () => {
     address: "",
     city: "",
     pin: "",
-    file: null
+    image: null
   });
   const [createProfile] = useMutation(CREATE_PROFILE);
   const clickPos = () => {
@@ -27,25 +27,80 @@ const SignUp = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleFileChange = (e) => {
-    setFormData({ ...formData, file: e.target.files[0] });
+    setFormData({ ...formData, image: e.target.files[0] });
+  };
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-    const res = await createProfile({
-      variables: {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        password: formData.password,
-        phone: formData.phone,
-        address: formData.address,
-        city: formData.city,
-        pincode: formData.pin,
-        image: formData.file
+
+    // const {
+    //   firstName,
+    //   lastName,
+    //   email,
+    //   password,
+    //   phone,
+    //   address,
+    //   city,
+    //   pin,
+    //   image
+    // } = formData;
+
+    // const base64 = await convertToBase64(image);
+    // console.log(typeof base64);
+
+    formData.image = await convertToBase64(formData.image);
+
+    try {
+      const response = await createProfile({
+        variables: {
+          input: formData
+        }
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const [addImage, { loading, error, data }] = useMutation(ADD_IMAGE);
+
+  const handleFileUpload = async (e) => {
+    e.preventDefault();
+    const file = formData.image;
+    const base64 = await convertToBase64(file);
+    console.log(base64);
+    const uri = "http://localhost:5000/imgUpload";
+    const response = await fetch(uri, {
+      method: "POST",
+      body: {
+        img: base64
       }
     });
-    console.log(res);
+    console.log(response);
+    // console.log(file);
+    // try {
+    //   const response = await addImage({
+    //     variables: {
+    //       file: formData.image
+    //     }
+    //   });
+    //   console.log(response);
+    //   console.log(error);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
   // console.log(formData);
   return (

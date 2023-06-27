@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // const Nutrients = mongoose.model("Nutrients", {
 //   name: String,
@@ -29,4 +30,5 @@ const Dishes = mongoose.model("Dishes", {
   likes: Number
 });
 
-module.exports = { Dishes, Nutrients, Recipees };
+// module.exports = { Dishes, Nutrients, Recipees };
+export { Dishes, Nutrients, Recipees };

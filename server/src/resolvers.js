@@ -1,13 +1,45 @@
-const { Dishes, Nutrients, Recipees } = require("./datasources/models/dishes");
-const { Basket } = require("./datasources/models/basket");
-const {
+// const { Dishes, Nutrients, Recipees } = require("./datasources/models/dishes");
+// const { Basket } = require("./datasources/models/basket");
+// const {
+//   favoriteDishes,
+//   favoriteRecipee
+// } = require("./datasources/models/favourites");
+// const { Profile } = require("./datasources/models/profile");
+// const path = require("path");
+// const fs = require("fs");
+
+import { Dishes, Nutrients, Recipees } from "./datasources/models/dishes.js";
+import { Basket } from "./datasources/models/basket.js";
+import {
   favoriteDishes,
   favoriteRecipee
-} = require("./datasources/models/favourites");
-// const multer = require("multer");
-const { Profile } = require("./datasources/models/profile");
+} from "./datasources/models/favourites.js";
+import { Profile } from "./datasources/models/profile.js";
+import path from "path";
+import fs from "fs";
+import GraphQLUpload from "graphql-upload/GraphQLUpload.mjs";
+import { createWriteStream } from "fs";
+import { join } from "path";
 
-const resolvers = {
+const storeUpload = async ({ stream, filename }) => {
+  const path = join(__dirname, "../images", filename);
+  return new Promise((resolve, reject) =>
+    stream
+      .pipe(createWriteStream(path))
+      .on("finish", () => resolve({ path }))
+      .on("error", reject)
+  );
+};
+
+const processUpload = async (upload) => {
+  const { createReadStream, filename } = await upload;
+  const stream = createReadStream();
+  const { path } = await storeUpload({ stream, filename });
+  return path;
+};
+
+export const resolvers = {
+  Upload: GraphQLUpload,
   Query: {
     dishes: async (parent, args, context, info) => {
       return await Dishes.find({});
@@ -102,8 +134,9 @@ const resolvers = {
         image,
         address,
         city,
-        pincode
-      } = args;
+        pin
+      } = args.input;
+      console.log(args.input);
       try {
         const new_profile = new Profile({
           firstName,
@@ -116,28 +149,31 @@ const resolvers = {
           city,
           pincode
         });
-        if (image) {
-          console.log(image);
-          const { createReadStream, fileName, mimetype } = await args.image;
-          const stream = createReadStream();
-          const buffer = [];
-          stream.on("data", (chunk) => buffer.push(chunk));
-          stream.on("end", async () => {
-            const image = {
-              data: Buffer.concat(buffer),
-              contentType: mimetype
-            };
-            new_profile.image = image;
-            try {
-              await new_profile.save();
-            } catch (error) {
-              console.log(error);
-            }
-          });
-        } else {
+        // if (image) {
+        //   console.log("image is" + image);
+        //   const { createReadStream, filename, mimetype } = await image;
+        //   const stream = createReadStream();
+        //   const pathname = path.join(__dirname, `../public/images/${filename}`);
+        //   await stream.pipe(fs.createWriteStream(pathname));
+        //   console.log("pathname is" + pathname);
+        //   // const buffer = [];
+        //   // stream.on("data", (chunk) => buffer.push(chunk));
+        //   // stream.on("end", async () => {
+        //   //   const image = {
+        //   //     data: Buffer.concat(buffer),
+        //   //     contentType: mimetype
+        //   //   };
+        //   //   new_profile.image = image;
+        //   //   try {
+        //   //     await new_profile.save();
+        //   //   } catch (error) {
+        //   //     console.log(error);
+        //   //   }
+        //   // });
+        // } else {
           await new_profile.save();
           // console.log(await profile.find());
-        }
+        // }
         // const profile = await profile.find();
         return {
           code: 200,
@@ -153,8 +189,24 @@ const resolvers = {
           // profile: await profile.find()
         };
       }
+    },
+    addImage: async (parent, args, context, info) => {
+      // const path = await processUpload(file);
+      const file = args.file;
+      const filename = file.name;
+      const mimetype = file.mimetype;
+      const encoding = file.encoding;
+
+      const fileData = await file.read();
+      console.log(fileData);
+      return {
+        code: 200,
+        success: true,
+        message: "Item added"
+      };
     }
   }
 };
 
-module.exports = { resolvers };
+// module.exports = { resolvers };
+// export { resolvers };

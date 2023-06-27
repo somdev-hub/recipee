@@ -41,43 +41,62 @@ export const SET_FAVOURITE_DISH = gql`
   }
 `;
 
+// export const CREATE_PROFILE = gql`
+//   mutation Mutation(
+//     $firstName: String!
+//     $lastName: String!
+//     $email: String!
+//     $password: String!
+//     $phone: String!
+//     $address: String!
+//     $city: String!
+//     $pincode: String!
+//     $image: Upload
+//   ) {
+//     addProfile(
+//       firstName: $firstName
+//       lastName: $lastName
+//       email: $email
+//       password: $password
+//       phone: $phone
+//       address: $address
+//       city: $city
+//       pincode: $pincode
+//       image: $image
+//     ) {
+//       code
+//       success
+//       message
+//       # profile {
+//       #   firstName
+//       #   lastName
+//       #   email
+//       #   password
+//       #   phone
+//       #   image
+//       #   address
+//       #   city
+//       #   pincode
+//       # }
+//     }
+//   }
+
 export const CREATE_PROFILE = gql`
-  mutation Mutation(
-    $firstName: String!
-    $lastName: String!
-    $email: String!
-    $password: String!
-    $phone: String!
-    $address: String!
-    $city: String!
-    $pincode: String!
-    $image: Upload
-  ) {
-    addProfile(
-      firstName: $firstName
-      lastName: $lastName
-      email: $email
-      password: $password
-      phone: $phone
-      address: $address
-      city: $city
-      pincode: $pincode
-      image: $image
-    ) {
+  mutation Mutation($input: ProfileInput!) {
+    addProfile(input: $input) {
       code
       success
       message
-      # profile {
-      #   firstName
-      #   lastName
-      #   email
-      #   password
-      #   phone
-      #   image
-      #   address
-      #   city
-      #   pincode
-      # }
+    }
+  }
+`;
+
+export const ADD_IMAGE = gql`
+  mutation Mutation($file: Upload!) {
+    addImage(file: $file) {
+      code
+      success
+      message
     }
   }
 `;

@@ -24,6 +24,7 @@ const SignUpForm2 = (props) => {
             <input
               type="file"
               id="pic-input"
+              accept="image/*"
               onChange={props.handleFileChange}
             />
           </div>

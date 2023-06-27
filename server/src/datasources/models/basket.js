@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const Basket = mongoose.model("Basket", {
   basketItem: {
@@ -13,4 +14,5 @@ const Basket = mongoose.model("Basket", {
   quantity: Number
 });
 
-module.exports = { Basket };
+// module.exports = { Basket };
+export { Basket };

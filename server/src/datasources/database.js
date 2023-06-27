@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const database = () => {
   const MONGO_URI =
@@ -21,4 +22,5 @@ const database = () => {
   }
 };
 
-module.exports = { database };
+// module.exports = { database };
+export { database };

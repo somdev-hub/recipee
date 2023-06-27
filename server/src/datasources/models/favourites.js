@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const favoriteDishes = mongoose.model("FavouriteDishes", {
   dish: {
@@ -23,4 +24,5 @@ const favoriteRecipee = mongoose.model("FavouriteRecipee", {
   }
 });
 
-module.exports = { favoriteDishes, favoriteRecipee };
+// module.exports = { favoriteDishes, favoriteRecipee };
+export { favoriteDishes, favoriteRecipee };

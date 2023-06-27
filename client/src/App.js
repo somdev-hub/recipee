@@ -7,11 +7,17 @@ import Favorites from "./pages/Favorites/Favorites";
 import Community from "./pages/Community/Community";
 import Settings from "./pages/Settings/Settings";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { createUploadLink } from "apollo-upload-client";
 import SignUp from "./pages/SignUp/SignUp";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000",
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  link: createUploadLink({ uri: "http://localhost:4000/" }),
+  onError: ({ networkError, graphQLErrors }) => {
+    console.log("graphQLErrors", graphQLErrors);
+    console.log("networkError", networkError);
+  }
 });
 
 function App() {

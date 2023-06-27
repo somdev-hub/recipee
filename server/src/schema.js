@@ -1,6 +1,7 @@
-const gql = require("graphql-tag");
+// const gql = require("graphql-tag");
+import gql from "graphql-tag";
 
-const typesDefs = gql`
+const typeDefs = gql`
   # type Query {
   #   dishes: [Dishes]
   #   dish(id: ID!): Dishes
@@ -30,17 +31,26 @@ const typesDefs = gql`
     deleteBasketItem(id: ID!): DeleteBasketItemResponse!
     addBasketItem(id: ID!, quantity: Int): AddBasketItemResponse!
     addToFavouriteDish(id: ID!): AddToFavouriteDishResponse!
-    addProfile(
-      firstName: String!
-      lastName: String!
-      email: String!
-      password: String!
-      phone: String!
-      image: Upload
-      address: String!
-      city: String!
-      pincode: String!
-    ): AddProfileResponse!
+    addProfile(input: ProfileInput!): AddProfileResponse!
+    addImage(file: Upload): AddImageResponse!
+  }
+
+  type File {
+    id: ID!
+    name: String!
+    mimetype: String!
+    encoding: String!
+    url: String!
+  }
+
+  # input Upload {
+  #   file: input File!
+  # }
+
+  type AddImageResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
   }
 
   type AddProfileResponse {
@@ -133,13 +143,6 @@ const typesDefs = gql`
     recipee: Recipees
   }
 
-  # type BasketItem {
-  #   id: ID!
-  #   dish: Dishes
-  #   quantity: Int
-  #   # price: Int
-  # }
-
   type Posts {
     id: ID!
     title: String!
@@ -152,11 +155,11 @@ const typesDefs = gql`
     lenght: Int
   }
 
-  type File {
-    filename: String!
-    mimetype: String!
-    encoding: String!
-  }
+  # type File {
+  #   filename: String!
+  #   mimetype: String!
+  #   encoding: String!
+  # }
 
   scalar Upload
 
@@ -167,12 +170,24 @@ const typesDefs = gql`
     email: String!
     password: String!
     phone: String!
-    image: Upload
+    image: String
     address: String!
     city: String!
-    pincode: String!
+    pin: String!
+  }
 
+  input ProfileInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+    phone: String!
+    address: String!
+    city: String!
+    pin: String!
+    image: String
   }
 `;
 
-module.exports = typesDefs;
+// module.exports = typesDefs;
+export { typeDefs };

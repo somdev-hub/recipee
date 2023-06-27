@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const Profile = mongoose.model("Profile", {
   firstName: String,
@@ -6,13 +7,11 @@ const Profile = mongoose.model("Profile", {
   email: String,
   password: String,
   phone: String,
-  image: {
-    data: Buffer,
-    contentType: String
-  },
+  image: String,
   address: String,
   city: String,
-  pincode: String
+  pin: String
 });
 
-module.exports = { Profile };
+// module.exports = { Profile };
+export { Profile };
