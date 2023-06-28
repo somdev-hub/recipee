@@ -2,6 +2,7 @@
 import mongoose from "mongoose";
 
 const Basket = mongoose.model("Basket", {
+  user: String,
   basketItem: {
     name: String,
     price: Number,

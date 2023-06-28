@@ -8,10 +8,20 @@ import PieChart from "../PieChart/PieChart";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { recipe } from "../../utils/providers/recipe";
 import RecipeCard from "../RecipeCard/RecipeCard";
+// import { GET_PROFILE_HEAD } from "../../utils/graphql/mutations";
+import { GET_PROFILE_HEAD } from "../../utils/graphql/queries";
+import { useQuery } from "@apollo/client";
 
 Chart.register(CategoryScale);
 
 const RightBar = () => {
+  const { data } = useQuery(GET_PROFILE_HEAD, {
+    variables: {
+      email: localStorage.getItem("email")
+    }
+  });
+  console.log(data);
+  const [popup, setPopup] = useState(false);
   const [chartData, setChartData] = useState({
     labels: pieData.map((data) => data.label),
     datasets: [
@@ -29,17 +39,45 @@ const RightBar = () => {
       }
     ]
   });
+  const logOut = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
   return (
     <div className="rightbar flex h-screen flex-col fixed right-0">
       <div className="profile-icon flex mt-5 justify-end">
-        <div className="icons flex justify-center items-center mr-5">
+        <div className="icons flex justify-center items-center mr-5 relative">
           <BsFillBellFill className="text-2xl text-white mr-3" />
-          <span className="profile-img">
-            {/* <img
-              src="https://i.pinimg.com/originals/3f/94/70/3f9470b34a8e3f526dbdb022f9f19cf7.jpg"
+          <span
+            className="profile-img cursor-pointer"
+            onClick={() => setPopup(!popup)}
+          >
+            <img
+              src={data?.getProfile.image ? data?.getProfile.image : ""}
               alt=""
-            /> */}
+            />
           </span>
+          <div
+            className="profile-pop-up absolute p-5 flex-col justify-around"
+            style={{ display: popup ? "flex" : "none" }}
+          >
+            <div className="profile-pop-up-head flex items-center">
+              <div className="profile-pop-up-img rounded-full mr-3">
+                <img
+                  src={data?.getProfile.image ? data?.getProfile.image : ""}
+                  alt=""
+                />
+              </div>
+              <div className="profile-pop-up-name">
+                <h3 className="text-lg">{`${data?.getProfile.firstName} ${data?.getProfile.lastName}`}</h3>
+                <p className="text-sm">{`${data?.getProfile.email}`}</p>
+              </div>
+            </div>
+            <div className="profile-pop-up-buttons flex justify-between">
+              <button>Profile</button>
+              <button onClick={logOut}>Log Out</button>
+            </div>
+          </div>
         </div>
       </div>
       <div className="meter">

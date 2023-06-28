@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SignUpForm2.css";
+import { Link } from "react-router-dom";
 
 const SignUpForm2 = (props) => {
+  const [selectedImg, setSelectedImg] = useState("");
+
+  const handleImg = (e) => {
+    props.handleFileChange(e.target.files[0]);
+    setSelectedImg(e.target.files[0].name);
+  };
+  // console.log(selectedImg);
   return (
     <div
-      className={`signup-form-container mt-10 mx-16 absolute`}
+      className="signup-form-container ml-10 absolute"
       style={{ right: props.pos === "full" ? "100%" : "auto" }}
     >
       <div className="signup-header">
@@ -19,13 +27,13 @@ const SignUpForm2 = (props) => {
               <label htmlFor="pic-input" className="mr-2 cursor-pointer">
                 Upload{" "}
               </label>
-              your picture here
+              {selectedImg ? selectedImg : `your picture here`}
             </p>
             <input
               type="file"
               id="pic-input"
               accept="image/*"
-              onChange={props.handleFileChange}
+              onChange={handleImg}
             />
           </div>
           <label htmlFor="">Address</label>
@@ -51,7 +59,9 @@ const SignUpForm2 = (props) => {
           />
           <p className="">
             Already have an account?{" "}
-            <span className="font-bold cursor-pointer">Login</span>
+            <Link to="/login">
+              <span className="font-bold cursor-pointer">Login</span>
+            </Link>
           </p>
           <div className="signup-forms-btns flex flex-col w-full mt-7">
             <button type="submit">Continue</button>

@@ -18,6 +18,9 @@ import { graphql } from "graphql";
 import graphqlUploadExpress from "graphql-upload/graphqlUploadExpress.mjs";
 import multer from "multer";
 import imageUpload from "./rest/index.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 database();
 
@@ -41,23 +44,10 @@ const server = new ApolloServer({
   middleware: multerMiddleware
 });
 
-// const app = express();
-// app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
-// server.applyMiddleware({ app });
-
-// app.listen({port: 5000}, () => {
-//   console.log(`🚀 Server ready at http://localhost:5000`);
-//   // console.log(`🚀 Server ready at http://localhost:5000${server.graphqlPath}`);
-// });
-
-imageUpload();
+// imageUpload();
 
 startStandaloneServer(server, {
   listen: { port: 4000 }
 }).then(({ url }) => {
   console.log(`Server ready at ${url}`);
 });
-
-// app.listen({ port: 4000 }, () =>
-//   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
-// );

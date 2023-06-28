@@ -26,8 +26,8 @@ const SignUp = () => {
   const handleFormChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, image: e.target.files[0] });
+  const handleFileChange = (img) => {
+    setFormData({ ...formData, image: img });
   };
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -44,28 +44,43 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      phone,
+      address,
+      city,
+      pin,
+      image
+    } = formData;
 
-    // const {
-    //   firstName,
-    //   lastName,
-    //   email,
-    //   password,
-    //   phone,
-    //   address,
-    //   city,
-    //   pin,
-    //   image
-    // } = formData;
+    if (
+      [firstName, lastName, email, password, phone, address, city, pin].some(
+        (field) => field === ""
+      )
+    ) {
+      alert("Please fill all the fields");
+      return;
+    }
 
-    // const base64 = await convertToBase64(image);
-    // console.log(typeof base64);
-
-    formData.image = await convertToBase64(formData.image);
+    const base64Image = await convertToBase64(image);
 
     try {
       const response = await createProfile({
         variables: {
-          input: formData
+          input: {
+            firstName,
+            lastName,
+            email,
+            password,
+            phone,
+            address,
+            city,
+            pin,
+            image: base64Image
+          }
         }
       });
       console.log(response);
@@ -74,7 +89,7 @@ const SignUp = () => {
     }
   };
 
-  const [addImage, { loading, error, data }] = useMutation(ADD_IMAGE);
+  // const [addImage, { loading, error, data }] = useMutation(ADD_IMAGE);
 
   const handleFileUpload = async (e) => {
     e.preventDefault();
@@ -89,23 +104,11 @@ const SignUp = () => {
       }
     });
     console.log(response);
-    // console.log(file);
-    // try {
-    //   const response = await addImage({
-    //     variables: {
-    //       file: formData.image
-    //     }
-    //   });
-    //   console.log(response);
-    //   console.log(error);
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
   // console.log(formData);
   return (
     <div className="signup flex">
-      <div className="signup-form w-1/2 relative">
+      <div className="signup-form w-1/2 flex items-center relative">
         <SignUpForm
           pos={pos ? "full" : "auto"}
           click={clickPos}

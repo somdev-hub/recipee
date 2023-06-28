@@ -21,31 +21,31 @@ const typeDefs = gql`
     dishes: [Dishes!]!
     nutrients: [Nutrients!]!
     recipees: [Recipees!]!
-    basket: [Basket!]!
+    basket(user: String!): [Basket!]!
     favouriteDishes: [FavouriteDish!]!
-    # dishes: Dishes
-    # dishes: String
+    getProfile(email: String!): Profile!
   }
 
   type Mutation {
     deleteBasketItem(id: ID!): DeleteBasketItemResponse!
-    addBasketItem(id: ID!, quantity: Int): AddBasketItemResponse!
+    addBasketItem(user: String!, id: ID!, quantity: Int): AddBasketItemResponse!
     addToFavouriteDish(id: ID!): AddToFavouriteDishResponse!
     addProfile(input: ProfileInput!): AddProfileResponse!
-    addImage(file: Upload): AddImageResponse!
+    getLogin(input: LoginDetails!): LoginDetailsResponse!
+    # getProfile(email: String!): Profile!
   }
 
-  type File {
-    id: ID!
-    name: String!
-    mimetype: String!
-    encoding: String!
-    url: String!
+  input LoginDetails {
+    email: String!
+    password: String!
   }
 
-  # input Upload {
-  #   file: input File!
-  # }
+  type LoginDetailsResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    token: String
+  }
 
   type AddImageResponse {
     code: Int!
@@ -57,7 +57,6 @@ const typeDefs = gql`
     code: Int!
     success: Boolean!
     message: String!
-    # profile: Profile
   }
 
   type AddToFavouriteDishResponse {
@@ -126,8 +125,7 @@ const typeDefs = gql`
 
   type Basket {
     id: ID!
-    # dishes: [Dishes]
-    # basketItems: [BasketItem]
+    user: String
     basketItem: Dishes
     quantity: Int
     # total: Int
@@ -154,12 +152,6 @@ const typeDefs = gql`
     authorImage: String!
     lenght: Int
   }
-
-  # type File {
-  #   filename: String!
-  #   mimetype: String!
-  #   encoding: String!
-  # }
 
   scalar Upload
 

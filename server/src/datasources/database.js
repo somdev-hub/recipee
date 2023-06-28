@@ -2,12 +2,9 @@
 import mongoose from "mongoose";
 
 const database = () => {
-  const MONGO_URI =
-    "mongodb+srv://recipee_user:bw8gOUiyMzppNeMr@cluster0.fkxax8m.mongodb.net/recipee?retryWrites=true&w=majority";
-
   try {
     mongoose
-      .connect(MONGO_URI, {
+      .connect(process.env.MONGO_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true
       })

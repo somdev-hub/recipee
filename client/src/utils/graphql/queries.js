@@ -16,9 +16,10 @@ export const GET_FAVORITES = gql`
 `;
 
 export const GET_BASKET = gql`
-  query dishes {
-    basket {
+  query Query($basketUser: String!) {
+    basket(user: $basketUser) {
       id
+      user
       basketItem {
         name
         price
@@ -46,6 +47,18 @@ export const GET_FAVOURITE_DISHES = gql`
         weight
         likes
       }
+    }
+  }
+`;
+
+export const GET_PROFILE_HEAD = gql`
+  query GetProfile($email: String!) {
+    getProfile(email: $email) {
+      id
+      firstName
+      lastName
+      email
+      image
     }
   }
 `;

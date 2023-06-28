@@ -1,18 +1,19 @@
 import React from "react";
 // import "../../pages/SignUp/SignUp.css"
 import "./SignUpForm.css";
+import { Link } from "react-router-dom";
 
 const SignUpForm = (props) => {
   return (
     <div
-      className={`signup-form-container mt-10 mx-16 absolute`}
+      className="signup-form-container ml-10 absolute"
       style={{ right: props.pos === "full" ? "100%" : "auto" }}
     >
       <div className="signup-header">
         <h2 className="text-3xl mb-3 font-md">Welcome to Recipee</h2>
         <h3>Please signup to continue</h3>
       </div>
-      <div className="signup-forms mt-10 text-white">
+      <div className="signup-forms mt-7 text-white">
         <form action="" className="flex flex-col">
           <label htmlFor="">First name</label>
           <input
@@ -20,6 +21,7 @@ const SignUpForm = (props) => {
             name="firstName"
             value={props.formData.firstName}
             onChange={props.handleFormChange}
+            required={true}
           />
           <label htmlFor="">Last name</label>
           <input
@@ -52,7 +54,9 @@ const SignUpForm = (props) => {
         </form>
         <p className="">
           Already have an account?{" "}
-          <span className="font-bold cursor-pointer">Login</span>
+          <Link to="/login">
+            <span className="font-bold cursor-pointer">Login</span>
+          </Link>
         </p>
         <div className="signup-forms-btns flex flex-col w-full mt-7">
           <button

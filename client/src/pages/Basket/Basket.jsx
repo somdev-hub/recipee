@@ -5,73 +5,16 @@ import { basket } from "../../utils/providers/baskets";
 import BasketCard from "../../components/BasketCard/BasketCard";
 import Checkout from "../../components/Checkout/Checkout";
 import { useQuery, gql, useMutation } from "@apollo/client";
-// import { set } from "mongoose";
+import { GET_BASKET } from "../../utils/graphql/queries";
 
-const GET_BASKET = gql`
-  query dishes {
-    basket {
-      id
-      basketItem {
-        name
-        price
-        image
-        description
-        category
-        weight
-        likes
-      }
-      quantity
-    }
-  }
-`;
-
-const DELETE_ITEM = gql`
-  mutation Mutation($deleteBasketItemId: ID!) {
-    deleteBasketItem(id: $deleteBasketItemId) {
-      code
-      success
-      message
-      basket {
-        basketItem {
-          name
-          price
-          image
-          description
-          category
-          weight
-          likes
-        }
-        quantity
-      }
-    }
-  }
-`;
 
 const Basket = () => {
-  const { loading, error, data } = useQuery(GET_BASKET);
-  // const [deleted, setDeleted] = useState(false);
-  // const [basketItemId, setBasketItemId] = useState("");
-  // const [basketData, setBasketData] = useState([]);
-  // const [deleteBasketItem] = useMutation(DELETE_ITEM, {
-  //   variables: { deleteBasketItemId: basketItemId },
-  //   onCompleted: (data) => {
-  //     console.log(data);
-  //   }
-  // });
-
-  // useEffect(() => {
-  //   if (deleted) {
-  //     deleteBasketItem();
-  //   }
-  //   if (data) {
-  //     setBasketData(data.basket);
-  //   }
-  //   setDeleted(false);
-  // }, []);
-
-  // console.log("====================================");
-  // console.log(data?.basket);
-  // console.log("====================================");
+  const { loading, error, data } = useQuery(GET_BASKET, {
+    variables: {
+      basketUser: localStorage.getItem("email")
+    }
+  });
+  console.log(data);
   return (
     <div className="basket flex">
       <Sidebar />
@@ -98,7 +41,7 @@ const Basket = () => {
           </div>
         </div>
       </div>
-      <Checkout items={data?.basket}/>
+      <Checkout items={data?.basket} />
     </div>
   );
 };

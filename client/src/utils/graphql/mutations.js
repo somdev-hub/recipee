@@ -41,46 +41,6 @@ export const SET_FAVOURITE_DISH = gql`
   }
 `;
 
-// export const CREATE_PROFILE = gql`
-//   mutation Mutation(
-//     $firstName: String!
-//     $lastName: String!
-//     $email: String!
-//     $password: String!
-//     $phone: String!
-//     $address: String!
-//     $city: String!
-//     $pincode: String!
-//     $image: Upload
-//   ) {
-//     addProfile(
-//       firstName: $firstName
-//       lastName: $lastName
-//       email: $email
-//       password: $password
-//       phone: $phone
-//       address: $address
-//       city: $city
-//       pincode: $pincode
-//       image: $image
-//     ) {
-//       code
-//       success
-//       message
-//       # profile {
-//       #   firstName
-//       #   lastName
-//       #   email
-//       #   password
-//       #   phone
-//       #   image
-//       #   address
-//       #   city
-//       #   pincode
-//       # }
-//     }
-//   }
-
 export const CREATE_PROFILE = gql`
   mutation Mutation($input: ProfileInput!) {
     addProfile(input: $input) {
@@ -97,6 +57,29 @@ export const ADD_IMAGE = gql`
       code
       success
       message
+    }
+  }
+`;
+
+export const GET_LOGIN = gql`
+  mutation GetLogin($input: LoginDetails!) {
+    getLogin(input: $input) {
+      code
+      success
+      message
+      token
+    }
+  }
+`;
+
+export const GET_PROFILE_HEAD = gql`
+  mutation GetProfile($email: String!) {
+    getProfile(email: $email) {
+      id
+      firstName
+      lastName
+      email
+      image
     }
   }
 `;

@@ -15,28 +15,11 @@ import {
   favoriteRecipee
 } from "./datasources/models/favourites.js";
 import { Profile } from "./datasources/models/profile.js";
-import path from "path";
-import fs from "fs";
 import GraphQLUpload from "graphql-upload/GraphQLUpload.mjs";
 import { createWriteStream } from "fs";
 import { join } from "path";
-
-const storeUpload = async ({ stream, filename }) => {
-  const path = join(__dirname, "../images", filename);
-  return new Promise((resolve, reject) =>
-    stream
-      .pipe(createWriteStream(path))
-      .on("finish", () => resolve({ path }))
-      .on("error", reject)
-  );
-};
-
-const processUpload = async (upload) => {
-  const { createReadStream, filename } = await upload;
-  const stream = createReadStream();
-  const { path } = await storeUpload({ stream, filename });
-  return path;
-};
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 export const resolvers = {
   Upload: GraphQLUpload,
@@ -52,10 +35,14 @@ export const resolvers = {
       return await Recipees.find({});
     },
     basket: async (parent, args, context, info) => {
-      return await Basket.find({});
+      return await Basket.find({ user: args.user });
     },
     favouriteDishes: async (parent, args, context, info) => {
       return await favoriteDishes.find({});
+    },
+    getProfile: async (parent, { email }, context, info) => {
+      const user = await Profile.findOne({ email });
+      return user;
     }
   },
   Mutation: {
@@ -80,6 +67,7 @@ export const resolvers = {
     addBasketItem: async (parent, args, context, info) => {
       try {
         const new_basket_item = new Basket({
+          user: args.user,
           basketItem: await Dishes.findById(args.id),
           quantity: args.quantity
         });
@@ -107,7 +95,6 @@ export const resolvers = {
           dish: await Dishes.findById(args.id)
         });
         const saved = await new_favourite_item.save();
-        // console.log(await favoriteDishes.find());
         const dish = await favoriteDishes.find();
         return {
           code: 200,
@@ -137,44 +124,23 @@ export const resolvers = {
         pin
       } = args.input;
       console.log(args.input);
+      const hashedPassword = await bcrypt.hash(password, 10);
       try {
         const new_profile = new Profile({
           firstName,
           lastName,
           email,
-          password,
+          password: hashedPassword,
           phone,
           image,
           address,
           city,
-          pincode
+          pin
         });
-        // if (image) {
-        //   console.log("image is" + image);
-        //   const { createReadStream, filename, mimetype } = await image;
-        //   const stream = createReadStream();
-        //   const pathname = path.join(__dirname, `../public/images/${filename}`);
-        //   await stream.pipe(fs.createWriteStream(pathname));
-        //   console.log("pathname is" + pathname);
-        //   // const buffer = [];
-        //   // stream.on("data", (chunk) => buffer.push(chunk));
-        //   // stream.on("end", async () => {
-        //   //   const image = {
-        //   //     data: Buffer.concat(buffer),
-        //   //     contentType: mimetype
-        //   //   };
-        //   //   new_profile.image = image;
-        //   //   try {
-        //   //     await new_profile.save();
-        //   //   } catch (error) {
-        //   //     console.log(error);
-        //   //   }
-        //   // });
+
         // } else {
-          await new_profile.save();
-          // console.log(await profile.find());
-        // }
-        // const profile = await profile.find();
+        await new_profile.save();
+
         return {
           code: 200,
           success: true,
@@ -190,19 +156,28 @@ export const resolvers = {
         };
       }
     },
-    addImage: async (parent, args, context, info) => {
-      // const path = await processUpload(file);
-      const file = args.file;
-      const filename = file.name;
-      const mimetype = file.mimetype;
-      const encoding = file.encoding;
+    getLogin: async (parent, { input }, context, info) => {
+      const { email, password } = input;
 
-      const fileData = await file.read();
-      console.log(fileData);
+      const user = await Profile.findOne({ email });
+      const valid = await bcrypt.compare(password, user.password);
+      if (!user || !valid) {
+        return {
+          code: 401,
+          success: false,
+          message: "Invalid email or password"
+        };
+      }
+
+      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+        expiresIn: "1d"
+      });
+
       return {
         code: 200,
         success: true,
-        message: "Item added"
+        message: "Login successful",
+        token
       };
     }
   }

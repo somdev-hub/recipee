@@ -1,6 +1,6 @@
 import "./App.css";
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Basket from "./pages/Basket/Basket";
 import Favorites from "./pages/Favorites/Favorites";
@@ -9,6 +9,8 @@ import Settings from "./pages/Settings/Settings";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
 import SignUp from "./pages/SignUp/SignUp";
+import Login from "./pages/Login/Login";
+import jwt_decode from "jwt-decode";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000",
@@ -21,21 +23,36 @@ const client = new ApolloClient({
 });
 
 function App() {
-  // const [theme, setTheme] = React.useState("light");
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      const currentTime = Date.now() / 1000;
+      if (decodedToken.exp < currentTime) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("email");
+        navigate("/login");
+      }
+    }
+  }, [navigate, token]);
+  console.log(token);
   return (
     <ApolloProvider client={client}>
       {/* <React.Fragment id="app"> */}
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/basket" element={<Basket />} />
-          <Route path="/favourites" element={<Favorites />} />
-          <Route path="/community" element={<Community />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/signup" element={<SignUp />} />
-          {/* <Route path="/signup2" element={<SignUp />} /> */}
-        </Routes>
-      </BrowserRouter>
+
+      <Routes>
+        {token && <Route path="/" element={<Dashboard />} />}
+        {token && <Route path="/basket" element={<Basket />} />}
+        {token && <Route path="/favourites" element={<Favorites />} />}
+        {token && <Route path="/community" element={<Community />} />}
+        {token && <Route path="/settings" element={<Settings />} />}
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" exact element={<Navigate replace to="/signup" />} />
+        {/* <Route path="/signup2" element={<SignUp />} /> */}
+      </Routes>
+
       {/* </React.Fragment> */}
     </ApolloProvider>
   );
