@@ -1,16 +1,21 @@
 import { gql } from "@apollo/client";
 
 export const GET_FAVORITES = gql`
-  query dishes {
+  query Dishes {
     dishes {
       id
       name
       price
       image
-      description
+      dishDescription
       category
       weight
-      likes
+      nutrients {
+        name
+        quantity
+      }
+      tags
+      nonveg
     }
   }
 `;

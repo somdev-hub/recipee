@@ -1,8 +1,38 @@
 import { gql } from "@apollo/client";
 
 export const ADD_BASKET = gql`
-  mutation Mutation($addBasketItemId: ID!, $quantity: Int!) {
-    addBasketItem(id: $addBasketItemId, quantity: $quantity) {
+  mutation Mutation(
+    $basketUser: String!
+    $addBasketItemId: ID!
+    $quantity: Int!
+  ) {
+    addBasketItem(
+      user: $basketUser
+      id: $addBasketItemId
+      quantity: $quantity
+    ) {
+      code
+      success
+      message
+      basket {
+        basketItem {
+          name
+          price
+          image
+          description
+          category
+          weight
+          likes
+        }
+        quantity
+      }
+    }
+  }
+`;
+
+export const DELETE_ITEM = gql`
+  mutation Mutation($deleteBasketItemId: ID!) {
+    deleteBasketItem(id: $deleteBasketItemId) {
       code
       success
       message
@@ -80,6 +110,53 @@ export const GET_PROFILE_HEAD = gql`
       lastName
       email
       image
+    }
+  }
+`;
+
+export const ADD_RECIPEE = gql`
+  mutation Mutation($recipee: RecipeeInput!) {
+    addRecipee(recipee: $recipee) {
+      code
+      success
+      message
+      # recipee {
+      #   author
+      #   name
+      #   image
+      #   catagory
+      #   description
+      #   tags
+      #   ingredients
+      #   nutrients {
+      #     name
+      #     quantity
+      #   }
+      # }
+    }
+  }
+`;
+
+export const ADD_DISH = gql`
+  mutation Mutation($dish: DishInput!) {
+    addDish(dish: $dish) {
+      code
+      success
+      message
+      # dish {
+      #   name
+      #   price
+      #   image
+      #   dishDescription
+      #   category
+      #   weight
+      #   nutrients {
+      #     name
+      #     quantity
+      #   }
+      #   tags
+      #   nonveg
+      # }
     }
   }
 `;

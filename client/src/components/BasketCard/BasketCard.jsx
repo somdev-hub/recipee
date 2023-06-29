@@ -2,28 +2,7 @@ import React from "react";
 import { MdDelete } from "react-icons/md";
 import "./BasketCard.css";
 import { useMutation, gql } from "@apollo/client";
-
-const DELETE_ITEM = gql`
-  mutation Mutation($deleteBasketItemId: ID!) {
-    deleteBasketItem(id: $deleteBasketItemId) {
-      code
-      success
-      message
-      basket {
-        basketItem {
-          name
-          price
-          image
-          description
-          category
-          weight
-          likes
-        }
-        quantity
-      }
-    }
-  }
-`;
+import { DELETE_ITEM } from "../../utils/graphql/mutations";
 
 const BasketCard = (props) => {
   const [deleteBasketItem] = useMutation(DELETE_ITEM, {

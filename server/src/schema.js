@@ -5,8 +5,8 @@ const typeDefs = gql`
   # type Query {
   #   dishes: [Dishes]
   #   dish(id: ID!): Dishes
-  #   catagories: [Catagories]
-  #   catagory(id: ID!): Catagories
+  #   catagories: [Categories]
+  #   catagory(id: ID!): Categories
   #   recipees: [Recipees]
   #   recipee(id: ID!): Recipees
   #   favorites: [Dishes]
@@ -32,7 +32,23 @@ const typeDefs = gql`
     addToFavouriteDish(id: ID!): AddToFavouriteDishResponse!
     addProfile(input: ProfileInput!): AddProfileResponse!
     getLogin(input: LoginDetails!): LoginDetailsResponse!
-    # getProfile(email: String!): Profile!
+    getProfile(email: String!): Profile!
+    addRecipee(recipee: RecipeeInput!): AddRecipeeResponse!
+    addDish(dish: DishInput!): AddDishResponse!
+  }
+
+  type AddDishResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    dish: [Dishes]
+  }
+
+  type AddRecipeeResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    recipee: [Recipees]
   }
 
   input LoginDetails {
@@ -85,26 +101,32 @@ const typeDefs = gql`
     name: String
     price: String
     image: String
-    description: String
+    dishDescription: String
     category: String
-    weight: Int
-    # nutrients: [Nutrients]
-    # recipee: Recipees
-    likes: Int
+    weight: String
+    nutrients: [Nutrients]
+    tags: [String]
+    nonveg: Boolean
+  }
+
+  input DishInput {
+    name: String!
+    price: String!
+    image: String!
+    dishDescription: String!
+    category: String!
+    weight: String!
+    nutrients: [NutrientsInput]
+    nonveg: Boolean!
+    tags: [String]
   }
 
   type Nutrients {
-    id: ID!
-    dishName: String!
-    nutrients: [NutrientsItems]
-  }
-
-  type NutrientsItems {
     name: String!
-    value: Int!
+    quantity: String!
   }
 
-  type Catagories {
+  type Categories {
     id: ID!
     name: String!
     image: String!
@@ -115,12 +137,31 @@ const typeDefs = gql`
 
   type Recipees {
     id: ID!
+    author: String!
     name: String!
     image: String!
+    category: String!
     description: String!
     tags: [String]
     ingredients: [String]
-    ingredientsAmount: [Int]
+    nutrients: [Nutrients]
+  }
+
+  input RecipeeInput {
+    author: String!
+    name: String!
+    image: String!
+    category: String!
+    description: String!
+    tags: [String]
+    ingredients: [String]
+    nutrients: [NutrientsInput]
+    nonveg: Boolean!
+  }
+
+  input NutrientsInput {
+    name: String!
+    quantity: String!
   }
 
   type Basket {

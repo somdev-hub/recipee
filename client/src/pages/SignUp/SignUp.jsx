@@ -20,7 +20,6 @@ const SignUp = () => {
   });
   const [createProfile] = useMutation(CREATE_PROFILE);
   const clickPos = () => {
-    // console.log("clicked");
     setPos(!pos);
   };
   const handleFormChange = (e) => {
@@ -89,22 +88,6 @@ const SignUp = () => {
     }
   };
 
-  // const [addImage, { loading, error, data }] = useMutation(ADD_IMAGE);
-
-  const handleFileUpload = async (e) => {
-    e.preventDefault();
-    const file = formData.image;
-    const base64 = await convertToBase64(file);
-    console.log(base64);
-    const uri = "http://localhost:5000/imgUpload";
-    const response = await fetch(uri, {
-      method: "POST",
-      body: {
-        img: base64
-      }
-    });
-    console.log(response);
-  };
   // console.log(formData);
   return (
     <div className="signup flex">

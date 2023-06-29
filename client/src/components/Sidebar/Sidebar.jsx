@@ -8,9 +8,10 @@ import {
 import { AiOutlineHeart } from "react-icons/ai";
 import "./Sidebar.css";
 import image_1 from "../../utils/image_1.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = ({ blur }) => {
+  const navigate = useNavigate();
   const [checked, setChecked] = useState(null);
   const location = useLocation();
   const sideOptions = [
@@ -50,7 +51,7 @@ const Sidebar = ({ blur }) => {
     const activeIndex = sideOptions.findIndex(
       (item) => item.link.split("/")[1] === currPath
     );
-    setChecked(sideOptions[activeIndex].id);
+    setChecked(sideOptions[activeIndex]?.id);
   }, [location]);
   return (
     <div
@@ -78,7 +79,7 @@ const Sidebar = ({ blur }) => {
       </div>
       <div className="share-now mx-auto mt-20 flex justify-center flex-col items-center relative">
         <p className="mx-5 mt-10">Share your recipe with us</p>
-        <button>Share now</button>
+        <button onClick={() => navigate("/add-recipee")}>Share now</button>
         <img src={image_1} alt="" className="absolute" />
       </div>
     </div>

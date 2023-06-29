@@ -8,7 +8,7 @@
 // const path = require("path");
 // const fs = require("fs");
 
-import { Dishes, Nutrients, Recipees } from "./datasources/models/dishes.js";
+import { Dishes, Nutrients } from "./datasources/models/dishes.js";
 import { Basket } from "./datasources/models/basket.js";
 import {
   favoriteDishes,
@@ -20,6 +20,7 @@ import { createWriteStream } from "fs";
 import { join } from "path";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { Recipees } from "./datasources/models/recipees.js";
 
 export const resolvers = {
   Upload: GraphQLUpload,
@@ -72,7 +73,6 @@ export const resolvers = {
           quantity: args.quantity
         });
         const saved = await new_basket_item.save();
-        // console.log(await Basket.find());
         const basket = await Basket.find();
         return {
           code: 200,
@@ -123,7 +123,7 @@ export const resolvers = {
         city,
         pin
       } = args.input;
-      console.log(args.input);
+      // console.log(args.input);
       const hashedPassword = await bcrypt.hash(password, 10);
       try {
         const new_profile = new Profile({
@@ -179,6 +179,88 @@ export const resolvers = {
         message: "Login successful",
         token
       };
+    },
+    addRecipee: async (parent, args, context, info) => {
+      const {
+        name,
+        description,
+        image,
+        ingredients,
+        author,
+        nutrients,
+        nonveg,
+        category,
+        tags
+      } = args.recipee;
+      // console.log(args.recipee);
+      const new_recipee = new Recipees({
+        name,
+        description,
+        image,
+        ingredients,
+        author,
+        nutrients,
+        nonveg,
+        category,
+        tags
+      });
+      try {
+        await new_recipee.save();
+        return {
+          code: 200,
+          success: true,
+          message: "Recipee added",
+          recipee: await Recipees.find()
+        };
+      } catch (error) {
+        return {
+          code: 500,
+          success: false,
+          message: error
+          // recipee: await Recipees.find()
+        };
+      }
+    },
+    addDish: async (parent, args, context, info) => {
+      const {
+        name,
+        dishDescription,
+        price,
+        image,
+        weight,
+        nutrients,
+        nonveg,
+        category,
+        tags
+      } = args.dish;
+      // console.log(args.dish);
+      const new_dish = new Dishes({
+        name,
+        dishDescription,
+        price,
+        image,
+        weight,
+        nutrients,
+        nonveg,
+        category,
+        tags
+      });
+      try {
+        await new_dish.save();
+        return {
+          code: 200,
+          success: true,
+          message: "Dish added",
+          dish: await Dishes.find()
+        };
+      } catch (error) {
+        return {
+          code: 500,
+          success: false,
+          message: error
+          // dish: await Dishes.find()
+        };
+      }
     }
   }
 };

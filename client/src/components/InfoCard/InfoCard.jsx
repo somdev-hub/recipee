@@ -14,7 +14,13 @@ const InfoCard = ({ props, pos, onClick }) => {
   const [quantity, setQuantity] = useState(1);
   const [liked, setLiked] = useState(false);
   const [bar, setBar] = useState(false);
-  const [addBasketItem, { loading }] = useMutation(ADD_BASKET);
+  const [addBasketItem, { loading }] = useMutation(ADD_BASKET, {
+    variables: {
+      basketUser: localStorage.getItem("email"),
+      addBasketItemId: props.id,
+      quantity: quantity
+    }
+  });
   const [addToFavouriteDish] = useMutation(SET_FAVOURITE_DISH, {
     variables: { addToFavouriteDishId: props.id }
   });
@@ -88,7 +94,7 @@ const InfoCard = ({ props, pos, onClick }) => {
         </div>
       </div>
       <div className="info-about mx-10 mt-10">
-        <p className="text-white">{props.description}</p>
+        <p className="text-white">{props.dishDescription}</p>
       </div>
       <div className="info-add w-full flex justify-center items-center mt-10">
         <div className="quantity-button flex items-center">
@@ -102,14 +108,8 @@ const InfoCard = ({ props, pos, onClick }) => {
           <button onClick={() => setQuantity((prev) => prev + 1)}>+</button>
         </div>
         <button
-          onClick={async () => {
-            await addBasketItem({
-              variables: {
-                user: localStorage.getItem("email"),
-                addBasketItemId: props.id,
-                quantity: quantity
-              }
-            });
+          onClick={() => {
+            addBasketItem();
             setQuantity(1);
           }}
           disabled={loading}
