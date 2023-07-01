@@ -7,10 +7,12 @@ const Basket = mongoose.model("Basket", {
     name: String,
     price: Number,
     image: String,
-    description: String,
+    dishDescription: String,
     category: String,
-    weight: Number,
-    likes: Number
+    weight: String,
+    nutrients: [{ name: String, value: String }],
+    tags: [String],
+    nonveg: Boolean
   },
   quantity: Number
 });

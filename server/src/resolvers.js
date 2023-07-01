@@ -1,19 +1,9 @@
-// const { Dishes, Nutrients, Recipees } = require("./datasources/models/dishes");
-// const { Basket } = require("./datasources/models/basket");
-// const {
-//   favoriteDishes,
-//   favoriteRecipee
-// } = require("./datasources/models/favourites");
-// const { Profile } = require("./datasources/models/profile");
-// const path = require("path");
-// const fs = require("fs");
-
 import { Dishes, Nutrients } from "./datasources/models/dishes.js";
 import { Basket } from "./datasources/models/basket.js";
 import {
   favoriteDishes,
   favoriteRecipee
-} from "./datasources/models/favourites.js";
+} from "./datasources/models/favorites.js";
 import { Profile } from "./datasources/models/profile.js";
 import GraphQLUpload from "graphql-upload/GraphQLUpload.mjs";
 import { createWriteStream } from "fs";
@@ -21,6 +11,7 @@ import { join } from "path";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { Recipees } from "./datasources/models/recipees.js";
+import { Posts } from "./datasources/models/posts.js";
 
 export const resolvers = {
   Upload: GraphQLUpload,
@@ -38,14 +29,21 @@ export const resolvers = {
     basket: async (parent, args, context, info) => {
       return await Basket.find({ user: args.user });
     },
-    favouriteDishes: async (parent, args, context, info) => {
+    favoriteDishes: async (parent, args, context, info) => {
       return await favoriteDishes.find({});
     },
     getProfile: async (parent, { email }, context, info) => {
       const user = await Profile.findOne({ email });
       return user;
+    },
+    getPostList: async (parent, args, context, info) => {
+      return await Posts.find({});
+    },
+    getPost: async (parent, { id }, context, info) => {
+      return await Posts.findOne({ _id: id });
     }
   },
+
   Mutation: {
     deleteBasketItem: async (parent, args, context, info) => {
       try {
@@ -89,12 +87,12 @@ export const resolvers = {
         };
       }
     },
-    addToFavouriteDish: async (parent, args, context, info) => {
+    addToFavoriteDish: async (parent, args, context, info) => {
       try {
-        const new_favourite_item = new favoriteDishes({
+        const new_favorite_item = new favoriteDishes({
           dish: await Dishes.findById(args.id)
         });
-        const saved = await new_favourite_item.save();
+        const saved = await new_favorite_item.save();
         const dish = await favoriteDishes.find();
         return {
           code: 200,
@@ -259,6 +257,69 @@ export const resolvers = {
           success: false,
           message: error
           // dish: await Dishes.find()
+        };
+      }
+    },
+    addPost: async (parent, args, context, info) => {
+      const {
+        title,
+        description,
+        image,
+        date,
+        author,
+        authorMail,
+        length,
+        tags
+      } = args.post;
+      console.log(args.post);
+      const new_post = new Posts({
+        title,
+        description,
+        image,
+        author,
+        date,
+        authorMail,
+        length,
+        tags
+      });
+      try {
+        new_post.save();
+        return {
+          code: 200,
+          success: true,
+          message: "Post added",
+          post: await Posts.find()
+        };
+      } catch (error) {
+        return {
+          code: 500,
+          success: false,
+          message: error
+          // post: await Posts.find()
+        };
+      }
+    },
+    addComment: async (parent, args, context, info) => {
+      const { user, userMail, comment } = args.comment;
+      console.log(args.comment);
+      const update = { $push: { comments: { user, userMail, comment } } };
+      try {
+        await Posts.findOneAndUpdate({ _id: args.postId }, update, {
+          new: true
+        });
+        return {
+          code: 200,
+          success: true,
+          message: "Comment added",
+          comments: await Posts.find({
+            comments: { $elemMatch: { user: user } }
+          })
+        };
+      } catch (error) {
+        return {
+          code: 500,
+          success: false,
+          message: error
         };
       }
     }

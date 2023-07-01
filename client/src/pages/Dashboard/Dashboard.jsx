@@ -12,16 +12,16 @@ import InfoCard from "../../components/InfoCard/InfoCard";
 import InfoCard2 from "../../components/InfoCard2/InfoCard2";
 import { choice } from "../../utils/providers/choice";
 import { useQuery } from "@apollo/client";
-import { GET_FAVORITES } from "../../utils/graphql/queries";
+import { GET_DISHES } from "../../utils/graphql/queries";
 
 const Dashboard = () => {
-  const { loading, error, data } = useQuery(GET_FAVORITES);
+  const { loading, error, data } = useQuery(GET_DISHES);
   const [pos, setPos] = useState(false);
   const [pos2, setPos2] = useState(false);
   const [info, setInfo] = useState({});
   const [info2, setInfo2] = useState({});
 
-  // console.log(data?.dishes);
+  console.log(data);
 
   return (
     <div className="dashboard flex relative overflow-hidden">
@@ -57,7 +57,7 @@ const Dashboard = () => {
             </p>
           </div>
           <div className="fav-container overflow-x-auto mt-10">
-            <div className="fav flex justify-between">
+            <div className="fav flex">
               {data?.dishes.slice(0, 5).map((item, index) => {
                 return (
                   <Dish

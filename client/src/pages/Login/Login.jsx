@@ -9,8 +9,8 @@ const Login = () => {
     email: "",
     password: ""
   });
-  const [authencate] = useMutation(GET_LOGIN);
-  const handleLonginData = (e) => {
+  const [authenticate] = useMutation(GET_LOGIN);
+  const handleLoginData = (e) => {
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
   };
@@ -18,7 +18,7 @@ const Login = () => {
     if (!loginData.email || !loginData.password) return;
     e.preventDefault();
     try {
-      authencate({
+      authenticate({
         variables: {
           input: loginData
         }
@@ -56,14 +56,14 @@ const Login = () => {
                 type="email"
                 name="email"
                 value={loginData.email}
-                onChange={handleLonginData}
+                onChange={handleLoginData}
               />
               <label htmlFor="">Password</label>
               <input
                 type="password"
                 name="password"
                 value={loginData.password}
-                onChange={handleLonginData}
+                onChange={handleLoginData}
               />
               <p className="">
                 Forget password?{" "}

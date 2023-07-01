@@ -11,7 +11,7 @@ import { GET_BASKET } from "../../utils/graphql/queries";
 const Basket = () => {
   const { loading, error, data } = useQuery(GET_BASKET, {
     variables: {
-      basketUser: localStorage.getItem("email")
+      user: localStorage.getItem("email")
     }
   });
   console.log(data);

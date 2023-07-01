@@ -1,24 +1,38 @@
 import React from "react";
 import "./Posts.css";
+import { useQuery } from "@apollo/client";
+import { GET_PROFILE_IMG } from "../../utils/graphql/queries";
+import { useNavigate } from "react-router-dom";
 
 const Posts = ({ props }) => {
+  const { data } = useQuery(GET_PROFILE_IMG, {
+    variables: {
+      email: props.authorMail
+    }
+  });
+  const navigate = useNavigate();
+  // console.log(data);
+
   return (
-    <div className="posts flex mb-5 justify-center items-center pr-3">
+    <div
+      className="posts flex mb-5 justify-center items-center pr-3 cursor-pointer"
+      onClick={() => navigate(`/community/article/${props.id}`)}
+    >
       <div className="post-content flex flex-col px-5">
         <div className="post-header mb-5 ">
-          <h3 className="text-white text-lg">{props.header}</h3>
-          <p className="mt-3 text-sm">{props.content}</p>
+          <h3 className="text-white text-lg">{props.title}</h3>
+          <p className="mt-3 text-sm">{props.description.slice(0, 200)}</p>
         </div>
         <div className="post-author flex justify-between items-center">
           <div className="author-img flex flex-1 items-center">
-            <img src={props.authorImg} alt="" />
-            <p className="text-white">{props.authorName}</p>
+            <img src={data?.getProfile.image} alt="" />
+            <p className="text-white">{props.author}</p>
           </div>
-          <p className="post-length text-sm">{props.length} minuites read</p>
+          <p className="post-length text-sm">{props.length} read</p>
         </div>
       </div>
       <div className="post-image">
-        <img src={props.postImg} alt="" className="h-full w-full" />
+        <img src={props.image} alt="" className="h-full w-full" />
       </div>
     </div>
   );

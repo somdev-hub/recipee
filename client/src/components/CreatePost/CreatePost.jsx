@@ -2,7 +2,7 @@ import React from "react";
 import "./CreatePost.css";
 import { FiUpload } from "react-icons/fi";
 
-const CreatePost = () => {
+const CreatePost = (props) => {
   return (
     <div className="create-post fixed h-screen flex-col">
       <h3 className="text-white ml-5 mt-5">Create post</h3>
@@ -26,7 +26,7 @@ const CreatePost = () => {
             sharing it to the community
           </p>
         </div>
-        <button className="font-medium">Create post</button>
+        <button className="font-medium" onClick={props.onClick}>Create post</button>
       </div>
     </div>
   );

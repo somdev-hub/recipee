@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
-export const GET_FAVORITES = gql`
-  query Dishes {
+export const GET_DISHES = gql`
+  query Query {
     dishes {
       id
       name
@@ -10,10 +10,10 @@ export const GET_FAVORITES = gql`
       dishDescription
       category
       weight
-      nutrients {
-        name
-        quantity
-      }
+      # nutrients {
+      #   name
+      #   quantity
+      # }
       tags
       nonveg
     }
@@ -21,27 +21,32 @@ export const GET_FAVORITES = gql`
 `;
 
 export const GET_BASKET = gql`
-  query Query($basketUser: String!) {
-    basket(user: $basketUser) {
+  query Query($user: String!) {
+    basket(user: $user) {
       id
       user
       basketItem {
         name
         price
         image
-        description
+        dishDescription
         category
         weight
-        likes
+        # nutrients {
+        #   name
+        #   quantity
+        # }
+        tags
+        nonveg
       }
       quantity
     }
   }
 `;
 
-export const GET_FAVOURITE_DISHES = gql`
+export const GET_FAVORITE_DISHES = gql`
   query Query {
-    favouriteDishes {
+    favoriteDishes {
       id
       dish {
         name
@@ -64,6 +69,52 @@ export const GET_PROFILE_HEAD = gql`
       lastName
       email
       image
+    }
+  }
+`;
+
+export const GET_PROFILE_IMG = gql`
+  query GetProfile($email: String!) {
+    getProfile(email: $email) {
+      id
+      image
+    }
+  }
+`;
+
+export const GET_POSTS = gql`
+  query GetPostList {
+    getPostList {
+      id
+      title
+      image
+      description
+      author
+      length
+      authorMail
+      date
+    }
+  }
+`;
+
+export const GET_POST = gql`
+  query Basket($getPostId: ID!) {
+    getPost(id: $getPostId) {
+      id
+      title
+      image
+      date
+      description
+      tags
+      likes
+      comments {
+        user
+        userMail
+        comment
+      }
+      author
+      authorMail
+      length
     }
   }
 `;

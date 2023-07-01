@@ -10,7 +10,7 @@ import confetti from "../../utils/confetti.svg";
 const AddRecipee = () => {
   const [nonveg, setNonVeg] = useState(false);
   const [takeOrders, setTakeOrders] = useState(false);
-  const [complience, setComplience] = useState(false);
+  const [compliance, setCompliance] = useState(false);
   const [recipeeData, setRecipeeData] = useState({
     name: "",
     author: localStorage.getItem("email"),
@@ -136,16 +136,6 @@ const AddRecipee = () => {
 
   return (
     <div className="add-recipee flex relative">
-      {/* <div className="prompt-container h-screen w-screen fixed flex justify-center items-center">
-        <div className="prompt absolute flex justify-center items-center flex-col">
-          <img src={confetti} alt="" className="w-24"/>
-          <h3 className="text-white my-5">Recipee added successfully</h3>
-          <div className="prompt-buttons flex gap-3 ">
-            <button>Show recent</button>
-            <button>Back</button>
-          </div>
-        </div>
-      </div> */}
       <Sidebar />
       <div className="add-recipee-main w-full mt-5">
         <nav>
@@ -188,7 +178,7 @@ const AddRecipee = () => {
                   onChange={handleRecipeeChange}
                 />
                 <div className="veg flex items-center mt-5">
-                  <p className="text-white mr-3">Non-Vegeterian</p>
+                  <p className="text-white mr-3">Non-Vegetarian</p>
                   <Switch
                     onChange={() => setNonVeg(!nonveg)}
                     checked={nonveg}
@@ -317,7 +307,7 @@ const AddRecipee = () => {
                 <input
                   type="checkbox"
                   className="mr-3 cursor-pointer"
-                  onChange={() => setComplience(!complience)}
+                  onChange={() => setCompliance(!compliance)}
                 />
                 <p className="text-sm">
                   mark if you comply with the food safety standards and terms of
@@ -327,7 +317,7 @@ const AddRecipee = () => {
 
               <div className="add-recipee-buttons mt-10 flex gap-5 justify-end">
                 <button>Clear</button>
-                <button type="submit" disabled={!complience}>
+                <button type="submit" disabled={!compliance}>
                   Submit
                 </button>
               </div>

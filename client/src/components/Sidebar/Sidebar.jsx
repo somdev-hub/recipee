@@ -30,8 +30,8 @@ const Sidebar = ({ blur }) => {
     {
       id: 3,
       icon: AiOutlineHeart,
-      name: "Favourites",
-      link: "/favourites"
+      name: "Favorites",
+      link: "/favorites"
     },
     {
       id: 4,

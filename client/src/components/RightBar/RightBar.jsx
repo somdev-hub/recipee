@@ -9,7 +9,7 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { recipe } from "../../utils/providers/recipe";
 import RecipeCard from "../RecipeCard/RecipeCard";
 // import { GET_PROFILE_HEAD } from "../../utils/graphql/mutations";
-import { GET_PROFILE_HEAD } from "../../utils/graphql/queries";
+import { GET_DISHES, GET_PROFILE_HEAD } from "../../utils/graphql/queries";
 import { useQuery } from "@apollo/client";
 
 Chart.register(CategoryScale);
@@ -20,7 +20,8 @@ const RightBar = () => {
       email: localStorage.getItem("email")
     }
   });
-  console.log(data);
+  // const { loading, error, data1 } = useQuery(GET_DISHES);
+  // console.log(data1);
   const [popup, setPopup] = useState(false);
   const [chartData, setChartData] = useState({
     labels: pieData.map((data) => data.label),

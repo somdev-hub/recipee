@@ -7,8 +7,8 @@ import {
 } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_BASKET, SET_FAVOURITE_DISH } from "../../utils/graphql/mutations";
-import { GET_FAVOURITE_DISHES } from "../../utils/graphql/queries";
+import { ADD_BASKET, SET_FAVORITE_DISH } from "../../utils/graphql/mutations";
+import { GET_FAVORITE_DISHES } from "../../utils/graphql/queries";
 
 const InfoCard = ({ props, pos, onClick }) => {
   const [quantity, setQuantity] = useState(1);
@@ -21,16 +21,16 @@ const InfoCard = ({ props, pos, onClick }) => {
       quantity: quantity
     }
   });
-  const [addToFavouriteDish] = useMutation(SET_FAVOURITE_DISH, {
-    variables: { addToFavouriteDishId: props.id }
+  const [addToFavoriteDish] = useMutation(SET_FAVORITE_DISH, {
+    variables: { addToFavoriteDishId: props.id }
   });
-  const { loading1, error, data } = useQuery(GET_FAVOURITE_DISHES);
+  const { loading1, error, data } = useQuery(GET_FAVORITE_DISHES);
 
   // console.log(data);
 
   useEffect(() => {
-    if (data?.favouriteDishes) {
-      data.favouriteDishes.forEach((element) => {
+    if (data?.favoriteDishes) {
+      data.favoriteDishes.forEach((element) => {
         const dishname = element.dish.name;
         if (dishname === props.name) {
           setLiked(true);
@@ -55,7 +55,7 @@ const InfoCard = ({ props, pos, onClick }) => {
             className="mr-2"
             onClick={() => {
               setLiked(!liked);
-              addToFavouriteDish();
+              addToFavoriteDish();
             }}
           >
             {liked ? (
@@ -108,8 +108,8 @@ const InfoCard = ({ props, pos, onClick }) => {
           <button onClick={() => setQuantity((prev) => prev + 1)}>+</button>
         </div>
         <button
-          onClick={() => {
-            addBasketItem();
+          onClick={async() => {
+            await addBasketItem();
             setQuantity(1);
           }}
           disabled={loading}

@@ -12,6 +12,7 @@ import SignUp from "./pages/SignUp/SignUp";
 import Login from "./pages/Login/Login";
 import jwt_decode from "jwt-decode";
 import AddRecipee from "./pages/AddRecipe/AddRecipee";
+import Article from "./pages/Article/Article";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000",
@@ -45,10 +46,11 @@ function App() {
       <Routes>
         {token && <Route path="/" element={<Dashboard />} />}
         {token && <Route path="/basket" element={<Basket />} />}
-        {token && <Route path="/favourites" element={<Favorites />} />}
+        {token && <Route path="/favorites" element={<Favorites />} />}
         {token && <Route path="/community" element={<Community />} />}
         {token && <Route path="/settings" element={<Settings />} />}
         {token && <Route path="/add-recipee" element={<AddRecipee />} />}
+        {token && <Route path="/community/article/:articleId" element={<Article />} />}
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" exact element={<Navigate replace to="/signup" />} />

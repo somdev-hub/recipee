@@ -17,12 +17,18 @@ export const ADD_BASKET = gql`
       basket {
         basketItem {
           name
+          name
           price
           image
-          description
+          dishDescription
           category
           weight
-          likes
+          # nutrients {
+          #   name
+          #   quantity
+          # }
+          tags
+          nonveg
         }
         quantity
       }
@@ -52,9 +58,9 @@ export const DELETE_ITEM = gql`
   }
 `;
 
-export const SET_FAVOURITE_DISH = gql`
-  mutation Mutation($addToFavouriteDishId: ID!) {
-    addToFavouriteDish(id: $addToFavouriteDishId) {
+export const SET_FAVORITE_DISH = gql`
+  mutation Mutation($addToFavoriteDishId: ID!) {
+    addToFavoriteDish(id: $addToFavoriteDishId) {
       code
       success
       message
@@ -157,6 +163,29 @@ export const ADD_DISH = gql`
       #   tags
       #   nonveg
       # }
+    }
+  }
+`;
+
+export const ADD_POST = gql`
+  mutation AddPost($post: PostInput!) {
+    addPost(post: $post) {
+      code
+      success
+      message
+      post {
+        title
+      }
+    }
+  }
+`;
+
+export const ADD_COMMENT = gql`
+  mutation AddComment($comment: CommentsInput!, $postId: ID!) {
+    addComment(comment: $comment, postId: $postId) {
+      code
+      success
+      message
     }
   }
 `;

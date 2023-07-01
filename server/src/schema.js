@@ -2,39 +2,42 @@
 import gql from "graphql-tag";
 
 const typeDefs = gql`
-  # type Query {
-  #   dishes: [Dishes]
-  #   dish(id: ID!): Dishes
-  #   catagories: [Categories]
-  #   catagory(id: ID!): Categories
-  #   recipees: [Recipees]
-  #   recipee(id: ID!): Recipees
-  #   favorites: [Dishes]
-  #   favorite(id: ID!): Dishes
-  #   posts: [Posts]
-  #   post(id: ID!): Posts
-  #   profiles: [Profile]
-  #   profile(id: ID!): Profile
-  # }
-
   type Query {
     dishes: [Dishes!]!
     nutrients: [Nutrients!]!
     recipees: [Recipees!]!
     basket(user: String!): [Basket!]!
-    favouriteDishes: [FavouriteDish!]!
+    favoriteDishes: [FavoriteDish!]!
     getProfile(email: String!): Profile!
+    getPostList: [Posts]
+    getPost(id: ID!): Posts
   }
 
   type Mutation {
     deleteBasketItem(id: ID!): DeleteBasketItemResponse!
     addBasketItem(user: String!, id: ID!, quantity: Int): AddBasketItemResponse!
-    addToFavouriteDish(id: ID!): AddToFavouriteDishResponse!
+    addToFavoriteDish(id: ID!): AddToFavoriteDishResponse!
     addProfile(input: ProfileInput!): AddProfileResponse!
     getLogin(input: LoginDetails!): LoginDetailsResponse!
     getProfile(email: String!): Profile!
     addRecipee(recipee: RecipeeInput!): AddRecipeeResponse!
     addDish(dish: DishInput!): AddDishResponse!
+    addPost(post: PostInput!): AddPostResponse!
+    addComment(comment: CommentsInput!, postId: ID!): AddCommentResponse!
+  }
+
+  type AddCommentResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    comments: [Comments]
+  }
+
+  type AddPostResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    post: [Posts]
   }
 
   type AddDishResponse {
@@ -75,7 +78,7 @@ const typeDefs = gql`
     message: String!
   }
 
-  type AddToFavouriteDishResponse {
+  type AddToFavoriteDishResponse {
     code: Int!
     success: Boolean!
     message: String!
@@ -172,26 +175,53 @@ const typeDefs = gql`
     # total: Int
   }
 
-  type FavouriteDish {
+  type FavoriteDish {
     id: ID!
     dish: Dishes
   }
 
-  type FavouriteRecipee {
+  type FavoriteRecipee {
     id: ID!
     recipee: Recipees
+  }
+
+  type Comments {
+    user: String!
+    userMail: String!
+    comment: String!
+  }
+
+  input CommentsInput {
+    user: String!
+    userMail: String!
+    comment: String!
   }
 
   type Posts {
     id: ID!
     title: String!
     image: String!
+    date: String!
     description: String!
     tags: [String]
     likes: Int
+    comments: [Comments]
     author: String!
-    authorImage: String!
-    lenght: Int
+    authorMail: String!
+    length: String!
+  }
+
+  input PostInput {
+    title: String!
+    image: String!
+    date: String!
+    description: String!
+    tags: [String]
+    likes: Int
+    comments: [CommentsInput]
+    author: String!
+    authorMail: String!
+    length: String!
   }
 
   scalar Upload
