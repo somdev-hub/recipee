@@ -1,11 +1,27 @@
 import React from "react";
 import "./CreatePost.css";
 import { FiUpload } from "react-icons/fi";
+import { RxCross2 } from "react-icons/rx";
 
 const CreatePost = (props) => {
   return (
-    <div className="create-post fixed h-screen flex-col">
-      <h3 className="text-white ml-5 mt-5">Create post</h3>
+    <div
+      className="create-post fixed h-screen flex-col transition-all"
+      style={
+        window.innerWidth < 640
+          ? { width: "100%", right: props.rightbarView ? "0" : "-100%" }
+          : { right: "0" }
+      }
+    >
+      <nav className="flex  ml-5 mt-5 items-center gap-3">
+        {window.innerWidth < 640 && (
+          <RxCross2
+            className="text-2xl text-white"
+            onClick={() => props.setRightbarView(false)}
+          />
+        )}
+        <h3 className="text-white">Create post</h3>
+      </nav>
       <div className="upload-video mt-10 ml-5 flex justify-center items-center p-10">
         <div className="upload flex justify-center items-center">
           <FiUpload className="text-5xl mr-5" />
@@ -26,7 +42,9 @@ const CreatePost = (props) => {
             sharing it to the community
           </p>
         </div>
-        <button className="font-medium" onClick={props.onClick}>Create post</button>
+        <button className="font-medium" onClick={props.onClick}>
+          Create post
+        </button>
       </div>
     </div>
   );

@@ -34,3 +34,30 @@
 .item-end {
   width: 35%;
 }
+
+@media (max-width: 640px) {
+  .item-img-container {
+    width: 40%;
+  }
+  .item-contents {
+    width: 75%;
+  }
+  .item-price {
+    font-size: 14px;
+  }
+  .item-end {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: start;
+    width: 100%;
+    gap: 5%;
+    align-items: center;
+    margin-top: 5%;
+  }
+  .total-price {
+    font-size: 14px;
+  }
+  .item-img {
+    width: 100%;
+  }
+}

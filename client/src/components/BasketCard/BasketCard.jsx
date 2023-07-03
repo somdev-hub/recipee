@@ -14,11 +14,11 @@ const BasketCard = (props) => {
   return (
     <div className="basketcard flex flex-1 items-center mb-5">
       <div className="item-img-container flex items-center justify-center">
-        <div className="item-img mr-5 flex items-center justify-center">
+        <div className="item-img sm:mr-5 flex items-center justify-center">
           <img src={props.img} alt="" className="w-full h-full object-cover" />
         </div>
       </div>
-      <div className="item-contents item-start flex justify-between">
+      <div className="item-contents item-start flex justify-between sm:flex-row flex-col">
         <div className="item-title flex flex-col justify-center">
           <h3 className="text-white mb-3 text-lg">{props.title}</h3>
           <div className="item-price flex">
@@ -28,7 +28,7 @@ const BasketCard = (props) => {
         </div>
         <div className="item-end">
           <div
-            className="item-delete flex items-center mb-3 cursor-pointer"
+            className="item-delete flex items-center sm:mb-3 cursor-pointer"
             onClick={() => {
               deleteBasketItem();
               window.location.reload(false);

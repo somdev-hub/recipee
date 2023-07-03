@@ -49,3 +49,13 @@
   height: 5px;
   border-radius: 10px;
 }
+
+@media (max-width: 640px) {
+  .checkout {
+    width: 80%;
+    /* right: -100%; */
+  }
+  .total-container{
+    font-size: 14px;
+  }
+}

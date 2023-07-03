@@ -3,9 +3,16 @@ import "./Checkout.css";
 import { baskets } from "../../utils/providers/baskets";
 import Draggable from "react-draggable";
 
-const Checkout = ({ items }) => {
+const Checkout = ({ items, loading, rightbarView }) => {
   return (
-    <div className="checkout flex flex-col fixed h-screen">
+    <div
+      className="checkout flex flex-col fixed h-screen transition-all"
+      style={
+        window.innerWidth < 640
+          ? { right: rightbarView ? "0" : "-100%" }
+          : { right: "0" }
+      }
+    >
       <h3 className="text-white mt-5 ml-5">Checkout</h3>
       <div className="total-container mt-10 flex flex-col items-center">
         <div className="total-cost  flex items-center ">
@@ -14,6 +21,7 @@ const Checkout = ({ items }) => {
             <p className="text-white">Cost</p>
           </div>
         </div>
+        {loading && <p className="text-white mt-5">Loading...</p>}
         <div className="total-orders mt-5 pb-5">
           {items?.map((item, index) => {
             return (

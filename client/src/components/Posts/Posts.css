@@ -9,9 +9,6 @@
   color: var(--light-gray);
 }
 
-.author-img {
-}
-
 .author-img img {
   width: 45px;
   height: 45px;
@@ -36,4 +33,25 @@
 
 .post-length {
   color: var(--light-gray);
+}
+
+@media (max-width: 640px) {
+  .posts {
+    height: 25rem;
+  }
+  .post-content {
+    width: 100%;
+  }
+  .post-image {
+    width: 90%;
+    height: 40%;
+    margin-top: 5%;
+  }
+  .post-header p {
+    font-size: 12px;
+  }
+  .author-img img {
+    width: 35px;
+    height: 35px;
+  }
 }

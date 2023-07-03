@@ -80,7 +80,7 @@ const PostCreate = (props) => {
   return (
     <div
       className="post-create fixed flex p-5  h-screen "
-      style={{ right: props.set ? "0" : "-50%" }}
+      style={{ right: props.set ? "0" : "-100%" }}
     >
       <div className="post-create-container text-white w-full">
         <nav className="flex gap-3 items-center">
@@ -146,7 +146,7 @@ const PostCreate = (props) => {
               id=""
               cols="30"
               rows="10"
-              className="mt-5"
+              className="mt-5 text-sm"
               placeholder="Start writing here..."
               value={postData.description}
               onChange={handleFormChange}

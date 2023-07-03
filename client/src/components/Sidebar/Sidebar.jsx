@@ -9,8 +9,9 @@ import { AiOutlineHeart } from "react-icons/ai";
 import "./Sidebar.css";
 import image_1 from "../../utils/image_1.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import logo from "../../utils/recipee_logo-cropped.png";
 
-const Sidebar = ({ blur }) => {
+const Sidebar = ({ blur, sidebarView }) => {
   const navigate = useNavigate();
   const [checked, setChecked] = useState(null);
   const location = useLocation();
@@ -53,14 +54,20 @@ const Sidebar = ({ blur }) => {
     );
     setChecked(sideOptions[activeIndex]?.id);
   }, [location]);
+  const screenWidth = window.innerWidth;
+  console.log(screenWidth < 640);
   return (
     <div
-      className={`sidebar flex flex-col h-screen fixed ${
+      className={`sidebar flex transition-all flex-col h-screen fixed sm:z-10 ${
         blur ? "brightness-50 transition-all" : ""
       }`}
+      style={{ left: screenWidth < 640 ? (sidebarView ? "0" : "-100%") : "" }}
     >
-      <h1>Recipee</h1>
-      <div className="sidebar-options mt-20">
+      {/* <h1>Recipee</h1> */}
+      <div className="sidebar-logo flex justify-center items-center">
+        <img src={logo} alt="" className="mt-5 mx-auto" />
+      </div>
+      <div className="sidebar-options mt-12">
         <ul>
           {sideOptions.map((item, index) => {
             return (
@@ -77,7 +84,7 @@ const Sidebar = ({ blur }) => {
           })}
         </ul>
       </div>
-      <div className="share-now mx-auto mt-20 flex justify-center flex-col items-center relative">
+      <div className="share-now mx-auto sm:mt-20 flex justify-center flex-col items-center relative mt-14">
         <p className="mx-5 mt-10">Share your recipe with us</p>
         <button onClick={() => navigate("/add-recipee")}>Share now</button>
         <img src={image_1} alt="" className="absolute" />

@@ -13,6 +13,10 @@ import InfoCard2 from "../../components/InfoCard2/InfoCard2";
 import { choice } from "../../utils/providers/choice";
 import { useQuery } from "@apollo/client";
 import { GET_DISHES } from "../../utils/graphql/queries";
+import Loader from "../../components/Loader/Loader";
+import logo from "../../utils/recipee_logo-cropped.png";
+import { CgOptions } from "react-icons/cg";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Dashboard = () => {
   const { loading, error, data } = useQuery(GET_DISHES);
@@ -20,103 +24,118 @@ const Dashboard = () => {
   const [pos2, setPos2] = useState(false);
   const [info, setInfo] = useState({});
   const [info2, setInfo2] = useState({});
+  const [sidebarView, setSidebarView] = useState(false);
+  const [rightbarView, setRightbarView] = useState(false);
 
-  console.log(data);
+  // console.log(data);
 
   return (
-    <div className="dashboard flex relative overflow-hidden">
-      <Sidebar blur={pos || pos2} />
-      <div
-        className={`main-content mt-5 ${
-          pos || pos2 ? "brightness-50 transition-all" : ""
-        }`}
-      >
-        <nav className="flex justify-between">
-          <h2>Hi, welcome to Recipee dashboard</h2>
-          <div className="search flex">
-            <input type="text" placeholder="Search here" className="mr-5" />
-            <div className="filter flex justify-center items-center">
-              <BsSliders2Vertical className="text-xl flex" />
+    <div className="dashboard flex relative sm:overflow-hidden">
+      <Sidebar blur={pos || pos2} sidebarView={sidebarView} />
+      {loading ? (
+        <Loader />
+      ) : (
+        <div
+          className={`main-content mt-5 ${
+            pos || pos2 ? "brightness-50 transition-all" : ""
+          }`}
+        >
+          <div className="navbar justify-between mb-7 items-start">
+            <GiHamburgerMenu
+              className="text-lg"
+              onClick={() => setSidebarView(!sidebarView)}
+            />
+            <div className="navbar-logo">
+              <img src={logo} alt="" />
+            </div>
+            <CgOptions
+              className="text-lg"
+              onClick={() => setRightbarView(!rightbarView)}
+            />
+          </div>
+          <div
+            className=""
+            onClick={() => {
+              setSidebarView(false);
+              setRightbarView(false);
+            }}
+          >
+            <nav className="dashboard-nav flex justify-between">
+              <h2>Hi, welcome to Recipee dashboard</h2>
+              <div className="search flex">
+                <input type="text" placeholder="Search here" className="mr-5" />
+                <div className="filter flex justify-center items-center">
+                  <BsSliders2Vertical className="text-xl flex" />
+                </div>
+              </div>
+            </nav>
+            <div className="ad1 w-full mt-10 p-5 relative">
+              <h3>Add your own recipe</h3>
+              <p>
+                Now you an share your own recipe with us to enjoy fresh meal and
+                win exciting rewards so hurry up
+              </p>
+              <img src={ad1} alt="" className="absolute" />
+            </div>
+            <div className="favorites">
+              <div className="flex justify-between items-center mt-10">
+                <h3 className="">Your Favorites</h3>
+                <p className="flex items-center gap-3 view">
+                  View all
+                  <AiOutlineArrowRight />
+                </p>
+              </div>
+              <div className="fav-container overflow-x-auto mt-10">
+                <div className="fav flex">
+                  {data?.dishes.slice(0, 5).map((item, index) => {
+                    return (
+                      <Dish
+                        props={item}
+                        key={index}
+                        click={() => {
+                          setInfo(item);
+                          setPos(!pos);
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+            <div className="choices">
+              <div className="flex justify-between items-center mt-10">
+                <h3 className="">Based on your choices</h3>
+                <p className="flex items-center gap-3 view">
+                  View all
+                  <AiOutlineArrowRight />
+                </p>
+              </div>
+              <div className="choice-container mt-10 overflow-x-auto">
+                <div className="choice-cards flex">
+                  {choice.map((item, index) => {
+                    return (
+                      <Choices
+                        cuisineImg={item.cuisineImg}
+                        cuisine={item.cuisineName}
+                        cuisineContent={item.foods}
+                        click={() => {
+                          setPos2(!pos2);
+                          setInfo2(item);
+                        }}
+                        key={index}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
-        </nav>
-        <div className="ad1 w-full mt-10 p-5 relative">
-          <h3>Add your own recipe</h3>
-          <p>
-            Now you an share your own recipe with us to enjoy fresh meal and win
-            exciting rewards so hurry up
-          </p>
-          <img src={ad1} alt="" className="absolute" />
         </div>
-        <div className="favorites">
-          <div className="flex justify-between items-center mt-10">
-            <h3 className="">Your Favorites</h3>
-            <p className="flex items-center gap-3 view">
-              View all
-              <AiOutlineArrowRight />
-            </p>
-          </div>
-          <div className="fav-container overflow-x-auto mt-10">
-            <div className="fav flex">
-              {data?.dishes.slice(0, 5).map((item, index) => {
-                return (
-                  <Dish
-                    props={item}
-                    key={index}
-                    click={() => {
-                      setInfo(item);
-                      setPos(!pos);
-                    }}
-                  />
-                );
-              })}
-            </div>
-          </div>
-        </div>
-        <div className="choices">
-          <div className="flex justify-between items-center mt-10">
-            <h3 className="">Based on your choices</h3>
-            <p className="flex items-center gap-3 view">
-              View all
-              <AiOutlineArrowRight />
-            </p>
-          </div>
-          <div className="choice-container mt-10 overflow-x-auto">
-            <div className="choice-cards flex">
-              {choice.map((item, index) => {
-                return (
-                  <Choices
-                    cuisineImg={item.cuisineImg}
-                    cuisine={item.cuisineName}
-                    cuisineContent={item.foods}
-                    click={() => {
-                      setPos2(!pos2);
-                      setInfo2(item);
-                    }}
-                    key={index}
-                  />
-                );
-              })}
-              {/* <Choices
-                cuisineImg={image_4}
-                cuisine={"South Indian Cuisine"}
-                cuisineContent={choices}
-                click={() => setPos2(!pos2)}
-              />
-              <Choices
-                cuisineImg={image_4}
-                cuisine={"South Indian Cuisine"}
-                cuisineContent={choices}
-                click={() => setPos2(!pos2)}
-              /> */}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <RightBar />
+      )}
+      <RightBar rightbarView={rightbarView} />
       <InfoCard
         pos={pos ? "0" : "-50%"}
+        posMini={pos ? "0" : "-110%"}
         props={info}
         onClick={() => setPos(false)}
       />

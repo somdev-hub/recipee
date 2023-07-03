@@ -9,12 +9,12 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { recipe } from "../../utils/providers/recipe";
 import RecipeCard from "../RecipeCard/RecipeCard";
 // import { GET_PROFILE_HEAD } from "../../utils/graphql/mutations";
-import { GET_DISHES, GET_PROFILE_HEAD } from "../../utils/graphql/queries";
+import { GET_PROFILE_HEAD } from "../../utils/graphql/queries";
 import { useQuery } from "@apollo/client";
 
 Chart.register(CategoryScale);
 
-const RightBar = () => {
+const RightBar = (props) => {
   const { data } = useQuery(GET_PROFILE_HEAD, {
     variables: {
       email: localStorage.getItem("email")
@@ -44,8 +44,14 @@ const RightBar = () => {
     localStorage.removeItem("token");
     window.location.reload();
   };
+  const screenWidth = window.innerWidth;
   return (
-    <div className="rightbar flex h-screen flex-col fixed right-0">
+    <div
+      className="rightbar flex h-screen flex-col fixed right-0 transition-all"
+      style={
+        screenWidth < 640 ? { right: props.rightbarView ? "0" : "-100%" } : {right: "0"}
+      }
+    >
       <div className="profile-icon flex mt-5 justify-end">
         <div className="icons flex justify-center items-center mr-5 relative">
           <BsFillBellFill className="text-2xl text-white mr-3" />
@@ -67,10 +73,11 @@ const RightBar = () => {
                 <img
                   src={data?.getProfile.image ? data?.getProfile.image : ""}
                   alt=""
+                  className="w-full h-full rounded-full object-cover"
                 />
               </div>
               <div className="profile-pop-up-name">
-                <h3 className="text-lg">{`${data?.getProfile.firstName} ${data?.getProfile.lastName}`}</h3>
+                <h3 className="sm:text-lg text-sm">{`${data?.getProfile.firstName} ${data?.getProfile.lastName}`}</h3>
                 <p className="text-sm">{`${data?.getProfile.email}`}</p>
               </div>
             </div>

@@ -15,7 +15,7 @@ const Posts = ({ props }) => {
 
   return (
     <div
-      className="posts flex mb-5 justify-center items-center pr-3 cursor-pointer"
+      className="posts flex sm:flex-row flex-col mb-5 justify-center items-center sm:pr-3 cursor-pointer"
       onClick={() => navigate(`/community/article/${props.id}`)}
     >
       <div className="post-content flex flex-col px-5">
@@ -26,7 +26,7 @@ const Posts = ({ props }) => {
         <div className="post-author flex justify-between items-center">
           <div className="author-img flex flex-1 items-center">
             <img src={data?.getProfile.image} alt="" />
-            <p className="text-white">{props.author}</p>
+            <p className="text-white text-sm sm:text-base">{props.author}</p>
           </div>
           <p className="post-length text-sm">{props.length} read</p>
         </div>

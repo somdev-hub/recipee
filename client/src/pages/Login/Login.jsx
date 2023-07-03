@@ -24,9 +24,13 @@ const Login = () => {
         }
       }).then((res) => {
         console.log(res);
-        localStorage.setItem("token", res.data.getLogin.token);
-        localStorage.setItem("email", loginData.email);
-        navigate("/");
+        if (res.data.getLogin.code === 200) {
+          localStorage.setItem("token", res.data.getLogin.token);
+          localStorage.setItem("email", loginData.email);
+          navigate("/");
+        } else {
+          alert(res.data.getLogin.message);
+        }
       });
     } catch (error) {
       console.log(error);

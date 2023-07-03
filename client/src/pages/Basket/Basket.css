@@ -1,4 +1,12 @@
-.basket-main{
+.basket-main {
     margin-left: 17%;
     width: 50%;
+}
+
+@media (max-width: 640px) {
+    .basket-main {
+        margin-left: 0;
+        width: 100%;
+        padding: 5%;
+    }
 }

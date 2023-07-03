@@ -89,3 +89,10 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 640px) {
+  .infocard {
+    width: 100%;
+    border-radius: 30px;
+  }
+}

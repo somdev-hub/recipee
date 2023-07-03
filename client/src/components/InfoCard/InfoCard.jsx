@@ -10,7 +10,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { ADD_BASKET, SET_FAVORITE_DISH } from "../../utils/graphql/mutations";
 import { GET_FAVORITE_DISHES } from "../../utils/graphql/queries";
 
-const InfoCard = ({ props, pos, onClick }) => {
+const InfoCard = ({ props, pos, posMini, onClick }) => {
   const [quantity, setQuantity] = useState(1);
   const [liked, setLiked] = useState(false);
   const [bar, setBar] = useState(false);
@@ -39,10 +39,11 @@ const InfoCard = ({ props, pos, onClick }) => {
     }
   }, [data, props.name]);
 
+  const screenWidth = window.innerWidth;
   return (
     <div
       className="infocard h-screen fixed flex flex-col items-center"
-      style={{ right: pos }}
+      style={screenWidth > 640 ? { right: pos } : { bottom: posMini }}
     >
       <div className="collapse-bar absolute"></div>
       <nav className="flex justify-between mb-2 mt-7 ">
@@ -94,7 +95,9 @@ const InfoCard = ({ props, pos, onClick }) => {
         </div>
       </div>
       <div className="info-about mx-10 mt-10">
-        <p className="text-white">{props.dishDescription}</p>
+        <p className="text-white sm:text-base text-sm">
+          {props.dishDescription}
+        </p>
       </div>
       <div className="info-add w-full flex justify-center items-center mt-10">
         <div className="quantity-button flex items-center">
@@ -108,7 +111,7 @@ const InfoCard = ({ props, pos, onClick }) => {
           <button onClick={() => setQuantity((prev) => prev + 1)}>+</button>
         </div>
         <button
-          onClick={async() => {
+          onClick={async () => {
             await addBasketItem();
             setQuantity(1);
           }}

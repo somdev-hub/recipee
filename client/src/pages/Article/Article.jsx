@@ -10,6 +10,7 @@ import {
   GET_PROFILE_IMG
 } from "../../utils/graphql/queries";
 import { ADD_COMMENT } from "../../utils/graphql/mutations";
+import Loader from "../../components/Loader/Loader";
 
 const Comment = (props) => {
   const { data: userPic } = useQuery(GET_PROFILE_IMG, {
@@ -36,7 +37,7 @@ const Comment = (props) => {
 
 const Article = () => {
   const { articleId } = useParams();
-  const { data } = useQuery(GET_POST, {
+  const { data, loading } = useQuery(GET_POST, {
     variables: {
       getPostId: articleId
     }
@@ -57,102 +58,108 @@ const Article = () => {
   return (
     <div className="article flex">
       <Sidebar />
-      <div className="article-content mt-5 text-white">
-        <div className="article-image">
-          <img
-            src={data?.getPost.image}
-            alt=""
-            className="h-full w-full object-cover"
-          />
-        </div>
-        <div className="article-meta flex justify-between items-center py-5 mt-10">
-          <div className="article-author flex items-center gap-5">
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="article-content mt-5 text-white">
+          <div className="article-image">
             <img
-              className="rounded-full object-cover"
-              src={data1?.getProfile.image}
+              src={data?.getPost.image}
               alt=""
+              className="h-full w-full object-cover"
             />
-            <p>{data?.getPost.author}</p>
           </div>
-          <div className="article-date">
-            <p>dt: {data?.getPost.date}</p>
+          <div className="article-meta flex justify-between items-center py-5 mt-10">
+            <div className="article-author flex items-center gap-5">
+              <img
+                className="rounded-full object-cover"
+                src={data1?.getProfile.image}
+                alt=""
+              />
+              <p>{data?.getPost.author}</p>
+            </div>
+            <div className="article-date">
+              <p>dt: {data?.getPost.date}</p>
+            </div>
           </div>
-        </div>
-        <div className="article-data mt-5">
-          <div className="article-head">
-            <h1 className="text-4xl font-bold my-10">{data?.getPost.title}</h1>
+          <div className="article-data mt-5">
+            <div className="article-head">
+              <h1 className="text-4xl font-bold my-10">
+                {data?.getPost.title}
+              </h1>
+            </div>
+            <div className="article-para ">
+              <p className="text-sm">{data?.getPost.description}</p>
+            </div>
           </div>
-          <div className="article-para ">
-            <p className="text-sm">{data?.getPost.description}</p>
-          </div>
-        </div>
-        <div className="article-likes"></div>
-        <div className="article-comments mt-10">
-          <div className="comment-head">
-            <h3>Comments</h3>
-            <div className="comment-input mt-5">
-              <form
-                action=""
-                className="flex justify-between"
-                onSubmit={async (e) => {
-                  e.preventDefault();
-                  console.log(comment);
-                  try {
-                    const response = await addComment({
-                      variables: {
-                        postId: articleId,
-                        comment: {
-                          user: `${profilePic.getProfile.firstName} ${profilePic.getProfile.lastName}`,
-                          userMail: localStorage.getItem("email"),
-                          comment: comment
+          <div className="article-likes"></div>
+          <div className="article-comments mt-10">
+            <div className="comment-head">
+              <h3>Comments</h3>
+              <div className="comment-input mt-5">
+                <form
+                  action=""
+                  className="flex justify-between"
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    console.log(comment);
+                    try {
+                      const response = await addComment({
+                        variables: {
+                          postId: articleId,
+                          comment: {
+                            user: `${profilePic.getProfile.firstName} ${profilePic.getProfile.lastName}`,
+                            userMail: localStorage.getItem("email"),
+                            comment: comment
+                          }
                         }
+                      });
+                      console.log(response);
+                      if (response?.data?.addComment.code === 200) {
+                        alert("comment added successfully");
                       }
-                    });
-                    console.log(response);
-                    if (response?.data?.addComment.code === 200) {
-                      alert("comment added successfully");
+                    } catch (error) {
+                      console.log(error);
                     }
-                  } catch (error) {
-                    console.log(error);
-                  }
-                }}
-              >
-                <div className="user-img rounded-full">
-                  <img
-                    src={profilePic?.getProfile.image}
-                    alt=""
-                    className="h-full w-full rounded-full object-cover"
-                  />
-                </div>
-                <div className="comment-box">
-                  <input
-                    type="text"
-                    className="mr-5 w-full"
-                    name="comment"
-                    value={comment}
-                    onChange={(e) => {
-                      setComment(e.target.value);
-                    }}
-                  />
-                </div>
-                <button type="submit">post</button>
-              </form>
-            </div>
-            <div className="comments-container my-10">
-              {data?.getPost.comments.map((comment, index) => {
-                return (
-                  <Comment
-                    key={index}
-                    userMail={comment?.userMail}
-                    user={comment?.user}
-                    comment={comment?.comment}
-                  />
-                );
-              })}
+                  }}
+                >
+                  <div className="user-img rounded-full">
+                    <img
+                      src={profilePic?.getProfile.image}
+                      alt=""
+                      className="h-full w-full rounded-full object-cover"
+                    />
+                  </div>
+                  <div className="comment-box">
+                    <input
+                      type="text"
+                      className="mr-5 w-full"
+                      name="comment"
+                      value={comment}
+                      onChange={(e) => {
+                        setComment(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <button type="submit">post</button>
+                </form>
+              </div>
+              <div className="comments-container my-10">
+                {data?.getPost.comments.map((comment, index) => {
+                  return (
+                    <Comment
+                      key={index}
+                      userMail={comment?.userMail}
+                      user={comment?.user}
+                      comment={comment?.comment}
+                    />
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
       <ArticleBar />
     </div>
   );

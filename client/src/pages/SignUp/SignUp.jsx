@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "./SignUp.css";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import SignUpForm2 from "../../components/SignUpForm2/SignUpForm2";
-import { ADD_IMAGE, CREATE_PROFILE } from "../../utils/graphql/mutations";
+import { CREATE_PROFILE } from "../../utils/graphql/mutations";
 import { useMutation } from "@apollo/client";
+import { convertToBase64 } from "../../utils/base64";
 
 const SignUp = () => {
   const [pos, setPos] = useState(false);
@@ -28,18 +29,7 @@ const SignUp = () => {
   const handleFileChange = (img) => {
     setFormData({ ...formData, image: img });
   };
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);

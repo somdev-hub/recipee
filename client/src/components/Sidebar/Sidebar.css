@@ -3,6 +3,10 @@
   width: 15%;
 }
 
+.sidebar-logo {
+  width: 12rem;
+}
+
 .sidebar-options {
   color: var(--white);
 }
@@ -60,4 +64,25 @@
   height: 2rem;
   margin-top: 8%;
   font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .sidebar {
+    width: auto;
+    z-index: 1;
+    left: -50%;
+  }
+  .share-now {
+    height: 11rem;
+    width: 10rem;
+  }
+  .sidebar-logo {
+    width: 14rem;
+  }
+  .sidebar-logo img {
+    width: 80%;
+  }
+  .sidebar-options ul li {
+    margin-bottom: 13%;
+  }
 }

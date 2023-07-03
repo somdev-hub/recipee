@@ -298,6 +298,7 @@ const AddRecipee = () => {
                   rows="10"
                   className="mt-10 p-3"
                   placeholder="Start writing here..."
+                  disabled={!takeOrders}
                   value={recipeeData.dishDescription}
                   onChange={handleRecipeeChange}
                 ></textarea>
