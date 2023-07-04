@@ -2,6 +2,7 @@ import React from "react";
 import "./ArticleBar.css";
 import { useQuery } from "@apollo/client";
 import { GET_POSTS } from "../../utils/graphql/queries";
+import { RxCross2 } from "react-icons/rx";
 
 const ArticleCard = (props) => {
   return (
@@ -21,12 +22,22 @@ const ArticleCard = (props) => {
   );
 };
 
-const ArticleBar = () => {
+const ArticleBar = (props) => {
   const { data: articles } = useQuery(GET_POSTS);
   console.log(articles);
   return (
-    <div className="article-bar fixed flex flex-col h-screen text-white p-5">
-      <h3>More Posts</h3>
+    <div
+      className="article-bar fixed flex flex-col h-screen text-white p-5 transition-all"
+      style={
+        window.innerWidth < 640
+          ? { width: "100%", right: props.rightbarView ? "0" : "-100%" }
+          : { right: "0" }
+      }
+    >
+      <nav className="flex gap-3 items-center">
+        {window.innerWidth < 640 && <RxCross2 className="text-2xl" onClick={()=>props.setRightbarView(false)}/>}
+        <h3>More Posts</h3>
+      </nav>
       <div className="article-post-container mt-5">
         {articles?.getPostList?.map((article) => {
           return (

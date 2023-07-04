@@ -16,6 +16,10 @@
   --light-gray: #686767;
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   font-family: "Poppins", sans-serif;
   background-color: var(--black);

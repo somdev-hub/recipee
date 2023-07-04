@@ -37,8 +37,8 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex login">
-      <div className="login-form w-1/2 flex items-center relative">
+    <div className="flex sm:flex-row flex-col-reverse login">
+      <div className="login-form sm:w-1/2 flex items-center relative">
         <div className="signup-form-container ml-10 absolute">
           <div className="signup-header">
             <h2 className="text-3xl mb-3 font-md">Welcome to Recipee</h2>
@@ -83,7 +83,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div className="welcome-img w-1/2 h-screen">
+      <div className="welcome-img sm:w-1/2 h-screen">
         <img
           className="h-full w-full object-cover"
           src="https://marleyspoon.com/media/recipes/53977/main_photos/large/mexican_chicken_pizzas-f681a95cd4526aa0d0b0def8ddcce973.jpeg"

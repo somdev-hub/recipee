@@ -31,6 +31,12 @@ nav h2 {
   padding: 3%;
 }
 
+.search-results-container {
+  /* height: 13rem; */
+  background-color: var(--dark-gray);
+  border-radius: 20px;
+}
+
 .ad1 {
   background-color: var(--yellow);
   height: 8rem;

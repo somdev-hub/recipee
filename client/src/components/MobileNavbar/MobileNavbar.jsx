@@ -13,10 +13,14 @@ const MobileNavbar = (props) => {
       <div className="navbar-logo w-20">
         <img src={logo} alt="" />
       </div>
-      <CgOptions
-        className="text-lg text-white"
-        onClick={() => props.setRightbarView(!props.rightbarView)}
-      />
+      {props.rightbarView != null ? (
+        <CgOptions
+          className="text-lg text-white"
+          onClick={() => props.setRightbarView(!props.rightbarView)}
+        />
+      ) : (
+        <p></p>
+      )}
     </div>
   );
 };

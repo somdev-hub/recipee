@@ -24,6 +24,22 @@ const typeDefs = gql`
     addDish(dish: DishInput!): AddDishResponse!
     addPost(post: PostInput!): AddPostResponse!
     addComment(comment: CommentsInput!, postId: ID!): AddCommentResponse!
+    searchItem(search: String!): searchItemResponse!
+    searchArticle(search: String!): searchArticleResponse!
+  }
+
+  type searchArticleResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    searchResult: [Posts]
+  }
+
+  type searchItemResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    searchResult: [Dishes]
   }
 
   type AddCommentResponse {
@@ -125,8 +141,8 @@ const typeDefs = gql`
   }
 
   type Nutrients {
-    name: String!
-    quantity: String!
+    name: String
+    quantity: String
   }
 
   type Categories {

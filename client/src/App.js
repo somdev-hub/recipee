@@ -15,9 +15,9 @@ import AddRecipee from "./pages/AddRecipe/AddRecipee";
 import Article from "./pages/Article/Article";
 
 const client = new ApolloClient({
-  uri: "https://recipee-server.onrender.com",
+  uri: "http://localhost:4000",
   cache: new InMemoryCache(),
-  link: createUploadLink({ uri: "https://recipee-server.onrender.com" }),
+  link: createUploadLink({ uri: "http://localhost:4000" }),
   onError: ({ networkError, graphQLErrors }) => {
     console.log("graphQLErrors", graphQLErrors);
     console.log("networkError", networkError);

@@ -189,3 +189,45 @@ export const ADD_COMMENT = gql`
     }
   }
 `;
+
+export const SEARCH_ITEM = gql`
+  mutation SearchItem($search: String!) {
+    searchItem(search: $search) {
+      code
+      success
+      message
+      searchResult {
+        name
+        price
+        dishDescription
+        category
+        weight
+        tags
+        nonveg
+        image
+        nutrients {
+          name
+          quantity
+        }
+      }
+    }
+  }
+`;
+
+export const SEARCH_ARTICLE = gql`
+  mutation SearchArticle($search: String!) {
+    searchArticle(search: $search) {
+      code
+      success
+      message
+      searchResult {
+        title
+        description
+        author
+        length
+        image
+        authorMail
+      }
+    }
+  }
+`;

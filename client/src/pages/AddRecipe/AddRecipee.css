@@ -100,3 +100,21 @@
   background: none;
   border: 2px solid var(--yellow);
 }
+
+@media (max-width: 640px) {
+  .add-recipee-main {
+    margin-left: 0;
+    padding: 5%;
+  }
+  .add-recipee-form input,
+  .add-recipee-order input,
+  .add-recipee-form textarea {
+    font-size: 14px;
+  }
+  .add-recipee-head input {
+    height: 3rem;
+  }
+  .type-ingredients input:nth-child(1) {
+    width: 100%;
+  }
+}

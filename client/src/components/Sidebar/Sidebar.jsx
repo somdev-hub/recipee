@@ -55,7 +55,7 @@ const Sidebar = ({ blur, sidebarView }) => {
     setChecked(sideOptions[activeIndex]?.id);
   }, [location]);
   const screenWidth = window.innerWidth;
-  console.log(screenWidth < 640);
+  // console.log(screenWidth < 640);
   return (
     <div
       className={`sidebar flex transition-all flex-col h-screen fixed sm:z-10 ${

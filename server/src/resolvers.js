@@ -322,6 +322,56 @@ export const resolvers = {
           message: error
         };
       }
+    },
+    searchItem: async (parent, args, context, info) => {
+      const { search } = args;
+      // console.log(search);
+      try {
+        const searchResult = await Dishes.find({
+          $or: [
+            { name: { $regex: search, $options: "i" } },
+            { tags: { $regex: search, $options: "i" } }
+          ]
+        });
+        // console.log(searchResult);
+        return {
+          code: 200,
+          success: true,
+          message: "Search result",
+          searchResult: searchResult
+        };
+      } catch (error) {
+        return {
+          code: 500,
+          success: false,
+          message: error
+        };
+      }
+    },
+    searchArticle: async (parent, args, context, info) => {
+      const { search } = args;
+      // console.log(search);
+      try {
+        const searchResult = await Posts.find({
+          $or: [
+            { title: { $regex: search, $options: "i" } },
+            { tags: { $regex: search, $options: "i" } }
+          ]
+        });
+        // console.log(searchResult);
+        return {
+          code: 200,
+          success: true,
+          message: "Search result",
+          searchResult: searchResult
+        };
+      } catch (error) {
+        return {
+          code: 500,
+          success: false,
+          message: error
+        };
+      }
     }
   }
 };

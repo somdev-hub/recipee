@@ -46,3 +46,13 @@
   border: 2px solid var(--yellow);
   color: var(--yellow);
 }
+
+@media (max-width: 640px) {
+  .signup-form-container {
+    margin-left: 0;
+    padding: 5%;
+    top: 50%;
+    width: 100%;
+    margin-top: 5%;
+  }
+}

@@ -78,10 +78,9 @@ const SignUp = () => {
     }
   };
 
-  // console.log(formData);
   return (
-    <div className="signup flex">
-      <div className="signup-form w-1/2 flex items-center relative">
+    <div className="signup flex sm:flex-row flex-col-reverse">
+      <div className="signup-form sm:w-1/2 flex items-center relative">
         <SignUpForm
           pos={pos ? "full" : "auto"}
           click={clickPos}
@@ -96,7 +95,7 @@ const SignUp = () => {
           handleSubmit={handleSubmit}
         />
       </div>
-      <div className="welcome-img w-1/2 h-screen">
+      <div className="welcome-img sm:w-1/2 sm:h-screen">
         <img
           className="h-full w-full object-cover"
           src="https://marleyspoon.com/media/recipes/53977/main_photos/large/mexican_chicken_pizzas-f681a95cd4526aa0d0b0def8ddcce973.jpeg"

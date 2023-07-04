@@ -11,23 +11,48 @@ import RightBar from "../../components/RightBar/RightBar";
 import InfoCard from "../../components/InfoCard/InfoCard";
 import InfoCard2 from "../../components/InfoCard2/InfoCard2";
 import { choice } from "../../utils/providers/choice";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { GET_DISHES } from "../../utils/graphql/queries";
 import Loader from "../../components/Loader/Loader";
 import logo from "../../utils/recipee_logo-cropped.png";
 import { CgOptions } from "react-icons/cg";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { SEARCH_ARTICLE, SEARCH_ITEM } from "../../utils/graphql/mutations";
+import Posts from "../../components/Posts/Posts";
 
 const Dashboard = () => {
   const { loading, error, data } = useQuery(GET_DISHES);
+  const [getSearchItems] = useMutation(SEARCH_ITEM);
+  const [getSearchArticles] = useMutation(SEARCH_ARTICLE);
   const [pos, setPos] = useState(false);
   const [pos2, setPos2] = useState(false);
   const [info, setInfo] = useState({});
   const [info2, setInfo2] = useState({});
   const [sidebarView, setSidebarView] = useState(false);
   const [rightbarView, setRightbarView] = useState(false);
+  const [searchResults, setSearchResults] = useState(null);
+  const [searchArticles, setSearchArticles] = useState(null);
+  const [searchBar, setSearchBar] = useState(false); // [1
+  const [search, setSearch] = useState("");
 
-  // console.log(data);
+  const searchChangeHandler = async (e) => {
+    const value = e.target.value;
+    setSearch(value);
+    // Perform search logic here
+    try {
+      const { data: searchItems } = await getSearchItems({
+        variables: { search: value }
+      });
+      const { data: searchArticles } = await getSearchArticles({
+        variables: { search: value }
+      });
+      // console.log(searchItems);
+      setSearchResults(searchItems);
+      setSearchArticles(searchArticles);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="dashboard flex relative sm:overflow-hidden">
@@ -63,12 +88,53 @@ const Dashboard = () => {
             <nav className="dashboard-nav flex justify-between">
               <h2>Hi, welcome to Recipee dashboard</h2>
               <div className="search flex">
-                <input type="text" placeholder="Search here" className="mr-5" />
+                <input
+                  type="text"
+                  placeholder="Search here"
+                  className="mr-5"
+                  onChange={searchChangeHandler}
+                  onClick={() => setSearchBar(true)}
+                />
+
                 <div className="filter flex justify-center items-center">
                   <BsSliders2Vertical className="text-xl flex" />
                 </div>
               </div>
             </nav>
+            <div
+              className="search-results-container my-5 p-5"
+              style={{ display: search ? "block" : "none" }}
+            >
+              <div className="search-result-contents ">
+                {searchResults?.searchItem.code === 200 && <h3>Top dishes</h3>}
+                <div className="search-results-dishes overflow-auto mt-5">
+                  {searchResults?.searchItem?.searchResult?.map(
+                    (item, index) => {
+                      return (
+                        <Dish
+                          props={item}
+                          key={index}
+                          click={() => {
+                            setInfo(item);
+                            setPos(!pos);
+                          }}
+                        />
+                      );
+                    }
+                  )}
+                </div>
+                {searchArticles?.searchArticle.code === 200 && (
+                  <h3 className="mt-5">Top articles</h3>
+                )}
+                <div className="search-results-articles mt-5">
+                  {searchArticles?.searchArticle?.searchResult?.map(
+                    (item, index) => {
+                      return <Posts props={item} key={index} />;
+                    }
+                  )}
+                </div>
+              </div>
+            </div>
             <div className="ad1 w-full mt-10 p-5 relative">
               <h3>Add your own recipe</h3>
               <p>
