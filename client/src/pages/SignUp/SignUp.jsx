@@ -19,7 +19,7 @@ const SignUp = () => {
     pin: "",
     image: null
   });
-  const [createProfile] = useMutation(CREATE_PROFILE);
+  const [createProfile, { loading }] = useMutation(CREATE_PROFILE);
   const clickPos = () => {
     setPos(!pos);
   };
@@ -73,6 +73,11 @@ const SignUp = () => {
         }
       });
       console.log(response);
+      if (response.data.addProfile.code === 200) {
+        alert("Profile created successfully please login");
+      } else {
+        alert(response.data.addProfile.message);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -93,6 +98,7 @@ const SignUp = () => {
           handleFileChange={handleFileChange}
           formData={formData}
           handleSubmit={handleSubmit}
+          loading={loading}
         />
       </div>
       <div className="welcome-img sm:w-1/2 sm:h-screen">

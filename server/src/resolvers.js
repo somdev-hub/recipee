@@ -41,6 +41,12 @@ export const resolvers = {
     },
     getPost: async (parent, { id }, context, info) => {
       return await Posts.findOne({ _id: id });
+    },
+    getDishesByCategory: async (parent, { category }, context, info) => {
+      return await Dishes.find({ category: category });
+    },
+    getDishesByVeg: async (parent, { nonveg }, context, info) => {
+      return await Dishes.find({ nonveg: nonveg });
     }
   },
 

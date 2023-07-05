@@ -9,7 +9,7 @@ const Login = () => {
     email: "",
     password: ""
   });
-  const [authenticate] = useMutation(GET_LOGIN);
+  const [authenticate, { loading }] = useMutation(GET_LOGIN);
   const handleLoginData = (e) => {
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
@@ -75,7 +75,7 @@ const Login = () => {
               </p>
               <div className="signup-forms-btns flex flex-col w-full mt-7">
                 <button type="submit" className="cursor-pointer">
-                  Continue
+                  {loading ? <span class="loader"></span> : "Continue"}
                 </button>
                 <button className="mt-3">Continue with Google</button>
               </div>

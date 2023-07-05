@@ -19,11 +19,14 @@ import { CgOptions } from "react-icons/cg";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { SEARCH_ARTICLE, SEARCH_ITEM } from "../../utils/graphql/mutations";
 import Posts from "../../components/Posts/Posts";
+import Loader2 from "../../components/Loader2/Loader2";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const { loading, error, data } = useQuery(GET_DISHES);
-  const [getSearchItems] = useMutation(SEARCH_ITEM);
-  const [getSearchArticles] = useMutation(SEARCH_ARTICLE);
+  const [getSearchItems, { loading: itemLoading }] = useMutation(SEARCH_ITEM);
+  const [getSearchArticles, { loading: articleLoading }] =
+    useMutation(SEARCH_ARTICLE);
   const [pos, setPos] = useState(false);
   const [pos2, setPos2] = useState(false);
   const [info, setInfo] = useState({});
@@ -32,7 +35,7 @@ const Dashboard = () => {
   const [rightbarView, setRightbarView] = useState(false);
   const [searchResults, setSearchResults] = useState(null);
   const [searchArticles, setSearchArticles] = useState(null);
-  const [searchBar, setSearchBar] = useState(false); // [1
+  const [searchBar, setSearchBar] = useState(false);
   const [search, setSearch] = useState("");
 
   const searchChangeHandler = async (e) => {
@@ -105,35 +108,44 @@ const Dashboard = () => {
               className="search-results-container my-5 p-5"
               style={{ display: search ? "block" : "none" }}
             >
-              <div className="search-result-contents ">
-                {searchResults?.searchItem.code === 200 && <h3>Top dishes</h3>}
-                <div className="search-results-dishes overflow-auto mt-5">
-                  {searchResults?.searchItem?.searchResult?.map(
-                    (item, index) => {
-                      return (
-                        <Dish
-                          props={item}
-                          key={index}
-                          click={() => {
-                            setInfo(item);
-                            setPos(!pos);
-                          }}
-                        />
-                      );
-                    }
+              {itemLoading || articleLoading ? (
+                <Loader2 />
+              ) : (
+                <div className="search-result-contents ">
+                  {searchResults?.searchItem?.code === 200 && (
+                    <div className="search-results-dishes overflow-auto ">
+                      <h3>Top dishes</h3>
+                      <div className="search-results-dishes-container mt-5 flex"></div>
+                      {searchResults?.searchItem?.searchResult?.map(
+                        (item, index) => {
+                          return (
+                            <Dish
+                              props={item}
+                              key={index}
+                              click={() => {
+                                setInfo(item);
+                                setPos(!pos);
+                              }}
+                            />
+                          );
+                        }
+                      )}
+                    </div>
+                  )}
+                  {searchArticles?.searchArticle?.code === 200 && (
+                    <div className="search-results-articles mt-5">
+                      <h3 className="">Top articles</h3>
+                      <div className="search-results-articles-container mt-5">
+                        {searchArticles?.searchArticle?.searchResult?.map(
+                          (item, index) => {
+                            return <Posts props={item} key={index} />;
+                          }
+                        )}
+                      </div>
+                    </div>
                   )}
                 </div>
-                {searchArticles?.searchArticle.code === 200 && (
-                  <h3 className="mt-5">Top articles</h3>
-                )}
-                <div className="search-results-articles mt-5">
-                  {searchArticles?.searchArticle?.searchResult?.map(
-                    (item, index) => {
-                      return <Posts props={item} key={index} />;
-                    }
-                  )}
-                </div>
-              </div>
+              )}
             </div>
             <div className="ad1 w-full mt-10 p-5 relative">
               <h3>Add your own recipe</h3>
@@ -145,11 +157,13 @@ const Dashboard = () => {
             </div>
             <div className="favorites">
               <div className="flex justify-between items-center mt-10">
-                <h3 className="">Your Favorites</h3>
-                <p className="flex items-center gap-3 view">
-                  View all
-                  <AiOutlineArrowRight />
-                </p>
+                <h3 className="">Our dishes</h3>
+                <Link to="/all-dishes">
+                  <p className="flex items-center gap-3 view">
+                    View all
+                    <AiOutlineArrowRight />
+                  </p>
+                </Link>
               </div>
               <div className="fav-container overflow-x-auto mt-10">
                 <div className="fav flex">

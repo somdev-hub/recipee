@@ -221,6 +221,7 @@ export const SEARCH_ARTICLE = gql`
       success
       message
       searchResult {
+        id
         title
         description
         author

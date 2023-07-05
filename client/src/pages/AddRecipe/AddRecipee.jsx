@@ -27,8 +27,8 @@ const AddRecipee = () => {
     price: "",
     dishDescription: ""
   });
-  const [addRecipee] = useMutation(ADD_RECIPEE);
-  const [addDish] = useMutation(ADD_DISH);
+  const [addRecipee, { loading: recipeeLoading }] = useMutation(ADD_RECIPEE);
+  const [addDish, { loading: dishLoading }] = useMutation(ADD_DISH);
 
   const handleAddNutrient = () => {
     setRecipeeData({
@@ -130,6 +130,11 @@ const AddRecipee = () => {
           }
         });
         console.log(response);
+        if (response.data.addDish.code === 200) {
+          alert(response.data.addDish.message);
+        } else {
+          alert(response.data.addDish.message);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -330,7 +335,11 @@ const AddRecipee = () => {
                 <div className="add-recipee-buttons mt-10 flex gap-5 justify-end">
                   <button>Clear</button>
                   <button type="submit" disabled={!compliance}>
-                    Submit
+                    {recipeeLoading || dishLoading ? (
+                      <span class="loader"></span>
+                    ) : (
+                      "Submit"
+                    )}
                   </button>
                 </div>
               </form>

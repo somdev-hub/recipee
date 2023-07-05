@@ -118,3 +118,23 @@ export const GET_POST = gql`
     }
   }
 `;
+
+export const GET_VEG_DISHES = gql`
+  query GetDishesByVeg($nonveg: Boolean!) {
+    getDishesByVeg(nonveg: $nonveg) {
+      id
+      name
+      price
+      image
+      dishDescription
+      category
+      weight
+      nutrients {
+        name
+        quantity
+      }
+      tags
+      nonveg
+    }
+  }
+`;

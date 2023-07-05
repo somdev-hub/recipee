@@ -11,6 +11,8 @@ const typeDefs = gql`
     getProfile(email: String!): Profile!
     getPostList: [Posts]
     getPost(id: ID!): Posts
+    getDishesByCategory(category: String!): [Dishes]
+    getDishesByVeg(nonveg: Boolean!): [Dishes]
   }
 
   type Mutation {

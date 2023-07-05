@@ -64,7 +64,9 @@ const SignUpForm2 = (props) => {
             </Link>
           </p>
           <div className="signup-forms-btns flex flex-col w-full mt-7">
-            <button type="submit">Continue</button>
+            <button type="submit">
+              {props.loading ? <span class="loader"></span> : "Sign up"}
+            </button>
             <button className="mt-3">Continue with Google</button>
           </div>
         </form>
