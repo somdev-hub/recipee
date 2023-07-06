@@ -3,8 +3,12 @@
   width: 15%;
 }
 
-.sidebar-logo {
+/* .sidebar-logo {
   width: 12rem;
+} */
+
+.sidebar-logo img{
+  width: 80%;
 }
 
 .sidebar-options {

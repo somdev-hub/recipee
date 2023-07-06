@@ -20,6 +20,25 @@ export const GET_DISHES = gql`
   }
 `;
 
+export const GET_RECIPEES = gql`
+  query GetRecipees {
+    recipees {
+      id
+      author
+      name
+      image
+      category
+      description
+      tags
+      ingredients
+      nutrients {
+        name
+        quantity
+      }
+    }
+  }
+`;
+
 export const GET_BASKET = gql`
   query Query($user: String!) {
     basket(user: $user) {
@@ -57,6 +76,23 @@ export const GET_FAVORITE_DISHES = gql`
         weight
         likes
       }
+    }
+  }
+`;
+
+export const GET_PROFILE = gql`
+  query GetProfile($email: String!) {
+    getProfile(email: $email) {
+      id
+      firstName
+      lastName
+      email
+      password
+      phone
+      image
+      address
+      city
+      pin
     }
   }
 `;
@@ -135,6 +171,59 @@ export const GET_VEG_DISHES = gql`
       }
       tags
       nonveg
+    }
+  }
+`;
+
+export const GET_DISHES_BY_SELLERID = gql`
+  query GetDishesBySellerId($sellerId: String!) {
+    getDishesBySellerId(sellerId: $sellerId) {
+      id
+      name
+      price
+      sellerId
+      image
+      dishDescription
+      category
+      weight
+      nutrients {
+        name
+        quantity
+      }
+      tags
+      nonveg
+    }
+  }
+`;
+
+export const GET_RECIPEES_BY_AUTHOR = gql`
+  query GetRecipeesByAuthor($author: String!) {
+    getRecipeesByAuthor(author: $author) {
+      id
+      author
+      name
+      image
+      category
+      description
+      tags
+      ingredients
+      nutrients {
+        name
+        quantity
+      }
+    }
+  }
+`;
+
+export const GET_POSTS_BY_AUTHORMAIL = gql`
+  query GetPostByAuthorMail($authorMail: String!) {
+    getPostByAuthorMail(authorMail: $authorMail) {
+      title
+      image
+      description
+      author
+      authorMail
+      length
     }
   }
 `;

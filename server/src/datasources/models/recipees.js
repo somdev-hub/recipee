@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 export const Recipees = mongoose.model("recipees", {
   name: String,
   author: String,
+  authorId: String,
   image: String,
   description: String,
   ingredients: [String],

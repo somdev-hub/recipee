@@ -64,10 +64,10 @@ const Sidebar = ({ blur, sidebarView }) => {
       style={{ left: screenWidth < 640 ? (sidebarView ? "0" : "-100%") : "" }}
     >
       {/* <h1>Recipee</h1> */}
-      <div className="sidebar-logo flex justify-center items-center">
-        <img src={logo} alt="" className="mt-5 mx-auto" />
+      <div className="sidebar-logo flex justify-center my-5 mx-auto w-full items-center">
+        <img src={logo} alt="" className="" />
       </div>
-      <div className="sidebar-options mt-12">
+      <div className="sidebar-options mt-10">
         <ul>
           {sideOptions.map((item, index) => {
             return (

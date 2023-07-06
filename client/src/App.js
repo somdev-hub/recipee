@@ -14,6 +14,7 @@ import jwt_decode from "jwt-decode";
 import AddRecipee from "./pages/AddRecipe/AddRecipee";
 import Article from "./pages/Article/Article";
 import AllDishes from "./pages/AllDishes/AllDishes";
+import Profile from "./pages/Profile/Profile";
 
 const client = new ApolloClient({
   // https://recipee-server.onrender.com
@@ -53,6 +54,7 @@ function App() {
         {token && <Route path="/settings" element={<Settings />} />}
         {token && <Route path="/add-recipee" element={<AddRecipee />} />}
         {token && <Route path="/all-dishes" element={<AllDishes />} />}
+        {token && <Route path="/profile" element={<Profile />} />}
         {token && (
           <Route path="/community/article/:articleId" element={<Article />} />
         )}

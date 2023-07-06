@@ -9,8 +9,9 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { recipe } from "../../utils/providers/recipe";
 import RecipeCard from "../RecipeCard/RecipeCard";
 // import { GET_PROFILE_HEAD } from "../../utils/graphql/mutations";
-import { GET_PROFILE_HEAD } from "../../utils/graphql/queries";
+import { GET_PROFILE_HEAD, GET_RECIPEES } from "../../utils/graphql/queries";
 import { useQuery } from "@apollo/client";
+import { Link } from "react-router-dom";
 
 Chart.register(CategoryScale);
 
@@ -20,6 +21,7 @@ const RightBar = (props) => {
       email: localStorage.getItem("email")
     }
   });
+  const { loading: recipeeLoading, data: recipeeData } = useQuery(GET_RECIPEES);
   // const { loading, error, data1 } = useQuery(GET_DISHES);
   // console.log(data1);
   const [popup, setPopup] = useState(false);
@@ -49,7 +51,9 @@ const RightBar = (props) => {
     <div
       className="rightbar flex h-screen flex-col fixed right-0 transition-all"
       style={
-        screenWidth < 640 ? { right: props.rightbarView ? "0" : "-100%" } : {right: "0"}
+        screenWidth < 640
+          ? { right: props.rightbarView ? "0" : "-100%" }
+          : { right: "0" }
       }
     >
       <div className="profile-icon flex mt-5 justify-end">
@@ -82,7 +86,9 @@ const RightBar = (props) => {
               </div>
             </div>
             <div className="profile-pop-up-buttons flex justify-between">
-              <button>Profile</button>
+              <Link to="/profile">
+                <button>Profile</button>
+              </Link>
               <button onClick={logOut}>Log Out</button>
             </div>
           </div>
@@ -106,8 +112,8 @@ const RightBar = (props) => {
         </div>
         <div className="recipe-container mt-5 ml-5 overflow-x-auto">
           <div className="recipies flex">
-            {recipe.map((item, index) => {
-              return <RecipeCard img={item.img} name={item.name} key={index} />;
+            {recipeeData?.recipees.slice(0, 4).map((item, index) => {
+              return <RecipeCard props={item} key={index} />;
             })}
           </div>
         </div>

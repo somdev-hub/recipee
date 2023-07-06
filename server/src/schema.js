@@ -13,6 +13,9 @@ const typeDefs = gql`
     getPost(id: ID!): Posts
     getDishesByCategory(category: String!): [Dishes]
     getDishesByVeg(nonveg: Boolean!): [Dishes]
+    getDishesBySellerId(sellerId: String!): [Dishes]
+    getRecipeesByAuthor(author: String!): [Recipees]
+    getPostByAuthorMail(authorMail: String!): [Posts]
   }
 
   type Mutation {
@@ -121,6 +124,7 @@ const typeDefs = gql`
     id: ID!
     name: String
     price: String
+    sellerId: String!
     image: String
     dishDescription: String
     category: String
@@ -132,6 +136,7 @@ const typeDefs = gql`
 
   input DishInput {
     name: String!
+    sellerId: String!
     price: String!
     image: String!
     dishDescription: String!
@@ -158,10 +163,10 @@ const typeDefs = gql`
 
   type Recipees {
     id: ID!
-    author: String!
+    author: String
     name: String!
     image: String!
-    category: String!
+    category: String
     description: String!
     tags: [String]
     ingredients: [String]
@@ -169,10 +174,10 @@ const typeDefs = gql`
   }
 
   input RecipeeInput {
-    author: String!
+    author: String
     name: String!
     image: String!
-    category: String!
+    category: String
     description: String!
     tags: [String]
     ingredients: [String]

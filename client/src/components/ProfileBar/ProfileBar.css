@@ -1,0 +1,11 @@
+.profile-bar {
+    width: 26%;
+    background-color: var(--dark-gray);
+    right: 0;
+}
+
+@media (max-width: 640px) {
+    .profile-bar {
+        width: 75%;
+    }
+}

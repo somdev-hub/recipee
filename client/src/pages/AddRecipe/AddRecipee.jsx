@@ -97,6 +97,7 @@ const AddRecipee = () => {
           recipee: {
             name,
             author,
+
             category,
             description,
             ingredients,
@@ -119,6 +120,7 @@ const AddRecipee = () => {
             dish: {
               name,
               price,
+              sellerId: author,
               image: base64,
               dishDescription,
               weight,

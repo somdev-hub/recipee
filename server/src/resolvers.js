@@ -47,6 +47,15 @@ export const resolvers = {
     },
     getDishesByVeg: async (parent, { nonveg }, context, info) => {
       return await Dishes.find({ nonveg: nonveg });
+    },
+    getDishesBySellerId: async (parent, { sellerId }, context, info) => {
+      return await Dishes.find({ sellerId });
+    },
+    getRecipeesByAuthor: async (parent, { author }, context, info) => {
+      return await Recipees.find({ author });
+    },
+    getPostByAuthorMail: async (parent, { authorMail }, context, info) => {
+      return await Posts.find({ authorMail });
     }
   },
 

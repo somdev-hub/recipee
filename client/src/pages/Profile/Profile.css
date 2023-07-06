@@ -1,0 +1,75 @@
+.profile-main {
+    margin-left: 17%;
+    width: 55%;
+}
+
+.profile-background {
+    height: 15rem;
+}
+
+.profile-background img {
+    border-radius: 20px;
+}
+
+.profile-head {
+    border-bottom: 1px solid var(--yellow);
+}
+
+.active {
+    color: var(--yellow);
+}
+
+.collection-bar ul li {
+    cursor: pointer;
+}
+
+.profile-picture {
+    /* top: 65%;
+    left: 3%; */
+    top: 30%;
+    left: 3%;
+    width: 10rem;
+    height: 10rem;
+    border: 2px solid var(--yellow);
+}
+
+.profile-name p {
+    color: var(--text-gray);
+}
+
+.info1 {
+    background-color: var(--dark-blue);
+    border-radius: 20px;
+}
+
+.add-more button {
+    height: 2rem;
+    width: 10rem;
+    border: 2px solid var(--yellow);
+    border-radius: 20px;
+    color: var(--yellow);
+}
+
+@media (max-width: 640px) {
+    .profile-main {
+        width: 100%;
+        margin-left: 0;
+        padding: 5%;
+    }
+
+    .profile-background {
+        height: 12rem;
+    }
+
+    .profile-picture {
+        width: 7rem;
+        height: 7rem;
+        top: 20%;
+        left: 5%;
+    }
+    .collection-bar ul li {
+        margin-bottom: 5%;
+        padding-bottom: 5%;
+        border-bottom: 1px solid var(--yellow);
+    }
+}
