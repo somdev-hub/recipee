@@ -1,4 +1,12 @@
-.all-dishes-main{
+.all-dishes-main {
     margin-left: 17%;
-    
+    width: 56%;
+}
+
+@media (max-width: 640px) {
+    .all-dishes-main {
+        margin-left: 0;
+        width: 100%;
+        padding: 5%;
+    }
 }

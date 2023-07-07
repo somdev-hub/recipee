@@ -218,12 +218,72 @@ export const GET_RECIPEES_BY_AUTHOR = gql`
 export const GET_POSTS_BY_AUTHORMAIL = gql`
   query GetPostByAuthorMail($authorMail: String!) {
     getPostByAuthorMail(authorMail: $authorMail) {
+      id
       title
       image
       description
       author
       authorMail
       length
+    }
+  }
+`;
+
+export const GET_DISHES_BY_CATEGORY = gql`
+  query GetDishesByCategory($category: String!) {
+    getDishesByCategory(category: $category) {
+      id
+      name
+      price
+      sellerId
+      image
+      dishDescription
+      category
+      weight
+      nutrients {
+        name
+        quantity
+      }
+      tags
+      nonveg
+    }
+  }
+`;
+
+export const GET_RECIPEES_BY_CATEGORY = gql`
+  query GetRecipeesByCategory($category: String!) {
+    getRecipeesByCategory(category: $category) {
+      id
+      author
+      name
+      image
+      category
+      description
+      tags
+      ingredients
+      nutrients {
+        name
+        quantity
+      }
+    }
+  }
+`;
+
+export const GET_RECIPEES_BY_VEG = gql`
+  query GetRecipeesByVeg($nonveg: Boolean!) {
+    getRecipeesByVeg(nonveg: $nonveg) {
+      id
+      author
+      name
+      image
+      category
+      description
+      tags
+      ingredients
+      nutrients {
+        name
+        quantity
+      }
     }
   }
 `;

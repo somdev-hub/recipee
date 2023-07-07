@@ -10,7 +10,11 @@ const RecipeCard = ({ props }) => {
         <img src={props.image} alt="" className="w-full h-full rounded-lg" />
       </div>
       <div className="recipe-name flex flex-col justify-center items-center mt-5">
-        <h3 className="text-white mb-5 text-lg font-medium">{props.name}</h3>
+        <h3 className="text-white mb-5 text-lg font-medium">
+          {props.name.length > 14
+            ? props.name.slice(0, 14) + "..."
+            : props.name}
+        </h3>
         <div className="see-more flex gap-3 items-center">
           <p>See more</p>
           <AiOutlineArrowRight />

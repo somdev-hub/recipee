@@ -104,11 +104,13 @@ const RightBar = (props) => {
       </div>
       <div className="more-recipies">
         <div className="flex justify-between ml-5 mt-7">
-          <h3 className="text-white">More recipies</h3>
-          <p className="flex items-center gap-3 view mr-3">
-            View all
-            <AiOutlineArrowRight />
-          </p>
+          <h3 className="text-white">More recipees</h3>
+          <Link to="/all-recipees">
+            <p className="flex items-center gap-3 view mr-3">
+              View all
+              <AiOutlineArrowRight />
+            </p>
+          </Link>
         </div>
         <div className="recipe-container mt-5 ml-5 overflow-x-auto">
           <div className="recipies flex">

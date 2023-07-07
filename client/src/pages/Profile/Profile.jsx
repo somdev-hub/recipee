@@ -147,16 +147,18 @@ const Profile = () => {
                     className="mobile-options flex justify-between mb-5"
                     onClick={() => setMobileOptions(!mobileOptions)}
                   >
-                    <h3>Options</h3>
+                    <h3 className="font-semibold">Options</h3>
                     <BiDownArrow className="text-xl" />
                   </div>
                 )}
                 <ul
                   className="flex sm:flex-row flex-col justify-between"
                   style={
-                    window.innerWidth < 640 && {
-                      display: mobileOptions ? "flex" : "none"
-                    }
+                    window.innerWidth < 640
+                      ? {
+                          display: mobileOptions ? "flex" : "none"
+                        }
+                      : { display: "flex" }
                   }
                 >
                   <li
@@ -198,7 +200,7 @@ const Profile = () => {
               ) : (
                 <div
                   className=""
-                  style={{ display: !collection.dishes && "none" }}
+                  style={{ display: !collection.dishes ? "none" : "block" }}
                 >
                   <div className="dish-collection sm:flex mt-10 grid grid-cols-2 gap-5">
                     {dishes?.getDishesBySellerId.map((item, index) => {
@@ -219,7 +221,7 @@ const Profile = () => {
               ) : (
                 <div
                   className=""
-                  style={{ display: !collection.recipees && "none" }}
+                  style={{ display: !collection.recipees ? "none" : "block" }}
                 >
                   <div className="recipee-collection sm:flex mt-10 grid grid-cols-2 gap-5">
                     {recipees?.getRecipeesByAuthor.map((item, index) => {
@@ -240,7 +242,7 @@ const Profile = () => {
               ) : (
                 <div
                   className=""
-                  style={{ display: !collection.articles && "none" }}
+                  style={{ display: !collection.articles ? "none" : "block" }}
                 >
                   <div className="articles-collection mt-10">
                     {posts?.getPostByAuthorMail.map((item, index) => {

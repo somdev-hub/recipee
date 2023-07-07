@@ -1,9 +1,13 @@
 import React from "react";
 import "./Loader.css";
 
-const Loader = () => {
+const Loader = (props) => {
   return (
-    <div className="h-screen w-screen absolute flex justify-center items-center -z-10">
+    <div
+      className={`h-screen w-screen ${
+        props.position === "no-pos" ? "static" : "absolute"
+      } flex justify-center items-center z-[2]`}
+    >
       <div class="lds-ring ">
         <div></div>
         <div></div>

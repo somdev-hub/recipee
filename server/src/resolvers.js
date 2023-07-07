@@ -43,7 +43,8 @@ export const resolvers = {
       return await Posts.findOne({ _id: id });
     },
     getDishesByCategory: async (parent, { category }, context, info) => {
-      return await Dishes.find({ category: category });
+      const regex = new RegExp(category, "i");
+      return await Dishes.find({ category: regex });
     },
     getDishesByVeg: async (parent, { nonveg }, context, info) => {
       return await Dishes.find({ nonveg: nonveg });
@@ -56,6 +57,13 @@ export const resolvers = {
     },
     getPostByAuthorMail: async (parent, { authorMail }, context, info) => {
       return await Posts.find({ authorMail });
+    },
+    getRecipeesByCategory: async (parent, { category }, context, info) => {
+      const regex = new RegExp(category, "i");
+      return await Recipees.find({ category: regex });
+    },
+    getRecipeesByVeg: async (parent, { nonveg }, context, info) => {
+      return await Recipees.find({ nonveg: nonveg });
     }
   },
 

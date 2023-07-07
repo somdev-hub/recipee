@@ -1,0 +1,11 @@
+.dish-filter {
+    width: 26%;
+    right: 0;
+    background-color: var(--dark-gray);
+}
+
+@media (max-width: 640px) {
+    .dish-filter {
+        width: 75%;
+    }
+}

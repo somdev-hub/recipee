@@ -14,10 +14,10 @@ const Dishes = mongoose.model("Dishes", {
   dishDescription: String,
   category: String,
   weight: String,
-  nutrients: [{ name: String, value: String }],
+  nutrients: [{ name: String, quantity: String }],
   tags: [String],
   nonveg: Boolean
 });
 
 // module.exports = { Dishes, Nutrients, Recipees };
-export { Dishes, Nutrients};
+export { Dishes, Nutrients };

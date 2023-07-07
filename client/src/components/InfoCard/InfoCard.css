@@ -5,19 +5,6 @@
   transition: 0.3s linear;
 }
 
-.infocard nav {
-  width: 90%;
-}
-
-.info-img {
-  height: 30%;
-  width: 100%;
-}
-
-.info-img img {
-  width: 35%;
-}
-
 .info-title p {
   color: var(--text-gray);
 }
@@ -34,20 +21,34 @@
   border-radius: 10px;
 }
 
+.info-add {
+  width: 40vw;
+  bottom: 0;
+  padding: 15px;
+  background-color: var(--dark-gray);
+}
+
 .info-add button {
-  width: 55%;
+  /* width: 55%; */
   height: 3rem;
   background-color: var(--yellow);
   border-radius: 16px;
   color: var(--white);
 }
 
-.quantity-button {
-  width: 30%;
+.basket-button {
+  width: 55%;
+}
+
+.like-button {
+  width: 4rem;
+  background-color: var(--yellow);
+  color: var(--white);
+  border-radius: 16px;
 }
 
 .quantity-button button {
-  width: 35%;
+  width: 4rem;
   background-color: var(--yellow);
   color: var(--white);
   border-radius: 16px;
@@ -67,7 +68,15 @@
   height: 15rem;
   background-color: var(--dark-blue);
   border-radius: 20px;
-  top: 8%;
+  /* top: 8%; */
+}
+
+.nutrients-container {
+  border-bottom: 1px solid var(--white);
+}
+
+.nutrients-content ul li {
+  border-bottom: 1px solid var(--yellow);
 }
 
 .loader {
@@ -94,5 +103,19 @@
   .infocard {
     width: 100%;
     border-radius: 30px;
+  }
+  .info-add {
+    width: 100%;
+    bottom: inherit;
+  }
+  .basket-button{
+    width: 40%;
+  }
+  .info-add button {
+    height: 2.5rem;
+  }
+  .quantity-button button,
+  .like-button {
+    width: 3rem;
   }
 }

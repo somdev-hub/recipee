@@ -61,7 +61,7 @@ const Dashboard = () => {
     <div className="dashboard flex relative sm:overflow-hidden">
       <Sidebar blur={pos || pos2} sidebarView={sidebarView} />
       {loading ? (
-        <Loader />
+        <Loader position={"no-pos"} />
       ) : (
         <div
           className={`main-content mt-5 ${

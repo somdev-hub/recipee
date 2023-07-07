@@ -16,6 +16,8 @@ const typeDefs = gql`
     getDishesBySellerId(sellerId: String!): [Dishes]
     getRecipeesByAuthor(author: String!): [Recipees]
     getPostByAuthorMail(authorMail: String!): [Posts]
+    getRecipeesByCategory(category: String!): [Recipees]
+    getRecipeesByVeg(nonveg: Boolean!): [Recipees]
   }
 
   type Mutation {

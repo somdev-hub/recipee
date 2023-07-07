@@ -1,19 +1,19 @@
 import React from "react";
-import "./ProfileBar.css";
+import "./DishFilter.css";
 
-const ProfileBar = (props) => {
+const DishFilter = (props) => {
   return (
     <div
-      className="profile-bar h-screen fixed p-5 text-white transition-all"
+      className="dish-filter p-5 h-screen fixed text-white"
       style={
         window.innerWidth < 640
           ? { right: props.rightbarView ? "0" : "-100%" }
           : { right: "0" }
       }
     >
-      <h3>Recent orders</h3>
+      <h3>Filter</h3>
     </div>
   );
 };
 
-export default ProfileBar;
+export default DishFilter;
