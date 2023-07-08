@@ -7,6 +7,7 @@ import { useMutation } from "@apollo/client";
 import { ADD_DISH, ADD_RECIPEE } from "../../utils/graphql/mutations";
 import confetti from "../../utils/confetti.svg";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
+import { convertToBase64 } from "../../utils/base64";
 
 const AddRecipee = () => {
   const [nonveg, setNonVeg] = useState(false);
@@ -58,19 +59,6 @@ const AddRecipee = () => {
     }
 
     setRecipeeData({ ...recipeeData, [e.target.name]: e.target.value });
-  };
-
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
   };
 
   const handleRecipeeSubmit = async (e) => {

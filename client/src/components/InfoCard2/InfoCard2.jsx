@@ -103,7 +103,7 @@ const InfoCard2 = ({ props, pos2, onClick }) => {
               })}
           </div>
         </div>
-        <div className="info-add w-full flex justify-start items-center mt-10">
+        <div className="info-add w-full flex justify-start fixed items-center mt-10">
           <div className="quantity-button flex items-center">
             <button
               onClick={() => quantity > 1 && setQuantity((prev) => prev - 1)}

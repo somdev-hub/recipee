@@ -1,0 +1,87 @@
+.add-category-main {
+    margin-left: 17%;
+}
+
+.add-category-container {
+    width: 95%;
+}
+
+.add-category-head input {
+    height: 3.5rem;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    width: 100%;
+}
+
+.type-ingredients select {
+    width: 30%;
+    height: 3.5rem;
+    background: none;
+    border-radius: 10px;
+    border: 2px solid var(--yellow);
+    padding-left: 1rem;
+}
+
+.type-ingredients select option {
+    background: var(--dark-blue);
+    color: var(--white);
+}
+
+.add-category-form input {
+    background: none;
+    border: 2px solid var(--yellow);
+    border-radius: 10px;
+    color: var(--white);
+}
+
+.add-category-form textarea {
+    background: none;
+    border: 2px solid var(--yellow);
+    border-radius: 10px;
+    color: var(--white);
+    height: 10rem;
+    padding-left: 1rem;
+}
+
+.category-dishes-container input {
+    width: 30%;
+    height: 3.5rem;
+    padding-left: 1rem;
+}
+
+.category-dish-price {
+    border: 2px solid var(--yellow);
+    border-radius: 10px;
+    height: 3.5rem;
+}
+
+.category-dish-price input {
+    /* background: none; */
+    border: none;
+    color: var(--white);
+    width: 80%;
+}
+
+.rupees {
+    width: 20%;
+    border-radius: inherit;
+    background-color: var(--dark-gray);
+}
+
+.category-dish-upload {
+    height: 3.5rem;
+    width: 30%;
+    border: 2px dashed var(--yellow);
+    border-radius: 10px;
+}
+
+.category-dish-upload input {
+    display: none;
+}
+
+.category-dish-upload p label {
+    background-color: var(--yellow);
+    height: 25px;
+    width: 110px;
+    border-radius: 5px;
+}

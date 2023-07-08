@@ -60,11 +60,15 @@ const InfoCard = ({ props, pos, posMini, onClick }) => {
       <div className="px-5 pb-5">
         <div className="info-title flex justify-between items-center mt-5">
           <div className="dish-title-head">
-            <h2 className="text-white text-2xl font-semibold">{props.name}</h2>
+            <h2 className="text-white sm:text-2xl text-xl font-semibold">
+              {props.name}
+            </h2>
             <p className="mt-2">{props.weight} gm</p>
           </div>
           <div className="price-container flex items-center justify-center">
-            <h2 className="text-xl price">Rs. {props.price}/-</h2>
+            <h2 className="sm:text-xl text-base price p-3">
+              Rs. {props.price}/-
+            </h2>
           </div>
         </div>
         <div

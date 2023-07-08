@@ -10,10 +10,10 @@ export const GET_DISHES = gql`
       dishDescription
       category
       weight
-      # nutrients {
-      #   name
-      #   quantity
-      # }
+      nutrients {
+        name
+        quantity
+      }
       tags
       nonveg
     }
@@ -51,10 +51,10 @@ export const GET_BASKET = gql`
         dishDescription
         category
         weight
-        # nutrients {
-        #   name
-        #   quantity
-        # }
+        nutrients {
+          name
+          quantity
+        }
         tags
         nonveg
       }

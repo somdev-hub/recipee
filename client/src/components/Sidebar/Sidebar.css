@@ -1,6 +1,7 @@
 .sidebar {
   background-color: var(--dark-gray);
   width: 15%;
+  /* height: 100dvh; */
 }
 
 /* .sidebar-logo {
@@ -75,6 +76,7 @@
     width: auto;
     z-index: 1;
     left: -50%;
+    /* height: 100lvh; */
   }
   .share-now {
     height: 11rem;
