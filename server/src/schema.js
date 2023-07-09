@@ -33,6 +33,14 @@ const typeDefs = gql`
     addComment(comment: CommentsInput!, postId: ID!): AddCommentResponse!
     searchItem(search: String!): searchItemResponse!
     searchArticle(search: String!): searchArticleResponse!
+    addCategory(category: CategoryInput!): AddCategoryResponse!
+  }
+
+  type AddCategoryResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    category: [Category]
   }
 
   type searchArticleResponse {
@@ -154,15 +162,6 @@ const typeDefs = gql`
     quantity: String
   }
 
-  type Categories {
-    id: ID!
-    name: String!
-    image: String!
-    description: String!
-    tags: [String]
-    dishes: [Dishes]
-  }
-
   type Recipees {
     id: ID!
     author: String
@@ -185,6 +184,49 @@ const typeDefs = gql`
     ingredients: [String]
     nutrients: [NutrientsInput]
     nonveg: Boolean!
+  }
+
+  type CategoryDish {
+    name: String!
+    image: String!
+    price: String!
+  }
+
+  type Category {
+    id: ID!
+    name: String!
+    image: String!
+    ingredients: [String]
+    description: String!
+    tags: [String]
+    dishes: [CategoryDish]
+    nutrients: [Nutrients]
+    sellerId: String!
+    category: String!
+    weight: String!
+    isNonVeg: Boolean!
+    price: String!
+  }
+
+  input CategoryInput {
+    name: String!
+    image: String!
+    description: String!
+    tags: [String]
+    ingredients: [String]
+    nutrients: [NutrientsInput]
+    sellerId: String!
+    category: String!
+    weight: String!
+    isNonVeg: Boolean!
+    price: String!
+    dishes: [CategoryDishInput]
+  }
+
+  input CategoryDishInput {
+    name: String!
+    image: String!
+    price: String!
   }
 
   input NutrientsInput {

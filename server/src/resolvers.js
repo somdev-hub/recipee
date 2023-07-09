@@ -12,6 +12,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { Recipees } from "./datasources/models/recipees.js";
 import { Posts } from "./datasources/models/posts.js";
+import Category from "./datasources/models/category.js";
 
 export const resolvers = {
   Upload: GraphQLUpload,
@@ -389,6 +390,52 @@ export const resolvers = {
           searchResult: searchResult
         };
       } catch (error) {
+        return {
+          code: 500,
+          success: false,
+          message: error
+        };
+      }
+    },
+    addCategory: async (parent, args, context, info) => {
+      const {
+        name,
+        image,
+        category,
+        description,
+        sellerId,
+        price,
+        weight,
+        nutrients,
+        isNonVeg,
+        dishes,
+        ingredients,
+        tags
+      } = args.category;
+      console.log(args.category);
+      const new_category = new Category({
+        name,
+        image,
+        category,
+        description,
+        sellerId,
+        price,
+        weight,
+        nutrients,
+        isNonVeg,
+        dishes,
+        ingredients,
+        tags
+      });
+      try {
+        await new_category.save();
+        return {
+          code: 200,
+          success: true,
+          message: "Category added",
+          category: await Category.find()
+        };
+      } catch {
         return {
           code: 500,
           success: false,

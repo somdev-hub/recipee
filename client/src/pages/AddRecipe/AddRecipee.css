@@ -111,7 +111,9 @@
   .add-recipee-form textarea {
     font-size: 14px;
   }
-  .add-recipee-head input {
+  .add-recipee-head input,
+  .recipee-nutrients input,
+  .add-recipee-order input {
     height: 3rem;
   }
   .type-ingredients input:nth-child(1) {

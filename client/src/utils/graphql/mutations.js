@@ -232,3 +232,13 @@ export const SEARCH_ARTICLE = gql`
     }
   }
 `;
+
+export const ADD_CATEGORY = gql`
+  mutation Mutation($category: CategoryInput!) {
+    addCategory(category: $category) {
+      code
+      success
+      message
+    }
+  }
+`;
