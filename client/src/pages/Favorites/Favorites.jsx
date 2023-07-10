@@ -34,7 +34,7 @@ const Favorites = () => {
                 <div className="">
                   <h3 className="text-white">Food items</h3>
                   <div className="fav-container overflow-x-auto mt-10">
-                    <div className="fav flex">
+                    <div className="fav-content flex">
                       <Dish props={item.dish} />
                     </div>
                   </div>

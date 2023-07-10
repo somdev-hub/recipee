@@ -9,7 +9,7 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { ADD_BASKET, SET_FAVORITES } from "../../utils/graphql/mutations";
 import { useMutation } from "@apollo/client";
 
-const InfoCard2 = ({ props, pos2, onClick }) => {
+const InfoCard2 = ({ props, pos2, onClick,posMini }) => {
   const [quantity, setQuantity] = useState(1);
   const [nutrientBar, setNutrientBar] = useState(false);
   const [liked, setLiked] = useState(false);
@@ -28,10 +28,11 @@ const InfoCard2 = ({ props, pos2, onClick }) => {
       item: props.id
     }
   });
+  const screenWidth=window.innerWidth;
   return (
     <div
       className="infocard2 h-screen fixed flex flex-col items-center"
-      style={{ right: pos2 }}
+      style={screenWidth > 640 ? { right: pos2 } : { bottom: posMini }}
     >
       <nav className="flex justify-between  mt-5 absolute z-10 w-full px-5">
         <RxCross2
@@ -138,7 +139,7 @@ const InfoCard2 = ({ props, pos2, onClick }) => {
         </div>
       </div>
       <div className="info-add info2-add w-full flex justify-between fixed items-center mt-10">
-        <div className="quantity-button flex items-center">
+        <div className="quantity-button q-buttons2 flex items-center">
           <button
             onClick={() => quantity > 1 && setQuantity((prev) => prev - 1)}
             disabled={quantity === 1}

@@ -224,6 +224,7 @@ const Dashboard = () => {
       />
       <InfoCard2
         pos2={pos2 ? "0" : "-50%"}
+        posMini={pos2 ? "0" : "-110%"}
         props={info2}
         onClick={() => setPos2(false)}
       />

@@ -18,9 +18,12 @@ const CuisineItems = ({ items }) => {
 const Choices = (props) => {
   const [mouseOver, setMouseOver] = React.useState(false);
   return (
-    <div className="choice flex items-center mr-5" onClick={props.click}>
-      <div className="main flex flex-col justify-center items-center pl-2">
-        <div className="category-image relative flex justify-center h-full">
+    <div
+      className="choice flex flex-col sm:flex-row items-center sm:mr-5"
+      onClick={props.click}
+    >
+      <div className="main flex flex-col justify-center items-center sm:pl-2 pt-2 sm:pt-0">
+        <div className="category-image relative flex justify-center h-full w-full">
           <h2
             className="absolute text-white text-3xl text-center font-semibold z-10 bottom-10 transition-all duration-500"
             style={{
@@ -42,7 +45,7 @@ const Choices = (props) => {
         </div>
         {/* <h3 className="text-xl text-center mt-3">{props.item.name}</h3> */}
       </div>
-      <div className="cuisine-content grid grid-cols-3 grid-rows-2  gap-y-5 m-auto py-5">
+      <div className="cuisine-content grid grid-cols-3 grid-rows-2  gap-y-5 sm:m-auto py-5">
         {props.item.dishes.map((items, index) => {
           return <CuisineItems items={items} key={index} />;
         })}

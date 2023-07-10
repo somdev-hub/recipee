@@ -35,3 +35,13 @@
 .choice-item-img img {
   object-fit: cover;
 }
+
+@media (max-width: 640px) {
+  .main {
+    width: 95%;
+    height: 40%;
+  }
+  .cuisine-content {
+    width: 100%;
+  }
+}
