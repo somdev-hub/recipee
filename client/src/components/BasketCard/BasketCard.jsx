@@ -8,6 +8,7 @@ const BasketCard = (props) => {
   const [deleteBasketItem] = useMutation(DELETE_ITEM, {
     variables: { deleteBasketItemId: props.id },
     onCompleted: (data) => {
+      if (data.deleteBasketItem.code === 200) alert("Item Deleted");
       console.log(data);
     }
   });
@@ -29,8 +30,8 @@ const BasketCard = (props) => {
         <div className="item-end">
           <div
             className="item-delete flex items-center sm:mb-3 cursor-pointer"
-            onClick={() => {
-              deleteBasketItem();
+            onClick={async () => {
+              await deleteBasketItem();
               window.location.reload(false);
             }}
           >

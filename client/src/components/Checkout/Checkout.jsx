@@ -27,10 +27,10 @@ const Checkout = ({ items, loading, rightbarView }) => {
             return (
               <div className="flex justify-between mb-5" key={index}>
                 <p className="text-white">
-                  {index}. {item.basketItem.name}
+                  {index + 1}. {item?.dish?.name}
                 </p>
                 <p className="text-white">
-                  {item.quantity} x Rs. {item.basketItem.price}/-
+                  {item?.quantity} x Rs. {item?.dish?.price}/-
                 </p>
               </div>
             );
@@ -41,7 +41,7 @@ const Checkout = ({ items, loading, rightbarView }) => {
           <p className="text-white">
             Rs.{" "}
             {items?.reduce(
-              (prev, next) => prev + next.quantity * next.basketItem.price,
+              (prev, next) => prev + next.quantity * next?.dish?.price,
               0
             )}
             /-

@@ -1,9 +1,6 @@
 import { Dishes, Nutrients } from "./datasources/models/dishes.js";
 import { Basket } from "./datasources/models/basket.js";
-import {
-  favoriteDishes,
-  favoriteRecipee
-} from "./datasources/models/favorites.js";
+import { Favorites } from "./datasources/models/favorites.js";
 import { Profile } from "./datasources/models/profile.js";
 import GraphQLUpload from "graphql-upload/GraphQLUpload.mjs";
 import { createWriteStream } from "fs";
@@ -28,11 +25,60 @@ export const resolvers = {
       return await Recipees.find({});
     },
     basket: async (parent, args, context, info) => {
-      return await Basket.find({ user: args.user });
+      const user = args.user;
+      const BasketData = await Basket.find({ user });
+      const basketItems = BasketData.map(async (item) => {
+        if (item.type === "dish") {
+          return {
+            id: item._id,
+            dish: await Dishes.findOne({ _id: item.basketItem }),
+            quantity: item.quantity
+          };
+        } else if (item.type === "category") {
+          console.log(item.basketItem);
+          return {
+            id: item._id,
+            dish: await Category.findOne({ _id: item.basketItem }),
+            quantity: item.quantity
+          };
+        }
+      });
+      // return await Basket.find({ user: args.user });
+      return basketItems;
     },
-    favoriteDishes: async (parent, args, context, info) => {
-      return await favoriteDishes.find({});
+    getFavorites: async (parent, args, context, info) => {
+      const user = args.user;
+      const FavoritesData = await Favorites.find({ user });
+      const FavoritesItems = FavoritesData.map(async (item) => {
+        if (item.type === "dish") {
+          return {
+            id: item._id,
+            dish: await Dishes.findOne({ _id: item.item }),
+            type: item.type
+          };
+        } else if (item.type === "category") {
+          return {
+            id: item._id,
+            category: await Category.findOne({ _id: item.item }),
+            type: item.type
+          };
+        } else if (item.type === "recipees") {
+          return {
+            id: item._id,
+            recipees: await Recipees.findOne({ _id: item.item }),
+            type: item.type
+          };
+        } else if (item.type === "posts") {
+          return {
+            id: item._id,
+            posts: await Posts.findOne({ _id: item.item }),
+            type: item.type
+          };
+        }
+      });
+      return FavoritesItems;
     },
+
     getProfile: async (parent, { email }, context, info) => {
       const user = await Profile.findOne({ email });
       return user;
@@ -50,6 +96,7 @@ export const resolvers = {
     getDishesByVeg: async (parent, { nonveg }, context, info) => {
       return await Dishes.find({ nonveg: nonveg });
     },
+
     getDishesBySellerId: async (parent, { sellerId }, context, info) => {
       return await Dishes.find({ sellerId });
     },
@@ -65,13 +112,23 @@ export const resolvers = {
     },
     getRecipeesByVeg: async (parent, { nonveg }, context, info) => {
       return await Recipees.find({ nonveg: nonveg });
+    },
+    getCategories: async (parent, args, context, info) => {
+      return await Category.find({});
+    },
+    getCategoriesBySellerId: async (parent, { sellerId }, context, info) => {
+      return await Category.find({ sellerId });
     }
   },
 
   Mutation: {
+    getDishById: async (parent, { id }, context, info) => {
+      return await Dishes.findOne({ _id: id });
+    },
     deleteBasketItem: async (parent, args, context, info) => {
+      console.log(args.id);
       try {
-        const deleted = await Basket.deleteOne({ _id: args.id });
+        await Basket.deleteOne({ _id: args.id });
         return {
           code: 200,
           success: true,
@@ -91,10 +148,11 @@ export const resolvers = {
       try {
         const new_basket_item = new Basket({
           user: args.user,
-          basketItem: await Dishes.findById(args.id),
+          basketItem: args.id,
+          type: args.type,
           quantity: args.quantity
         });
-        const saved = await new_basket_item.save();
+        await new_basket_item.save();
         const basket = await Basket.find();
         return {
           code: 200,
@@ -111,25 +169,50 @@ export const resolvers = {
         };
       }
     },
-    addToFavoriteDish: async (parent, args, context, info) => {
+    // addToFavoriteDish: async (parent, args, context, info) => {
+    //   try {
+    //     const new_favorite_item = new favoriteDishes({
+    //       dish: await Dishes.findById(args.id)
+    //     });
+    //     const saved = await new_favorite_item.save();
+    //     const dish = await favoriteDishes.find();
+    //     return {
+    //       code: 200,
+    //       success: true,
+    //       message: "Item added",
+    //       dish: dish
+    //     };
+    //   } catch {
+    //     return {
+    //       code: 500,
+    //       success: false,
+    //       message: "Internal server error",
+    //       dish: await favoriteDishes.find()
+    //     };
+    //   }
+    // },
+    addToFavorites: async (parent, args, context, info) => {
+      const { user, item, type } = args;
       try {
-        const new_favorite_item = new favoriteDishes({
-          dish: await Dishes.findById(args.id)
+        const new_favorite_item = new Favorites({
+          user,
+          item,
+          type
         });
-        const saved = await new_favorite_item.save();
-        const dish = await favoriteDishes.find();
+        await new_favorite_item.save();
+        // const favorites = await Favorites.find({ user });
         return {
           code: 200,
           success: true,
-          message: "Item added",
-          dish: dish
+          message: "Item added"
+          // favorites: favorites
         };
-      } catch {
+      } catch (error) {
         return {
           code: 500,
           success: false,
-          message: "Internal server error",
-          dish: await favoriteDishes.find()
+          message: error
+          // favorites: await Favorites.find({ user })
         };
       }
     },

@@ -4,6 +4,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import { AiOutlineEdit } from "react-icons/ai";
 import { useQuery } from "@apollo/client";
 import {
+  GET_CATEGORIES_BY_SELLERID,
   GET_DISHES_BY_SELLERID,
   GET_POSTS_BY_AUTHORMAIL,
   GET_PROFILE,
@@ -18,6 +19,7 @@ import Posts from "../../components/Posts/Posts";
 import { Link } from "react-router-dom";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { BiDownArrow } from "react-icons/bi";
+import Choices from "../../components/Choices/Choices";
 
 const Profile = () => {
   const {
@@ -52,6 +54,15 @@ const Profile = () => {
   } = useQuery(GET_POSTS_BY_AUTHORMAIL, {
     variables: {
       authorMail: localStorage.getItem("email")
+    }
+  });
+  const {
+    loading: categoryLoading,
+    error: categoryError,
+    data: categories
+  } = useQuery(GET_CATEGORIES_BY_SELLERID, {
+    variables: {
+      sellerId: localStorage.getItem("email")
     }
   });
   const [collection, setCollection] = useState({
@@ -252,6 +263,28 @@ const Profile = () => {
                   <div className="add-more my-10 flex justify-center">
                     <Link to="/community">
                       <button className="text-sm">Post Article</button>
+                    </Link>
+                  </div>
+                </div>
+              )}
+              {categoryLoading && collection.categories ? (
+                <div className="mt-5">
+                  <Loader2 />
+                </div>
+              ) : (
+                <div
+                  className=""
+                  style={{ display: !collection.categories ? "none" : "block" }}
+                >
+                  <div className="articles-collection mt-10">
+                    {categories?.getCategoriesBySellerId.map((item, index) => {
+                      // console.log(item);
+                      return <Choices item={item} key={index} />;
+                    })}
+                  </div>
+                  <div className="add-more my-10 flex justify-center">
+                    <Link to="/add-category">
+                      <button className="text-sm">Add category</button>
                     </Link>
                   </div>
                 </div>

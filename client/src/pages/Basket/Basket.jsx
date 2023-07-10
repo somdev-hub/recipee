@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import "./Basket.css";
-import { basket } from "../../utils/providers/baskets";
+// import { basket } from "../../utils/providers/baskets";
 import BasketCard from "../../components/BasketCard/BasketCard";
 import Checkout from "../../components/Checkout/Checkout";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import { GET_BASKET } from "../../utils/graphql/queries";
 import Loader from "../../components/Loader/Loader";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
+import { GET_DISHES_BY_ID } from "../../utils/graphql/mutations";
 
 const Basket = () => {
-  const { loading, error, data } = useQuery(GET_BASKET, {
+  const {
+    loading,
+    error,
+    data: basketData
+  } = useQuery(GET_BASKET, {
     variables: {
       user: localStorage.getItem("email")
     }
   });
+
+  console.log(basketData?.basket[0].dish.name);
+
   const [checkoutBar, setCheckoutBar] = useState(false);
   const [sidebarView, setSidebarView] = useState(false);
-  console.log(data);
+
   return (
     <div className="basket flex">
       <Sidebar sidebarView={sidebarView} />
@@ -41,15 +49,16 @@ const Basket = () => {
           </nav>
           <div className="basket-items-container mt-10">
             <div className="basket-items">
-              {data?.basket.map((item, index) => {
+              {basketData?.basket.map((item, index) => {
+                console.log(item);
                 return (
                   <BasketCard
                     key={index}
-                    img={item.basketItem.image}
-                    title={item.basketItem.name}
-                    quantity={item.quantity}
-                    price={item.basketItem.price}
-                    id={item.id}
+                    img={item?.dish?.image}
+                    title={item?.dish?.name}
+                    quantity={item?.quantity}
+                    price={item?.dish?.price}
+                    id={item?.id}
                     // setDeleted={setDeleted}
                     // setBasketItemId={setBasketItemId}
                   />
@@ -60,7 +69,7 @@ const Basket = () => {
         </div>
       </div>
       <Checkout
-        items={data?.basket}
+        items={basketData?.basket}
         loading={loading}
         rightbarView={checkoutBar}
       />

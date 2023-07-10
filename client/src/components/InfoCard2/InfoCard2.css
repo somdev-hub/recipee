@@ -10,13 +10,6 @@
   width: 100%;
 }
 
-.infocard2-img img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  border-radius: 30px 0 0 0;
-}
-
 .infocard2-main {
   height: 65%;
   bottom: 0;
@@ -52,6 +45,12 @@
   background-repeat: no-repeat;
 }
 
+.dish-img {
+  width: 5rem;
+  height: 5rem;
+  border: 2px solid var(--yellow);
+}
+
 .dish-title p {
   color: var(--light-gray);
 }
@@ -62,4 +61,11 @@
   background-color: var(--yellow);
   border-radius: 10px;
   color: var(--white);
+}
+
+.info2-add button {
+  width: 55%;
+}
+.quantity-button {
+  width: 25%;
 }

@@ -6,8 +6,9 @@ const typeDefs = gql`
     dishes: [Dishes!]!
     nutrients: [Nutrients!]!
     recipees: [Recipees!]!
-    basket(user: String!): [Basket!]!
-    favoriteDishes: [FavoriteDish!]!
+    basket(user: String!): [BasketOutput!]!
+    # favoriteDishes: [FavoriteDish!]!
+    getFavorites(user: String!): [FavoritesOutput!]!
     getProfile(email: String!): Profile!
     getPostList: [Posts]
     getPost(id: ID!): Posts
@@ -18,12 +19,25 @@ const typeDefs = gql`
     getPostByAuthorMail(authorMail: String!): [Posts]
     getRecipeesByCategory(category: String!): [Recipees]
     getRecipeesByVeg(nonveg: Boolean!): [Recipees]
+    getCategories: [Category]
+    getCategoriesBySellerId(sellerId: String!): [Category]
   }
 
   type Mutation {
+    getDishById(id: ID!): Dishes
     deleteBasketItem(id: ID!): DeleteBasketItemResponse!
-    addBasketItem(user: String!, id: ID!, quantity: Int): AddBasketItemResponse!
-    addToFavoriteDish(id: ID!): AddToFavoriteDishResponse!
+    addBasketItem(
+      user: String!
+      id: ID!
+      type: String
+      quantity: Int
+    ): AddBasketItemResponse!
+    addToFavorites(
+      user: String
+      type: String
+      item: String
+    ): AddToFavoritesResponse!
+
     addProfile(input: ProfileInput!): AddProfileResponse!
     getLogin(input: LoginDetails!): LoginDetailsResponse!
     getProfile(email: String!): Profile!
@@ -109,11 +123,11 @@ const typeDefs = gql`
     message: String!
   }
 
-  type AddToFavoriteDishResponse {
+  type AddToFavoritesResponse {
     code: Int!
     success: Boolean!
     message: String!
-    dish: Dishes
+    # dish: Dishes
   }
 
   type AddBasketItemResponse {
@@ -128,6 +142,21 @@ const typeDefs = gql`
     success: Boolean!
     message: String!
     basket: Basket
+  }
+
+  type BasketOutput {
+    id: ID!
+    dish: Dishes
+    quantity: Int
+  }
+
+  type FavoritesOutput {
+    id: ID!
+    dish: Dishes
+    recipee: Recipees
+    category: Category
+    post: Posts
+    type: String
   }
 
   type Dishes {
@@ -237,19 +266,17 @@ const typeDefs = gql`
   type Basket {
     id: ID!
     user: String
-    basketItem: Dishes
+    type: String
+    basketItem: String
     quantity: Int
     # total: Int
   }
 
-  type FavoriteDish {
+  type Favorites {
     id: ID!
-    dish: Dishes
-  }
-
-  type FavoriteRecipee {
-    id: ID!
-    recipee: Recipees
+    user: String
+    type: String
+    item: String
   }
 
   type Comments {

@@ -1,45 +1,50 @@
 import React, { useEffect, useState } from "react";
 import "./InfoCard.css";
-import {
-  AiOutlineHeart,
-  AiFillHeart,
-  AiOutlineInfoCircle
-} from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_BASKET, SET_FAVORITE_DISH } from "../../utils/graphql/mutations";
-import { GET_FAVORITE_DISHES } from "../../utils/graphql/queries";
-import { BsArrowDownCircle } from "react-icons/bs";
+import {
+  ADD_BASKET,
+  SET_FAVORITES,
+  SET_FAVORITE_DISH
+} from "../../utils/graphql/mutations";
+// import { GET_FAVORITE_DISHES } from "../../utils/graphql/queries";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const InfoCard = ({ props, pos, posMini, onClick }) => {
   const [quantity, setQuantity] = useState(1);
   const [liked, setLiked] = useState(false);
   const [nutrientBar, setNutrientBar] = useState(false);
-  const [bar, setBar] = useState(false);
   const [addBasketItem, { loading }] = useMutation(ADD_BASKET, {
     variables: {
-      basketUser: localStorage.getItem("email"),
+      user: localStorage.getItem("email"),
       addBasketItemId: props.id,
-      quantity: quantity
+      quantity: quantity,
+      type: "dish"
     }
   });
-  const [addToFavoriteDish] = useMutation(SET_FAVORITE_DISH, {
-    variables: { addToFavoriteDishId: props.id }
-  });
-  const { loading1, error, data } = useQuery(GET_FAVORITE_DISHES);
-
-  // console.log(data);
-
-  useEffect(() => {
-    if (data?.favoriteDishes) {
-      data.favoriteDishes.forEach((element) => {
-        const dishname = element.dish.name;
-        if (dishname === props.name) {
-          setLiked(true);
-        }
-      });
+  const [addToFavoriteDish] = useMutation(SET_FAVORITES, {
+    variables: {
+      user: localStorage.getItem("email"),
+      type: "dish",
+      item: props.id
     }
-  }, [data, props.name]);
+  });
+
+  const addToBasket = async () => {
+    try {
+      const response = await addBasketItem();
+      console.log(response);
+      if (response.data.addBasketItem.code === 200) {
+        alert("Added to Basket");
+      } else {
+        alert("Something went wrong");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setQuantity(1);
+  };
 
   const screenWidth = window.innerWidth;
   return (
@@ -50,7 +55,7 @@ const InfoCard = ({ props, pos, posMini, onClick }) => {
       <div className="collapse-bar absolute"></div>
       <nav className="flex justify-between mb-2 mt-7 w-full absolute top-0 px-5">
         <RxCross2
-          className="text-white text-2xl cursor-pointer"
+          className="text-white text-2xl cursor-pointer info-exit"
           onClick={onClick}
         />
       </nav>
@@ -76,7 +81,7 @@ const InfoCard = ({ props, pos, posMini, onClick }) => {
           onClick={() => setNutrientBar(!nutrientBar)}
         >
           <h3 className="font-semibold">Nutrients</h3>
-          <BsArrowDownCircle className="text-xl" />
+          <MdOutlineKeyboardArrowDown className="text-xl" />
         </div>
         <div
           className="nutrients-content text-white mt-5"
@@ -84,8 +89,6 @@ const InfoCard = ({ props, pos, posMini, onClick }) => {
         >
           <ul>
             {props?.nutrients?.map((nutrient, index) => {
-              // console.log(props.name + "" + nutrient.quantity);
-              console.log(nutrient.name);
               return (
                 <li className="mb-3 flex justify-between pb-3" key={index}>
                   <p>{nutrient.name}</p>
@@ -112,10 +115,7 @@ const InfoCard = ({ props, pos, posMini, onClick }) => {
         </div>
         <button
           className="basket-button"
-          onClick={async () => {
-            await addBasketItem();
-            setQuantity(1);
-          }}
+          onClick={addToBasket}
           disabled={loading}
         >
           {loading ? <span class="loader"></span> : "Add to basket"}
@@ -124,7 +124,11 @@ const InfoCard = ({ props, pos, posMini, onClick }) => {
           className="like-button flex justify-center items-center"
           onClick={() => {
             setLiked(!liked);
-            addToFavoriteDish();
+            addToFavoriteDish().then((res) => {
+              if (res.data.addToFavorites.code === 200) {
+                alert("Added to Favorites");
+              }
+            });
           }}
         >
           {liked ? (

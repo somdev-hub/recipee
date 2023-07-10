@@ -12,7 +12,7 @@ import InfoCard from "../../components/InfoCard/InfoCard";
 import InfoCard2 from "../../components/InfoCard2/InfoCard2";
 import { choice } from "../../utils/providers/choice";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_DISHES } from "../../utils/graphql/queries";
+import { GET_CATEGORIES, GET_DISHES } from "../../utils/graphql/queries";
 import Loader from "../../components/Loader/Loader";
 import logo from "../../utils/recipee_logo-cropped.png";
 import { CgOptions } from "react-icons/cg";
@@ -24,6 +24,11 @@ import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const { loading, error, data } = useQuery(GET_DISHES);
+  const {
+    loading: categoryLoading,
+    error: categoryError,
+    data: categoryData
+  } = useQuery(GET_CATEGORIES);
   const [getSearchItems, { loading: itemLoading }] = useMutation(SEARCH_ITEM);
   const [getSearchArticles, { loading: articleLoading }] =
     useMutation(SEARCH_ARTICLE);
@@ -192,12 +197,10 @@ const Dashboard = () => {
               </div>
               <div className="choice-container mt-10 overflow-x-auto">
                 <div className="choice-cards flex">
-                  {choice.map((item, index) => {
+                  {categoryData?.getCategories.map((item, index) => {
                     return (
                       <Choices
-                        cuisineImg={item.cuisineImg}
-                        cuisine={item.cuisineName}
-                        cuisineContent={item.foods}
+                        item={item}
                         click={() => {
                           setPos2(!pos2);
                           setInfo2(item);

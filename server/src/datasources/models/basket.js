@@ -3,17 +3,8 @@ import mongoose from "mongoose";
 
 const Basket = mongoose.model("Basket", {
   user: String,
-  basketItem: {
-    name: String,
-    price: Number,
-    image: String,
-    dishDescription: String,
-    category: String,
-    weight: String,
-    nutrients: [{ name: String, value: String }],
-    tags: [String],
-    nonveg: Boolean
-  },
+  type: String,
+  basketItem: String,
   quantity: Number
 });
 

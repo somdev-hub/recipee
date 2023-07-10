@@ -6,6 +6,13 @@
   transition: 0.3s linear;
 }
 
+.info-exit {
+  background-color: var(--dark-gray);
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+}
+
 .info-title p {
   color: var(--text-gray);
 }
@@ -109,7 +116,7 @@
     width: 100%;
     bottom: inherit;
   }
-  .basket-button{
+  .basket-button {
     width: 40%;
   }
   .info-add button {

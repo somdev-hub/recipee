@@ -2,77 +2,55 @@ import { gql } from "@apollo/client";
 
 export const ADD_BASKET = gql`
   mutation Mutation(
-    $basketUser: String!
+    $user: String!
     $addBasketItemId: ID!
-    $quantity: Int!
+    $type: String
+    $quantity: Int
   ) {
     addBasketItem(
-      user: $basketUser
+      user: $user
       id: $addBasketItemId
+      type: $type
       quantity: $quantity
     ) {
       code
       success
       message
-      basket {
-        basketItem {
-          name
-          name
-          price
-          image
-          dishDescription
-          category
-          weight
-          # nutrients {
-          #   name
-          #   quantity
-          # }
-          tags
-          nonveg
-        }
-        quantity
-      }
+    }
+  }
+`;
+
+export const GET_DISHES_BY_ID = gql`
+  mutation GetDishById($getDishId: ID!) {
+    getDishById(id: $getDishId) {
+      id
+      name
+      price
+      sellerId
+      image
+      category
+      weight
+      nonveg
     }
   }
 `;
 
 export const DELETE_ITEM = gql`
-  mutation Mutation($deleteBasketItemId: ID!) {
+  mutation DeleteBasketItem($deleteBasketItemId: ID!) {
     deleteBasketItem(id: $deleteBasketItemId) {
       code
       success
       message
-      basket {
-        basketItem {
-          name
-          price
-          image
-          description
-          category
-          weight
-          likes
-        }
-        quantity
-      }
     }
   }
 `;
 
-export const SET_FAVORITE_DISH = gql`
-  mutation Mutation($addToFavoriteDishId: ID!) {
-    addToFavoriteDish(id: $addToFavoriteDishId) {
+export const SET_FAVORITES = gql`
+  mutation AddToFavorites($user: String, $type: String, $item: String) {
+    addToFavorites(user: $user, type: $type, item: $item) {
       code
       success
       message
-      dish {
-        name
-        price
-        image
-        description
-        category
-        weight
-        likes
-      }
     }
   }
 `;

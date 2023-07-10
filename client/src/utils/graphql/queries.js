@@ -42,40 +42,62 @@ export const GET_RECIPEES = gql`
 export const GET_BASKET = gql`
   query Query($user: String!) {
     basket(user: $user) {
-      id
-      user
-      basketItem {
+      dish {
+        id
         name
         price
+        sellerId
         image
-        dishDescription
         category
         weight
-        nutrients {
-          name
-          quantity
-        }
-        tags
-        nonveg
+        # nonveg
       }
       quantity
+      id
     }
   }
 `;
 
-export const GET_FAVORITE_DISHES = gql`
-  query Query {
-    favoriteDishes {
+export const GET_FAVORITES = gql`
+  query GetFavorites($user: String!) {
+    getFavorites(user: $user) {
       id
       dish {
+        id
         name
         price
+        sellerId
+        image
+      }
+      recipee {
+        id
+        author
+        name
+        image
+      }
+      category {
+        id
+        name
+        tags
+        price
+        image
+        dishes {
+          name
+          image
+          price
+        }
+      }
+      post {
+        id
+        title
+        date
+        author
+        authorMail
+        length
         image
         description
-        category
-        weight
-        likes
       }
+      type
     }
   }
 `;
@@ -284,6 +306,50 @@ export const GET_RECIPEES_BY_VEG = gql`
         name
         quantity
       }
+    }
+  }
+`;
+
+export const GET_CATEGORIES = gql`
+  query Query {
+    getCategories {
+      id
+      name
+      image
+      ingredients
+      description
+      tags
+      dishes {
+        name
+        image
+        price
+      }
+      nutrients {
+        name
+        quantity
+      }
+      sellerId
+      category
+      weight
+      isNonVeg
+      price
+    }
+  }
+`;
+
+export const GET_CATEGORIES_BY_SELLERID = gql`
+  query GetCategoriesBySellerId($sellerId: String!) {
+    getCategoriesBySellerId(sellerId: $sellerId) {
+      id
+      name
+      image
+      dishes {
+        name
+        image
+        price
+      }
+      sellerId
+      price
     }
   }
 `;

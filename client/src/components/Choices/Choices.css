@@ -1,7 +1,7 @@
 .choice {
   background-color: var(--dark-blue);
   border-radius: 20px;
-  width: 40rem;
+  /* width: 40rem; */
 }
 
 .choice:hover {
@@ -10,10 +10,28 @@
 }
 
 .main {
-  width: 30%;
-  border-right: 2px solid var(--yellow);
+  width: 35%;
+  height: 95%;
+  /* border-right: 2px solid var(--yellow); */
 }
 
 .cuis-item p {
   color: var(--light-gray);
+}
+
+.cuisine-content {
+  width: 70%;
+}
+
+.category-image img {
+  border-radius: 20px;
+}
+
+.choice-item-img {
+  height: 4rem;
+  width: 4rem;
+}
+
+.choice-item-img img {
+  object-fit: cover;
 }
