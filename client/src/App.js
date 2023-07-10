@@ -20,9 +20,9 @@ import AddCategory from "./pages/AddCategory/AddCategory";
 
 const client = new ApolloClient({
   // https://recipee-server.onrender.com
-  uri: "http://localhost:4000",
+  uri: "https://recipee-server.onrender.com",
   cache: new InMemoryCache(),
-  link: createUploadLink({ uri: "http://localhost:4000/" }),
+  link: createUploadLink({ uri: "https://recipee-server.onrender.com/" }),
   onError: ({ networkError, graphQLErrors }) => {
     console.log("graphQLErrors", graphQLErrors);
     console.log("networkError", networkError);
