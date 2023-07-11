@@ -5,8 +5,10 @@ import SignUpForm2 from "../../components/SignUpForm2/SignUpForm2";
 import { CREATE_PROFILE } from "../../utils/graphql/mutations";
 import { useMutation } from "@apollo/client";
 import { convertToBase64 } from "../../utils/base64";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [pos, setPos] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -75,6 +77,9 @@ const SignUp = () => {
       console.log(response);
       if (response.data.addProfile.code === 200) {
         alert("Profile created successfully please login");
+        localStorage.setItem("token", response.data.addProfile.token);
+        localStorage.setItem("email", email);
+        navigate("/");
       } else {
         alert(response.data.addProfile.message);
       }

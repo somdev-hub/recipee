@@ -21,7 +21,7 @@ const Basket = () => {
     }
   });
 
-  console.log(basketData?.basket[0].dish.name);
+  // console.log(basketData?.basket[0].dish.name);
 
   const [checkoutBar, setCheckoutBar] = useState(false);
   const [sidebarView, setSidebarView] = useState(false);
@@ -37,36 +37,48 @@ const Basket = () => {
           setRightbarView={setCheckoutBar}
           rightbarView={checkoutBar}
         />
-        <div
-          className=""
-          onClick={() => {
-            setSidebarView(false);
-            setCheckoutBar(false);
-          }}
-        >
-          <nav className="">
-            <h2 className="text-white">Your Basket</h2>
-          </nav>
-          <div className="basket-items-container mt-10">
-            <div className="basket-items">
-              {basketData?.basket.map((item, index) => {
-                console.log(item);
-                return (
-                  <BasketCard
-                    key={index}
-                    img={item?.dish?.image}
-                    title={item?.dish?.name}
-                    quantity={item?.quantity}
-                    price={item?.dish?.price}
-                    id={item?.id}
-                    // setDeleted={setDeleted}
-                    // setBasketItemId={setBasketItemId}
-                  />
-                );
-              })}
+        {basketData?.basket.length === 0 || !basketData ? (
+          <div
+            className=" flex text-center justify-center text-white h-screen"
+            onClick={() => {
+              setSidebarView(false);
+              setCheckoutBar(false);
+            }}
+          >
+            {!loading && <h3>No data available</h3>}
+          </div>
+        ) : (
+          <div
+            className=""
+            onClick={() => {
+              setSidebarView(false);
+              setCheckoutBar(false);
+            }}
+          >
+            <nav className="">
+              <h2 className="text-white">Your Basket</h2>
+            </nav>
+            <div className="basket-items-container mt-10">
+              <div className="basket-items">
+                {basketData?.basket.map((item, index) => {
+                  console.log(item);
+                  return (
+                    <BasketCard
+                      key={index}
+                      img={item?.dish?.image}
+                      title={item?.dish?.name}
+                      quantity={item?.quantity}
+                      price={item?.dish?.price}
+                      id={item?.id}
+                      // setDeleted={setDeleted}
+                      // setBasketItemId={setBasketItemId}
+                    />
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
       <Checkout
         items={basketData?.basket}

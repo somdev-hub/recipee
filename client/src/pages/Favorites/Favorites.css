@@ -2,3 +2,15 @@
   margin-left: 17%;
   width: 55%;
 }
+
+.favourite-foods-content {
+  width: auto;
+}
+
+@media (max-width: 640px) {
+  .favorites-content {
+    margin-left: 0;
+    width: 100%;
+    padding: 5%;
+  }
+}

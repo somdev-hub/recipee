@@ -58,7 +58,7 @@ const Sidebar = ({ blur, sidebarView }) => {
   // console.log(screenWidth < 640);
   return (
     <div
-      className={`sidebar flex transition-all flex-col h-screen fixed sm:z-10 ${
+      className={`sidebar flex transition-all flex-col justify-between h-screen fixed sm:z-10 ${
         blur ? "brightness-50 transition-all" : ""
       }`}
       style={{ left: screenWidth < 640 ? (sidebarView ? "0" : "-100%") : "" }}
@@ -67,8 +67,8 @@ const Sidebar = ({ blur, sidebarView }) => {
       <div className="sidebar-logo flex justify-center my-5 mx-auto w-full items-center">
         <img src={logo} alt="" className="" />
       </div>
-      <div className="sidebar-options mt-10">
-        <ul>
+      <div className="sidebar-options">
+        <ul className="h-full flex flex-col justify-between">
           {sideOptions.map((item, index) => {
             return (
               <Link to={item.link} key={index}>
@@ -84,7 +84,7 @@ const Sidebar = ({ blur, sidebarView }) => {
           })}
         </ul>
       </div>
-      <div className="share-now mx-auto sm:mt-20 flex justify-center flex-col items-center relative mt-14">
+      <div className="share-now mx-auto sm:mt-20 flex justify-center flex-col items-center relative">
         <p className="mx-5 mt-10">Share your recipe with us</p>
         <button onClick={() => navigate("/add-recipee")}>Share now</button>
         <img src={image_1} alt="" className="absolute" />

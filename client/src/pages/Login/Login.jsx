@@ -2,9 +2,11 @@ import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { GET_LOGIN } from "../../utils/graphql/mutations";
 import { Link, useNavigate } from "react-router-dom";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [visibility, setVisibility] = useState(false);
   const [loginData, setLoginData] = useState({
     email: "",
     password: ""
@@ -63,12 +65,26 @@ const Login = () => {
                 onChange={handleLoginData}
               />
               <label htmlFor="">Password</label>
-              <input
-                type="password"
-                name="password"
-                value={loginData.password}
-                onChange={handleLoginData}
-              />
+              <div className="w-full relative">
+                <input
+                  type={`${visibility ? "text" : "password"}`}
+                  name="password"
+                  className="w-full"
+                  value={loginData.password}
+                  onChange={handleLoginData}
+                />
+                {visibility ? (
+                  <AiFillEye
+                    className="absolute text-xl top-0 right-0 mb-1 cursor-pointer"
+                    onClick={() => setVisibility(!visibility)}
+                  />
+                ) : (
+                  <AiFillEyeInvisible
+                    className="absolute text-xl top-0 right-0 mb-1 cursor-pointer"
+                    onClick={() => setVisibility(!visibility)}
+                  />
+                )}
+              </div>
               <p className="">
                 Forget password?{" "}
                 <span className="font-bold cursor-pointer">Click here</span>

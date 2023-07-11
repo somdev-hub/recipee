@@ -14,6 +14,7 @@
 
 .sidebar-options {
   color: var(--white);
+  height: 40%;
 }
 
 .checked {

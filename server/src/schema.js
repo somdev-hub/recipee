@@ -40,7 +40,7 @@ const typeDefs = gql`
 
     addProfile(input: ProfileInput!): AddProfileResponse!
     getLogin(input: LoginDetails!): LoginDetailsResponse!
-    getProfile(email: String!): Profile!
+    getProfile(email: String!): AddProfileResponse!
     addRecipee(recipee: RecipeeInput!): AddRecipeeResponse!
     addDish(dish: DishInput!): AddDishResponse!
     addPost(post: PostInput!): AddPostResponse!
@@ -48,6 +48,13 @@ const typeDefs = gql`
     searchItem(search: String!): searchItemResponse!
     searchArticle(search: String!): searchArticleResponse!
     addCategory(category: CategoryInput!): AddCategoryResponse!
+  }
+
+  type AddProfileResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    token: String
   }
 
   type AddCategoryResponse {
@@ -145,6 +152,7 @@ const typeDefs = gql`
   }
 
   type BasketOutput {
+    # code: Int!
     id: ID!
     dish: Dishes
     quantity: Int

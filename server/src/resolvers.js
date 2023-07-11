@@ -26,25 +26,41 @@ export const resolvers = {
     },
     basket: async (parent, args, context, info) => {
       const user = args.user;
-      const BasketData = await Basket.find({ user });
-      const basketItems = BasketData.map(async (item) => {
-        if (item.type === "dish") {
-          return {
-            id: item._id,
-            dish: await Dishes.findOne({ _id: item.basketItem }),
-            quantity: item.quantity
-          };
-        } else if (item.type === "category") {
-          console.log(item.basketItem);
-          return {
-            id: item._id,
-            dish: await Category.findOne({ _id: item.basketItem }),
-            quantity: item.quantity
-          };
-        }
-      });
-      // return await Basket.find({ user: args.user });
-      return basketItems;
+      try {
+        const BasketData = await Basket.find({ user });
+        const basketItems = BasketData.map(async (item) => {
+          if (item.type === "dish") {
+            return {
+              id: item._id,
+              dish: await Dishes.findOne({ _id: item.basketItem }),
+              quantity: item.quantity
+            };
+          } else if (item.type === "category") {
+            console.log(item.basketItem);
+            return {
+              id: item._id,
+              dish: await Category.findOne({ _id: item.basketItem }),
+              quantity: item.quantity
+            };
+          } else {
+            return {
+              id: null,
+              dish: null,
+              quantity: null
+            };
+          }
+        });
+        // return await Basket.find({ user: args.user });
+        return basketItems;
+      } catch (error) {
+        console.log(error);
+        return {
+          code: 500,
+          id: null,
+          dish: null,
+          quantity: null
+        };
+      }
     },
     getFavorites: async (parent, args, context, info) => {
       const user = args.user;
@@ -243,14 +259,18 @@ export const resolvers = {
           pin
         });
 
-        // } else {
         await new_profile.save();
+        const token = jwt.sign(
+          { userId: new_profile.id },
+          process.env.JWT_SECRET,
+          { expiresIn: "1d" }
+        );
 
         return {
           code: 200,
           success: true,
-          message: "Item added"
-          // profile: profile
+          message: "Item added",
+          token: token
         };
       } catch (error) {
         return {

@@ -61,6 +61,7 @@ export const CREATE_PROFILE = gql`
       code
       success
       message
+      token
     }
   }
 `;
