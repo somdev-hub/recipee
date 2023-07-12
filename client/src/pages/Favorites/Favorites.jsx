@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Favorites.css";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { favorites } from "../../utils/providers/favorites";
@@ -19,9 +19,42 @@ const Favorites = () => {
       user: localStorage.getItem("email")
     }
   });
+  const [favDishes, setFavDishes] = useState([]);
+  const [favCategories, setFavCategories] = useState([]);
+  const [favRecipes, setFavRecipes] = useState([]);
+  const [favPosts, setFavPosts] = useState([]);
   const [sidebarView, setSidebarView] = useState(false);
   const [rightbarView, setRightbarView] = useState(false);
   // console.log(data?.getFavorites[0].type === "dish");
+
+  useEffect(() => {
+    if (data) {
+      data?.getFavorites.forEach((item, index) => {
+        if (
+          item.type === "dish" &&
+          !favDishes.some((dish) => dish.id === item.id)
+        ) {
+          setFavDishes((prev) => [...prev, item]);
+        } else if (
+          item.type === "recipee" &&
+          !favRecipes.some((recipe) => recipe.id === item.id)
+        ) {
+          setFavRecipes((prev) => [...prev, item]);
+        } else if (
+          item.type === "category" &&
+          !favCategories.some((category) => category.id === item.id)
+        ) {
+          setFavCategories((prev) => [...prev, item]);
+        } else if (item.type === "posts" &&
+        !favPosts.some((post) => post.id === item.id)) {
+          setFavPosts((prev) => [...prev, item]);
+        }
+      });
+    }
+  }, [data]);
+
+  console.log(favDishes);
+
   return (
     <div className="favorites flex">
       <Sidebar sidebarView={sidebarView} />
@@ -56,7 +89,40 @@ const Favorites = () => {
               <h2 className="text-white">Favorites</h2>
             </nav>
             <div className="fav-foods mt-10">
-              {data?.getFavorites.map((item, index) => {
+              <h3 className="text-white">Food items</h3>
+              <div className="dishes-fav-container flex flex-wrap mt-10">
+                {favDishes.length > 0 &&
+                  favDishes.map((item, index) => {
+                    return <Dish props={item.dish} />;
+                  })}
+              </div>
+
+              <h3 className="text-white mt-10">Recipes</h3>
+              <div className="recipees-fav-container flex flex-wrap mt-10">
+                {favRecipes.length > 0 &&
+                  favRecipes.map((item, index) => {
+                    return (
+                      <RecipeCard
+                        img={item.recipee.image}
+                        name={item.recipee.name}
+                      />
+                    );
+                  })}
+              </div>
+
+              <h3 className="text-white mt-10">Categories</h3>
+              <div className="recipees-fav-container mt-10">
+                {favCategories.length > 0 &&
+                  favCategories.map((item, index) => {
+                    return (
+                      <div className="mb-5">
+                        <Choices item={item.category} />;
+                      </div>
+                    );
+                  })}
+              </div>
+
+              {/* {data?.getFavorites.map((item, index) => {
                 if (item.type === "dish") {
                   return (
                     <div className="">
@@ -105,7 +171,7 @@ const Favorites = () => {
                     </div>
                   );
                 }
-              })}
+              })} */}
             </div>
           </div>
         )}
