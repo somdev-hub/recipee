@@ -21,6 +21,7 @@ import { SEARCH_ARTICLE, SEARCH_ITEM } from "../../utils/graphql/mutations";
 import Posts from "../../components/Posts/Posts";
 import Loader2 from "../../components/Loader2/Loader2";
 import { Link } from "react-router-dom";
+import FilterBar from "../../components/FilterBar/FilterBar";
 
 const Dashboard = () => {
   const { loading, error, data } = useQuery(GET_DISHES);
@@ -40,6 +41,7 @@ const Dashboard = () => {
   const [rightbarView, setRightbarView] = useState(false);
   const [searchResults, setSearchResults] = useState(null);
   const [searchArticles, setSearchArticles] = useState(null);
+  const [filterBar, setFilterBar] = useState(false);
   const [searchBar, setSearchBar] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -104,11 +106,15 @@ const Dashboard = () => {
                   onClick={() => setSearchBar(true)}
                 />
 
-                <div className="filter flex justify-center items-center">
+                <div
+                  className="filter flex justify-center items-center cursor-pointer"
+                  onClick={() => setFilterBar(!filterBar)}
+                >
                   <BsSliders2Vertical className="text-xl flex" />
                 </div>
               </div>
             </nav>
+            <FilterBar visibility={filterBar} />
             <div
               className="search-results-container my-5 p-5"
               style={{ display: search ? "block" : "none" }}

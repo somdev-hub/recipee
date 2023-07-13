@@ -12,6 +12,7 @@ import RecipeCard from "../RecipeCard/RecipeCard";
 import { GET_PROFILE_HEAD, GET_RECIPEES } from "../../utils/graphql/queries";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
+import Loader2 from "../Loader2/Loader2";
 
 Chart.register(CategoryScale);
 
@@ -102,7 +103,7 @@ const RightBar = (props) => {
 
         <PieChart chartData={chartData} />
       </div>
-      <div className="more-recipies">
+      <div className="more-recipies h-full">
         <div className="flex justify-between ml-5 mt-7">
           <h3 className="text-white">More recipees</h3>
           <Link to="/all-recipees">
@@ -112,12 +113,15 @@ const RightBar = (props) => {
             </p>
           </Link>
         </div>
-        <div className="recipe-container mt-5 ml-5 overflow-x-auto">
-          <div className="recipies flex">
-            {recipeeData?.recipees.slice(0, 4).map((item, index) => {
-              return <RecipeCard props={item} key={index} />;
-            })}
-          </div>
+        <div className="recipe-container mt-5 ml-5 overflow-x-auto h-full">
+          <div className="mx-5">{recipeeLoading && <Loader2 />}</div>
+          {recipeeData && (
+            <div className="recipies flex">
+              {recipeeData?.recipees.slice(0, 4).map((item, index) => {
+                return <RecipeCard props={item} key={index} />;
+              })}
+            </div>
+          )}
         </div>
       </div>
     </div>

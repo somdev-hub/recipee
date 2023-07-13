@@ -58,7 +58,7 @@ const Sidebar = ({ blur, sidebarView }) => {
   // console.log(screenWidth < 640);
   return (
     <div
-      className={`sidebar flex transition-all flex-col justify-between h-screen fixed sm:z-10 ${
+      className={`sidebar flex transition-all flex-col justify-between fixed sm:z-10 ${
         blur ? "brightness-50 transition-all" : ""
       }`}
       style={{ left: screenWidth < 640 ? (sidebarView ? "0" : "-100%") : "" }}

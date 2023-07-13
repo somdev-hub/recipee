@@ -1,0 +1,47 @@
+.filter-bar {
+    background-color: var(--dark-gray);
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
+    /* padding: 5%; */
+    box-sizing: border-box;
+}
+
+.filter-bar.open {
+    height: 10rem;
+    /* padding: 5%; */
+}
+
+.filter-container select {
+    background-color: var(--dark-gray);
+    border: 2px solid var(--yellow);
+    border-radius: 10px;
+    width: 10rem;
+    padding: 5%;
+}
+
+.filter-submit button {
+    width: 5rem;
+    height: 3rem;
+    background-color: var(--yellow);
+    border-radius: 10px;
+}
+
+.filter-submit p {
+    text-decoration: underline;
+}
+
+.filter-container select option {
+    color: var(--white);
+    background-color: var(--dark-blue);
+}
+
+@media (max-width: 640px) {
+    .filter-bar.open {
+        height: 24rem;
+    }
+    .filter-container select {
+        padding: 3%;
+        width: 100%;
+    }
+}
