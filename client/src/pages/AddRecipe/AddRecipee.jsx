@@ -131,6 +131,21 @@ const AddRecipee = () => {
     }
   };
 
+  const clearRecipeeData = () => {
+    setRecipeeData({
+      name: "",
+      category: "",
+      ingredients: [],
+      tags: [],
+      description: "",
+      nutrients: [{ name: "", quantity: "" }],
+      image: null,
+      weight: "",
+      price: "",
+      dishDescription: ""
+    });
+  };
+
   return (
     <div className="add-recipee flex relative">
       <Sidebar sidebarView={sidebarView} />
@@ -323,7 +338,7 @@ const AddRecipee = () => {
                 </div>
 
                 <div className="add-recipee-buttons mt-10 flex gap-5 justify-end">
-                  <button>Clear</button>
+                  <button onClick={clearRecipeeData}>Clear</button>
                   <button type="submit" disabled={!compliance}>
                     {recipeeLoading || dishLoading ? (
                       <span class="loader"></span>

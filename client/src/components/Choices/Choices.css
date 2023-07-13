@@ -10,8 +10,8 @@
 }
 
 .main {
-  width: 35%;
-  height: 95%;
+  width: 40%;
+  height: 12rem;
   /* border-right: 2px solid var(--yellow); */
 }
 
@@ -20,7 +20,7 @@
 }
 
 .cuisine-content {
-  width: 70%;
+  width: 65%;
 }
 
 .category-image img {
@@ -28,8 +28,8 @@
 }
 
 .choice-item-img {
-  height: 4rem;
-  width: 4rem;
+  height: 3rem;
+  width: 3rem;
 }
 
 .choice-item-img img {

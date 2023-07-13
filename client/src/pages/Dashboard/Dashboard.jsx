@@ -196,7 +196,7 @@ const Dashboard = () => {
                 </p>
               </div>
               <div className="choice-container mt-10 overflow-x-auto">
-                <div className="choice-cards flex">
+                <div className="choice-cards flex flex-col">
                   {categoryData?.getCategories.map((item, index) => {
                     return (
                       <Choices

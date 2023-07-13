@@ -12,6 +12,7 @@ const Dish = ({ props, click }) => {
           src={props.image || props.dish.image}
           alt=""
           className="h-full w-full object-cover"
+          loading="lazy"
         />
       </div>
       <div className="dish-details-container h-1/2 w-full flex justify-center items-center">

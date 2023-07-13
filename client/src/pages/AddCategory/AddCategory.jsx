@@ -11,12 +11,13 @@ import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 const AddCategory = () => {
   const [addCategory, { loading }] = useMutation(ADD_CATEGORY);
   const [sidebarView, setSidebarView] = useState(false);
+  const [nonVeg, setNonVeg] = useState(false);
   const [categoryData, setCategoryData] = useState({
     name: "",
     category: "",
     ingredients: [],
     tags: [],
-    isNonVeg: false,
+    isNonVeg: nonVeg,
     image: null,
     description: "",
     dishes: [
@@ -146,6 +147,33 @@ const AddCategory = () => {
       console.log(error);
     }
   };
+  const clear = () => {
+    setCategoryData({
+      name: "",
+      category: "",
+      ingredients: [],
+      tags: [],
+      isNonVeg: nonVeg,
+      image: null,
+      description: "",
+      dishes: [
+        {
+          name: "",
+          price: "",
+          image: null
+        }
+      ],
+      nutrients: [
+        {
+          name: "",
+          quantity: ""
+        }
+      ],
+      price: "",
+      weight: "",
+      sellerId: localStorage.getItem("email")
+    });
+  };
   return (
     <div className="add-category flex">
       <Sidebar sidebarView={sidebarView} />
@@ -206,10 +234,12 @@ const AddCategory = () => {
                     onChange={handleCategoryChange}
                   />
                   <div className="veg flex items-center mt-5">
-                    <p className="text-white mr-3">Non-Vegetarian</p>
+                    <p className="text-white mr-3">
+                      {nonVeg ? "Non-vegetarian" : "Vegetarian"}
+                    </p>
                     <Switch
-                      onChange={() => setCategoryData(!categoryData.isVeg)}
-                      checked={categoryData.isVeg}
+                      onChange={() => setNonVeg(!nonVeg)}
+                      checked={nonVeg}
                       uncheckedIcon={false}
                       checkedIcon={false}
                       onColor="#EF3434"
@@ -378,7 +408,7 @@ const AddCategory = () => {
                 </div>
 
                 <div className="add-recipee-buttons mt-10 flex gap-5 justify-end">
-                  <button>Clear</button>
+                  <button onClick={clear}>Clear</button>
                   <button type="submit" disabled={!compliance}>
                     {loading ? <span class="loader"></span> : "Submit"}
                   </button>

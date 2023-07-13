@@ -41,12 +41,7 @@ const SignUpForm = (props) => {
             onChange={props.handleFormChange}
           />
           <label htmlFor="">Password</label>
-          {/* <input
-            type="password"
-            name="password"
-            value={props.formData.password}
-            onChange={props.handleFormChange}
-          /> */}
+
           <div className="w-full relative">
             <input
               type={`${visibility ? "text" : "password"}`}

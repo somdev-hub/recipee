@@ -36,7 +36,7 @@ export const resolvers = {
               quantity: item.quantity
             };
           } else if (item.type === "category") {
-            console.log(item.basketItem);
+            // console.log(item.basketItem);
             return {
               id: item._id,
               dish: await Category.findOne({ _id: item.basketItem }),
@@ -142,7 +142,7 @@ export const resolvers = {
       return await Dishes.findOne({ _id: id });
     },
     deleteBasketItem: async (parent, args, context, info) => {
-      console.log(args.id);
+      // console.log(args.id);
       try {
         await Basket.deleteOne({ _id: args.id });
         return {
@@ -245,6 +245,15 @@ export const resolvers = {
         pin
       } = args.input;
       // console.log(args.input);
+      const already = await Profile.findOne({ email });
+      if (already) {
+        return {
+          code: 500,
+          success: false,
+          message: "Email already exists"
+          // profile: await profile.find()
+        };
+      }
       const hashedPassword = await bcrypt.hash(password, 10);
       try {
         const new_profile = new Profile({
@@ -398,7 +407,7 @@ export const resolvers = {
         length,
         tags
       } = args.post;
-      console.log(args.post);
+      // console.log(args.post);
       const new_post = new Posts({
         title,
         description,
@@ -428,7 +437,7 @@ export const resolvers = {
     },
     addComment: async (parent, args, context, info) => {
       const { user, userMail, comment } = args.comment;
-      console.log(args.comment);
+      // console.log(args.comment);
       const update = { $push: { comments: { user, userMail, comment } } };
       try {
         await Posts.findOneAndUpdate({ _id: args.postId }, update, {
@@ -515,7 +524,7 @@ export const resolvers = {
         ingredients,
         tags
       } = args.category;
-      console.log(args.category);
+      // console.log(args.category);
       const new_category = new Category({
         name,
         image,

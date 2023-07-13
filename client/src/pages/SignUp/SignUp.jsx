@@ -77,6 +77,11 @@ const SignUp = () => {
       console.log(response);
       if (response.data.addProfile.code === 200) {
         alert("Profile created successfully please login");
+        if (localStorage.getItem("token")) {
+          localStorage.removeItem("token");
+        } else if (localStorage.getItem("email")) {
+          localStorage.removeItem("email");
+        }
         localStorage.setItem("token", response.data.addProfile.token);
         localStorage.setItem("email", email);
         navigate("/");
