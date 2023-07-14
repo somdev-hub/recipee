@@ -134,18 +134,18 @@ const Profile = () => {
                 </div>
               </div>
               <div className="profile-info mt-5 flex sm:flex-row flex-col gap-5 text-left flex-1">
-                <div className="info1 flex flex-col justify-center items-center p-5 sm:w-1/3">
+                <div className="info1 flex flex-col text-center justify-center items-center p-5 sm:w-1/3">
                   <h3 className="font-semibold">Address</h3>
                   <p className="text-sm mt-3">
                     {profile?.getProfile.address}, {profile?.getProfile.city},
                     {profile?.getProfile.pin},
                   </p>
                 </div>
-                <div className="info1 flex flex-col justify-center items-center p-5 sm:w-1/3">
+                <div className="info1 flex flex-col text-center justify-center items-center p-5 sm:w-1/3">
                   <h3 className="font-semibold">Phone</h3>
                   <p className="text-sm mt-3">{profile?.getProfile.phone}</p>
                 </div>
-                <div className="info1 flex flex-col justify-center items-center p-5 sm:w-1/3">
+                <div className="info1 flex flex-col text-center justify-center items-center p-5 sm:w-1/3">
                   <h3 className="font-semibold">Email Id</h3>
                   <p className="text-sm mt-3">{profile?.getProfile.email}</p>
                 </div>

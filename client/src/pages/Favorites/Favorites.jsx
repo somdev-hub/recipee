@@ -45,8 +45,10 @@ const Favorites = () => {
           !favCategories.some((category) => category.id === item.id)
         ) {
           setFavCategories((prev) => [...prev, item]);
-        } else if (item.type === "posts" &&
-        !favPosts.some((post) => post.id === item.id)) {
+        } else if (
+          item.type === "posts" &&
+          !favPosts.some((post) => post.id === item.id)
+        ) {
           setFavPosts((prev) => [...prev, item]);
         }
       });
@@ -90,7 +92,7 @@ const Favorites = () => {
             </nav>
             <div className="fav-foods mt-10">
               <h3 className="text-white">Food items</h3>
-              <div className="dishes-fav-container flex flex-wrap mt-10">
+              <div className="dishes-fav-container sm:flex sm:flex-wrap grid grid-cols-2 gap-5 mt-10">
                 {favDishes.length > 0 &&
                   favDishes.map((item, index) => {
                     return <Dish props={item.dish} />;
@@ -98,7 +100,7 @@ const Favorites = () => {
               </div>
 
               <h3 className="text-white mt-10">Recipes</h3>
-              <div className="recipees-fav-container flex flex-wrap mt-10">
+              <div className="recipees-fav-container sm:flex sm:flex-wrap grid grid-cols-2 gap-5 mt-10">
                 {favRecipes.length > 0 &&
                   favRecipes.map((item, index) => {
                     return (
@@ -111,7 +113,7 @@ const Favorites = () => {
               </div>
 
               <h3 className="text-white mt-10">Categories</h3>
-              <div className="recipees-fav-container mt-10">
+              <div className="recipees-fav-container mt-10 text-white">
                 {favCategories.length > 0 &&
                   favCategories.map((item, index) => {
                     return (

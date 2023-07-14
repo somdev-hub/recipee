@@ -8,7 +8,9 @@ const MobileNavbar = (props) => {
     <div className="navbar flex justify-between mb-7 items-start">
       <GiHamburgerMenu
         className="text-lg text-white"
-        onClick={() => props.setSidebarView(!props.sidebarView)}
+        onClick={() => {
+          !props.rightbarView && props.setSidebarView(!props.sidebarView);
+        }}
       />
       <div className="navbar-logo w-20">
         <img src={logo} alt="" />
@@ -16,7 +18,9 @@ const MobileNavbar = (props) => {
       {props.rightbarView != null ? (
         <CgOptions
           className="text-lg text-white"
-          onClick={() => props.setRightbarView(!props.rightbarView)}
+          onClick={() => {
+            !props.sidebarView && props.setRightbarView(!props.rightbarView);
+          }}
         />
       ) : (
         <p></p>
