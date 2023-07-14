@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./RightBar.css";
 import { BsFillBellFill } from "react-icons/bs";
-import Chart from "chart.js/auto";
+// import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { pieData } from "../../utils/data/pie";
-import PieChart from "../PieChart/PieChart";
+// import PieChart from "../PieChart/PieChart";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { recipe } from "../../utils/providers/recipe";
 import RecipeCard from "../RecipeCard/RecipeCard";
 // import { GET_PROFILE_HEAD } from "../../utils/graphql/mutations";
-import { GET_PROFILE_HEAD, GET_RECIPEES } from "../../utils/graphql/queries";
+import {
+  GET_BASKET_NUTRIENTS,
+  GET_PROFILE_HEAD,
+  GET_RECIPEES
+} from "../../utils/graphql/queries";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import Loader2 from "../Loader2/Loader2";
+// import Chart from "react-apexcharts";
+import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from "recharts";
 
-Chart.register(CategoryScale);
+// Chart.register(CategoryScale);
 
 const RightBar = (props) => {
   const { data } = useQuery(GET_PROFILE_HEAD, {
@@ -23,26 +29,65 @@ const RightBar = (props) => {
     }
   });
   const { loading: recipeeLoading, data: recipeeData } = useQuery(GET_RECIPEES);
-  // const { loading, error, data1 } = useQuery(GET_DISHES);
-  // console.log(data1);
-  const [popup, setPopup] = useState(false);
-  const [chartData, setChartData] = useState({
-    labels: pieData.map((data) => data.label),
-    datasets: [
+  const { loading: nutrientLoading, data: nutrientData } = useQuery(
+    GET_BASKET_NUTRIENTS,
+    {
+      variables: {
+        user: localStorage.getItem("email")
+      }
+    }
+  );
+  const [nutrientArray, setNutrientArray] = useState([]);
+
+  useEffect(() => {
+    if (nutrientData) {
+      const newNutrientArray = [...nutrientArray];
+      nutrientData.basket.forEach((item) => {
+        item.dish.nutrients.forEach((nutrient) => {
+          const existingNutrientIndex = newNutrientArray.findIndex(
+            (nutrientItem) => nutrientItem.name === nutrient.name
+          );
+          if (existingNutrientIndex !== -1) {
+            newNutrientArray[existingNutrientIndex].value += parseInt(
+              nutrient.quantity
+            );
+          } else {
+            newNutrientArray.push({
+              name: nutrient.name,
+              value: parseInt(nutrient.quantity)
+            });
+          }
+        });
+      });
+      setNutrientArray(newNutrientArray);
+    }
+  }, [nutrientData]);
+
+  console.log(nutrientArray);
+
+  const options = {
+    series: [44, 55, 13, 43, 22],
+    chart: {
+      width: 380,
+      type: "pie"
+    },
+    labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+    responsive: [
       {
-        label: "Nutrients",
-        data: pieData.map((data) => data.value),
-        backgroundColor: [
-          "#FED976",
-          "#FD8D3C",
-          "#FFEDA0",
-          "#FEB24C",
-          "#FED976"
-        ],
-        hoverOffset: 4
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: "bottom"
+          }
+        }
       }
     ]
-  });
+  };
+  const [popup, setPopup] = useState(false);
+
   const logOut = () => {
     localStorage.removeItem("token");
     window.location.reload();
@@ -101,7 +146,39 @@ const RightBar = (props) => {
           <p className="view">2000 calories today, 15000 this week</p>
         </div>
 
-        <PieChart chartData={chartData} />
+        {/* <PieChart chartData={chartData} /> */}
+        {/* <Chart options={options} /> */}
+        {/* <ResponsiveContainer width="100%" height="100%"> */}
+        <div className="flex justify-center">
+          <PieChart
+            width={screenWidth < 640 ? 250 : 300}
+            height={screenWidth < 640 ? 250 : 300}
+            // width={300}
+            // height={300}
+          >
+            <Pie
+              dataKey="value"
+              isAnimationActive={false}
+              data={nutrientArray && nutrientArray}
+              cx="50%"
+              cy="50%"
+              outerRadius={80}
+              fill="#f5a504"
+              label
+            />
+            {/* <Pie
+              dataKey="value"
+              data={data02}
+              cx={500}
+              cy={200}
+              innerRadius={40}
+              outerRadius={80}
+              fill="#82ca9d"
+            /> */}
+            <Tooltip />
+          </PieChart>
+        </div>
+        {/* </ResponsiveContainer> */}
       </div>
       <div className="more-recipies h-full">
         <div className="flex justify-between ml-5 mt-7">

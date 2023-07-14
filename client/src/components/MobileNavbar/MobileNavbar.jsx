@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../../utils/recipee_logo-cropped.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { CgOptions } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
 const MobileNavbar = (props) => {
   return (
@@ -13,7 +14,9 @@ const MobileNavbar = (props) => {
         }}
       />
       <div className="navbar-logo w-20">
-        <img src={logo} alt="" />
+        <Link to="/">
+          <img src={logo} alt="" />
+        </Link>
       </div>
       {props.rightbarView != null ? (
         <CgOptions

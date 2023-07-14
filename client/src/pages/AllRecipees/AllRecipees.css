@@ -2,3 +2,11 @@
     margin-left: 17%;
     width: 56%;
 }
+
+@media (max-width: 640px) {
+    .all-recipees-main {
+        margin-left: 0;
+        width: 100%;
+        padding: 5%;
+    }
+}

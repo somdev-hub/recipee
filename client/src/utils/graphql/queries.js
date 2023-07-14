@@ -353,3 +353,17 @@ export const GET_CATEGORIES_BY_SELLERID = gql`
     }
   }
 `;
+
+export const GET_BASKET_NUTRIENTS = gql`
+  query Basket($user: String!) {
+    basket(user: $user) {
+      id
+      dish {
+        nutrients {
+          name
+          quantity
+        }
+      }
+    }
+  }
+`;
