@@ -146,9 +146,7 @@ const RightBar = (props) => {
           <p className="view">2000 calories today, 15000 this week</p>
         </div>
 
-        {/* <PieChart chartData={chartData} /> */}
-        {/* <Chart options={options} /> */}
-        {/* <ResponsiveContainer width="100%" height="100%"> */}
+
         <div className="flex justify-center">
           <PieChart
             width={screenWidth < 640 ? 250 : 300}

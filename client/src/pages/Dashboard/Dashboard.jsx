@@ -72,6 +72,8 @@ const Dashboard = () => {
       <div
         className={`main-content mt-5 ${
           pos || pos2 ? "brightness-50 transition-all" : ""
+        } ${sidebarView ? "h-screen overflow-hidden" : ""} ${
+          rightbarView ? "h-screen overflow-hidden" : ""
         }`}
       >
         <MobileNavbar

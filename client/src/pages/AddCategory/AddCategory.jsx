@@ -177,7 +177,11 @@ const AddCategory = () => {
   return (
     <div className="add-category flex">
       <Sidebar sidebarView={sidebarView} />
-      <div className="add-category-main w-full sm:mt-5 text-white">
+      <div
+        className={`add-category-main w-full sm:mt-5 text-white ${
+          sidebarView && "h-screen overflow-hidden"
+        }`}
+      >
         <MobileNavbar
           setSidebarView={setSidebarView}
           sidebarView={sidebarView}

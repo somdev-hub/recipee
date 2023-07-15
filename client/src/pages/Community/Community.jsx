@@ -29,7 +29,7 @@ const Community = () => {
       <div
         className={`community-content mt-5 ${
           create ? "brightness-50 transition-all" : ""
-        }`}
+        } ${sidebarView || rightbarView ? "h-screen overflow-hidden" : ""}`}
       >
         <MobileNavbar
           sidebarView={sidebarView}
@@ -54,7 +54,11 @@ const Community = () => {
           </div>
         </div>
       </div>
-      <CreatePost onClick={handleCreate} rightbarView={rightbarView} setRightbarView={setRightbarView}/>
+      <CreatePost
+        onClick={handleCreate}
+        rightbarView={rightbarView}
+        setRightbarView={setRightbarView}
+      />
       <PostCreate onClick={handleCreate} set={create} />
     </div>
   );

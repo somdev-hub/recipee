@@ -149,7 +149,11 @@ const AddRecipee = () => {
   return (
     <div className="add-recipee flex relative">
       <Sidebar sidebarView={sidebarView} />
-      <div className="add-recipee-main w-full sm:mt-5">
+      <div
+        className={`add-recipee-main w-full sm:mt-5 ${
+          sidebarView ? "h-screen overflow-hidden" : ""
+        }`}
+      >
         <MobileNavbar
           setSidebarView={setSidebarView}
           sidebarView={sidebarView}

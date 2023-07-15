@@ -90,7 +90,11 @@ const Profile = () => {
       {profileLoading ? (
         <Loader />
       ) : (
-        <div className="profile-main sm:mt-5 text-white">
+        <div
+          className={`profile-main sm:mt-5 text-white ${
+            sidebarView || rightbarView ? "h-screen overflow-hidden" : ""
+          }`}
+        >
           <MobileNavbar
             sidebarView={sidebarView}
             rightbarView={rightbarView}

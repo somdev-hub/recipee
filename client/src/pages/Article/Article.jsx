@@ -64,7 +64,11 @@ const Article = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="article-content mt-5 text-white">
+        <div
+          className={`article-content mt-5 text-white ${
+            sidebarView || rightbarView ? "h-screen overflow-hidden" : ""
+          }`}
+        >
           <MobileNavbar
             sidebarView={sidebarView}
             setSidebarView={setSidebarView}

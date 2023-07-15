@@ -30,7 +30,11 @@ const Basket = () => {
     <div className="basket flex">
       <Sidebar sidebarView={sidebarView} />
       {loading && <Loader />}
-      <div className="basket-main sm:mt-5">
+      <div
+        className={`basket-main sm:mt-5 ${
+          sidebarView || checkoutBar ? "h-screen overflow-hidden" : ""
+        } `}
+      >
         <MobileNavbar
           setSidebarView={setSidebarView}
           sidebarView={sidebarView}

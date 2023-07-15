@@ -53,7 +53,7 @@ const Favorites = () => {
         }
       });
     }
-  }, [data]);
+  }, [data, favCategories, favDishes, favPosts, favRecipes]);
 
   console.log(favDishes);
 
@@ -61,7 +61,11 @@ const Favorites = () => {
     <div className="favorites flex">
       <Sidebar sidebarView={sidebarView} />
       {loading && <Loader />}
-      <div className="favorites-content sm:mt-5">
+      <div
+        className={`favorites-content sm:mt-5 ${
+          sidebarView || rightbarView ? "h-screen overflow-hidden" : ""
+        }`}
+      >
         <MobileNavbar
           sidebarView={sidebarView}
           setSidebarView={setSidebarView}
