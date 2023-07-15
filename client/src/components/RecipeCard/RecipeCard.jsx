@@ -5,7 +5,7 @@ import "./RecipeCard.css";
 const RecipeCard = ({ props }) => {
   // console.log(props.image);
   return (
-    <div className="recipe-card flex flex-col items-center sm:mr-5 cursor-pointer">
+    <div className="recipe-card flex flex-col items-center mr-5 cursor-pointer">
       <div className="recipe-img mt-2">
         <img
           src={props.image}

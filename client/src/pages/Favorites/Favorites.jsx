@@ -118,62 +118,11 @@ const Favorites = () => {
                   favCategories.map((item, index) => {
                     return (
                       <div className="mb-5">
-                        <Choices item={item.category} />;
+                        <Choices item={item.category} />
                       </div>
                     );
                   })}
               </div>
-
-              {/* {data?.getFavorites.map((item, index) => {
-                if (item.type === "dish") {
-                  return (
-                    <div className="">
-                      <h3 className="text-white">Food items</h3>
-                      <div className="fav-container overflow-x-auto mt-10">
-                        <div className="fav-content favourite-foods-content flex">
-                          <Dish props={item.dish} />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                } else if (item.type === "recipee") {
-                  return (
-                    <div className="mt-10">
-                      <h3 className="text-white">Recipes</h3>
-                      <div className="recipe-container mt-10 overflow-x-auto">
-                        <div className="w-auto flex">
-                          <RecipeCard
-                            img={item.recipee.image}
-                            name={item.recipee.name}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                } else if (item.type === "category") {
-                  return (
-                    <div className="mt-10 text-white">
-                      <h3 className="">Categories</h3>
-                      <div className="recipe-container mt-10 overflow-x-auto">
-                        <div className="flex">
-                          <Choices item={item.category} />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                } else if (item.type === "posts") {
-                  return (
-                    <div className="mt-10">
-                      <h3 className="text-white">Recipes</h3>
-                      <div className="recipe-container mt-10 overflow-x-auto">
-                        <div className="recipies flex">
-                          <Posts props={item.posts} />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                }
-              })} */}
             </div>
           </div>
         )}

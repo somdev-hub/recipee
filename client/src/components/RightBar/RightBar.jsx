@@ -165,16 +165,9 @@ const RightBar = (props) => {
               outerRadius={80}
               fill="#f5a504"
               label
+              blendStroke={false}
             />
-            {/* <Pie
-              dataKey="value"
-              data={data02}
-              cx={500}
-              cy={200}
-              innerRadius={40}
-              outerRadius={80}
-              fill="#82ca9d"
-            /> */}
+
             <Tooltip />
           </PieChart>
         </div>

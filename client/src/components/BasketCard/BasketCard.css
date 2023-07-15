@@ -37,13 +37,14 @@
 
 @media (max-width: 640px) {
   .item-img-container {
-    width: 40%;
+    width: 50%;
+    height: 7.5rem;
   }
   .item-contents {
     width: 75%;
   }
   .item-price {
-    font-size: 14px;
+    font-size: 12px;
   }
   .item-end {
     display: flex;
@@ -55,7 +56,7 @@
     margin-top: 5%;
   }
   .total-price {
-    font-size: 14px;
+    font-size: 12px;
   }
   .item-img {
     width: 100%;

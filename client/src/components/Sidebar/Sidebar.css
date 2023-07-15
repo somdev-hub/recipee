@@ -5,17 +5,13 @@
   /* height: 100dvh; */
 }
 
-/* .sidebar-logo {
-  width: 12rem;
-} */
-
-.sidebar-logo img{
+.sidebar-logo img {
   width: 80%;
 }
 
 .sidebar-options {
   color: var(--white);
-  height: 40%;
+  height: 70%;
 }
 
 .checked {
@@ -50,11 +46,11 @@
   padding-left: 15%;
 }
 
-.sidebar-options span {
+/* .sidebar-options span {
   font-size: 16px;
-}
+} */
 .share-now p {
-  font-size: 16px;
+  /* font-size: 16px; */
   font-weight: 600;
 }
 
@@ -81,9 +77,20 @@
     /* height: 100lvh; */
   }
   .share-now {
-    height: 11rem;
-    width: 10rem;
+    height: 10rem;
+    width: 9rem;
   }
+  /* .share-now p {
+    font-size: 14px;
+  } */
+
+  /* .sidebar-options span {
+    font-size: 14px;
+  } */
+
+  /* .share-now button {
+    font-size: 14px;
+  } */
   .sidebar-logo {
     width: 14rem;
   }
