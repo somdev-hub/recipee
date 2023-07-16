@@ -12,9 +12,9 @@ nav h2 {
 
 .filter {
   background-color: var(--dark-blue);
-  height: 2.5rem;
-  width: 2.5rem;
-  border-radius: 5px;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 10px;
   color: var(--white);
 }
 
@@ -22,13 +22,22 @@ nav h2 {
   display: none;
 }
 
+.search {
+  width: 35%;
+}
+
 .search input {
   border: none;
   background-color: var(--dark-blue);
-  height: 2.5rem;
-  width: 14rem;
-  border-radius: 5px;
+  height: 3rem;
+  /* width: 14rem; */
+  flex: 1;
+  border-radius: 10px;
   padding: 3%;
+}
+
+.search input:focus {
+  outline: none;
 }
 
 .search-results-container {
@@ -107,10 +116,12 @@ nav h2 {
   .search {
     margin-top: 5%;
     justify-content: space-between;
+    width: 100%;
   }
 
   .search input {
-    width: 17rem;
+    /* width: 17rem; */
+    flex: 1;
   }
 
   .ad1 p {

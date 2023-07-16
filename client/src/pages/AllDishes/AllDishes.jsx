@@ -60,7 +60,13 @@ const AllDishes = () => {
       dinnerLoading ? (
         <Loader />
       ) : (
-        <div className="all-dishes-main sm:mt-5 text-white">
+        <div
+          className={`all-dishes-main sm:mt-5 text-white ${
+            sidebarView || rightbarView
+              ? "h-screen-dvh overflow-hidden brightness-50 transition-all"
+              : ""
+          }`}
+        >
           <MobileNavbar
             sidebarView={sidebarView}
             rightbarView={rightbarView}

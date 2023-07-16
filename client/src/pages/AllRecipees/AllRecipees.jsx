@@ -41,7 +41,13 @@ const AllRecipees = () => {
       {vegRecipeeLoading || nonvegRecipeeLoading || breakfastRecipeeLoading ? (
         <Loader />
       ) : (
-        <div className="all-recipees-main text-white sm:mt-5">
+        <div
+          className={`all-recipees-main text-white sm:mt-5 ${
+            sidebarView || rightbarView
+              ? "h-screen-dvh overflow-hidden brightness-50 transition-all"
+              : ""
+          }`}
+        >
           <MobileNavbar
             sidebarView={sidebarView}
             rightbarView={rightbarView}

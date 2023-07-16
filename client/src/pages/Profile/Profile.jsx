@@ -92,7 +92,9 @@ const Profile = () => {
       ) : (
         <div
           className={`profile-main sm:mt-5 text-white ${
-            sidebarView || rightbarView ? "h-screen overflow-hidden" : ""
+            sidebarView || rightbarView
+              ? "h-screen-dvh overflow-hidden brightness-50 transition-all"
+              : ""
           }`}
         >
           <MobileNavbar

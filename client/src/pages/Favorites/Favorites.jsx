@@ -63,7 +63,9 @@ const Favorites = () => {
       {loading && <Loader />}
       <div
         className={`favorites-content sm:mt-5 ${
-          sidebarView || rightbarView ? "h-screen overflow-hidden" : ""
+          sidebarView || rightbarView
+            ? "h-screen-dvh overflow-hidden brightness-50 transition-all"
+            : ""
         }`}
       >
         <MobileNavbar
@@ -131,7 +133,7 @@ const Favorites = () => {
           </div>
         )}
       </div>
-      <Suggested />
+      <Suggested rightbarView={rightbarView} />
     </div>
   );
 };

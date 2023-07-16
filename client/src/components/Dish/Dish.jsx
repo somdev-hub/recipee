@@ -1,11 +1,16 @@
 import React from "react";
 import "./Dish.css";
 
-const Dish = ({ props, click }) => {
+const Dish = ({ props, click, size }) => {
   return (
     <div
       className="dish flex flex-col items-center cursor-pointer mr-5"
       onClick={click}
+      style={
+        size === "small"
+          ? { width: "9rem", height: "11rem" }
+          : { width: "10rem", height: "12rem" }
+      }
     >
       <div className="dish-img-container h-1/2 w-full">
         <img

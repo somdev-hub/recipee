@@ -71,10 +71,10 @@ const Dashboard = () => {
 
       <div
         className={`main-content mt-5 ${
-          pos || pos2 ? "brightness-50 transition-all" : ""
-        } ${sidebarView ? "h-screen overflow-hidden" : ""} ${
-          rightbarView ? "h-screen overflow-hidden" : ""
-        }`}
+          pos || pos2 || sidebarView || rightbarView
+            ? "brightness-50 transition-all"
+            : ""
+        } ${sidebarView || rightbarView ? "h-screen-dvh overflow-hidden" : ""}`}
       >
         <MobileNavbar
           sidebarView={sidebarView}
@@ -98,7 +98,7 @@ const Dashboard = () => {
               <input
                 type="text"
                 placeholder="Search here"
-                className="mr-5"
+                className="mr-3 text-sm"
                 onChange={searchChangeHandler}
                 onClick={() => setSearchBar(true)}
               />
@@ -119,25 +119,27 @@ const Dashboard = () => {
             {itemLoading || articleLoading ? (
               <Loader2 />
             ) : (
-              <div className="search-result-contents ">
+              <div className="search-result-contents">
                 {searchResults?.searchItem?.code === 200 && (
-                  <div className="search-results-dishes overflow-auto ">
+                  <div className="search-results-dishes">
                     <h3>Top dishes</h3>
-                    <div className="search-results-dishes-container mt-5 flex"></div>
-                    {searchResults?.searchItem?.searchResult?.map(
-                      (item, index) => {
-                        return (
-                          <Dish
-                            props={item}
-                            key={index}
-                            click={() => {
-                              setInfo(item);
-                              setPos(!pos);
-                            }}
-                          />
-                        );
-                      }
-                    )}
+                    <div className="search-results-dishes-container mt-5 sm:flex grid grid-cols-2 gap-5 overflow-x-auto">
+                      {searchResults?.searchItem?.searchResult?.map(
+                        (item, index) => {
+                          return (
+                            <Dish
+                              props={item}
+                              key={index}
+                              size="small"
+                              click={() => {
+                                setInfo(item);
+                                setPos(!pos);
+                              }}
+                            />
+                          );
+                        }
+                      )}
+                    </div>
                   </div>
                 )}
                 {searchArticles?.searchArticle?.code === 200 && (

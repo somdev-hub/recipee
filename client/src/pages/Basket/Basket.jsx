@@ -32,7 +32,9 @@ const Basket = () => {
       {loading && <Loader />}
       <div
         className={`basket-main sm:mt-5 ${
-          sidebarView || checkoutBar ? "h-screen overflow-hidden" : ""
+          sidebarView || checkoutBar
+            ? "h-screen-dvh overflow-hidden brightness-50 transition-all"
+            : ""
         } `}
       >
         <MobileNavbar

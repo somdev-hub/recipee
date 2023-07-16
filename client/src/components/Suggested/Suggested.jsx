@@ -6,7 +6,7 @@ import SuggestionCard from "../SuggestionCard/SuggestionCard";
 const Suggested = (props) => {
   return (
     <div
-      className="suggested flex flex-col  h-screen fixed"
+      className="suggested flex flex-col  h-screen fixed transition-all"
       style={
         window.innerWidth < 640
           ? { right: props.rightbarView ? "0" : "-100%" }

@@ -179,7 +179,7 @@ const AddCategory = () => {
       <Sidebar sidebarView={sidebarView} />
       <div
         className={`add-category-main w-full sm:mt-5 text-white ${
-          sidebarView && "h-screen overflow-hidden"
+          sidebarView && "h-screen-dvh overflow-hidden"
         }`}
       >
         <MobileNavbar

@@ -1,8 +1,8 @@
 .dish {
   background-color: var(--dark-blue);
   border-radius: 20px;
-  width: 10rem;
-  height: 12rem;
+  /* width: 10rem;
+  height: 12rem; */
   border: none;
 }
 
@@ -17,3 +17,10 @@
 .dish p {
   color: var(--light-gray);
 }
+
+/* @media (max-width: 640px) {
+  .dish {
+    width: 9rem;
+    height: 11rem;
+  }
+} */

@@ -151,7 +151,7 @@ const AddRecipee = () => {
       <Sidebar sidebarView={sidebarView} />
       <div
         className={`add-recipee-main w-full sm:mt-5 ${
-          sidebarView ? "h-screen overflow-hidden" : ""
+          sidebarView ? "h-screen-dvh overflow-hidden" : ""
         }`}
       >
         <MobileNavbar
