@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./RightBar.css";
 import { BsFillBellFill } from "react-icons/bs";
-// import Chart from "chart.js/auto";
-import { CategoryScale } from "chart.js";
-import { pieData } from "../../utils/data/pie";
-// import PieChart from "../PieChart/PieChart";
 import { AiOutlineArrowRight } from "react-icons/ai";
-import { recipe } from "../../utils/providers/recipe";
 import RecipeCard from "../RecipeCard/RecipeCard";
-// import { GET_PROFILE_HEAD } from "../../utils/graphql/mutations";
 import {
+  GET_BASKET_CALORIES,
   GET_BASKET_NUTRIENTS,
   GET_PROFILE_HEAD,
   GET_RECIPEES
@@ -17,8 +12,7 @@ import {
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import Loader2 from "../Loader2/Loader2";
-// import Chart from "react-apexcharts";
-import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Tooltip } from "recharts";
 
 // Chart.register(CategoryScale);
 
@@ -31,6 +25,14 @@ const RightBar = (props) => {
   const { loading: recipeeLoading, data: recipeeData } = useQuery(GET_RECIPEES);
   const { loading: nutrientLoading, data: nutrientData } = useQuery(
     GET_BASKET_NUTRIENTS,
+    {
+      variables: {
+        user: localStorage.getItem("email")
+      }
+    }
+  );
+  const { loading: caloriesLoading, data: caloriesData } = useQuery(
+    GET_BASKET_CALORIES,
     {
       variables: {
         user: localStorage.getItem("email")
@@ -63,29 +65,13 @@ const RightBar = (props) => {
     }
   }, [nutrientData]);
 
-  console.log(nutrientArray);
+  // console.log(nutrientArray);
+  const calories = caloriesData?.basket?.reduce(
+    (prev, curr) => prev + parseInt(curr?.dish.calories),
+    0
+  );
+  console.log(calories);
 
-  const options = {
-    series: [44, 55, 13, 43, 22],
-    chart: {
-      width: 380,
-      type: "pie"
-    },
-    labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200
-          },
-          legend: {
-            position: "bottom"
-          }
-        }
-      }
-    ]
-  };
   const [popup, setPopup] = useState(false);
 
   const logOut = () => {
@@ -115,7 +101,7 @@ const RightBar = (props) => {
             />
           </span>
           <div
-            className="profile-pop-up absolute p-5 flex-col justify-around"
+            className="profile-pop-up absolute p-5 flex-col justify-around z-50"
             style={{ display: popup ? "flex" : "none" }}
           >
             <div className="profile-pop-up-head flex items-center">
@@ -143,9 +129,18 @@ const RightBar = (props) => {
       <div className="meter">
         <div className="flex flex-col justify-between ml-5 mt-7">
           <h3 className="text-white mb-2">Nutrient meter</h3>
-          <p className="view">2000 calories today, 15000 this week</p>
+          {caloriesLoading ? (
+            <p className="view">Loading...</p>
+          ) : (
+            <p className="view">
+              {caloriesData?.basket?.reduce(
+                (prev, curr) => prev + parseInt(curr?.dish.calories),
+                0
+              )}{" "}
+              calories today, 15000 this week
+            </p>
+          )}
         </div>
-
 
         <div className="flex justify-center">
           <PieChart

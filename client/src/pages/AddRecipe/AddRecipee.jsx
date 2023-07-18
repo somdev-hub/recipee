@@ -5,7 +5,6 @@ import Switch from "react-switch";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useMutation } from "@apollo/client";
 import { ADD_DISH, ADD_RECIPEE } from "../../utils/graphql/mutations";
-import confetti from "../../utils/confetti.svg";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { convertToBase64 } from "../../utils/base64";
 
@@ -14,6 +13,19 @@ const AddRecipee = () => {
   const [sidebarView, setSidebarView] = useState(false);
   const [takeOrders, setTakeOrders] = useState(false);
   const [compliance, setCompliance] = useState(false);
+  const recipeeCatagories = [
+    "Breakfast",
+    "Lunch",
+    "Snacks",
+    "Dinner",
+    "Dessert",
+    "Beverages",
+    "Cocktails",
+    "Appetizers",
+    "Main Course",
+    "Side Dishes",
+    "Other"
+  ];
   const [recipeeData, setRecipeeData] = useState({
     name: "",
     author: localStorage.getItem("email"),
@@ -26,6 +38,7 @@ const AddRecipee = () => {
     nonveg: nonveg,
     weight: "",
     price: "",
+    calories: "",
     dishDescription: ""
   });
   const [addRecipee, { loading: recipeeLoading }] = useMutation(ADD_RECIPEE);
@@ -74,6 +87,7 @@ const AddRecipee = () => {
       nutrients,
       image,
       nonveg,
+      calories,
       weight,
       price,
       dishDescription
@@ -114,6 +128,7 @@ const AddRecipee = () => {
               weight,
               category,
               tags,
+              calories,
               nutrients,
               nonveg
             }
@@ -174,15 +189,20 @@ const AddRecipee = () => {
                     value={recipeeData.name}
                     onChange={handleRecipeeChange}
                   />
-                  <div className="my-5 flex sm:flex-row flex-col gap-5 type-ingredients">
-                    <input
-                      type="text"
-                      className=""
-                      placeholder="Recipee type"
+                  <div className="my-5 flex sm:flex-row flex-col gap-5 type-ingredients text-white">
+                    <select
                       name="category"
                       value={recipeeData.category}
+                      id=""
                       onChange={handleRecipeeChange}
-                    />
+                    >
+                      <option value="" disabled selected>
+                        Select a category
+                      </option>
+                      {recipeeCatagories.map((category) => {
+                        return <option value={category}>{category}</option>;
+                      })}
+                    </select>
                     <input
                       type="text"
                       className=""
@@ -200,7 +220,9 @@ const AddRecipee = () => {
                     onChange={handleRecipeeChange}
                   />
                   <div className="veg flex items-center mt-5">
-                    <p className="text-white mr-3">Non-Vegetarian</p>
+                    <p className="text-white mr-3">
+                      {nonveg ? "Non-vegetarian" : "Vegetarian"}
+                    </p>
                     <Switch
                       onChange={() => setNonVeg(!nonveg)}
                       checked={nonveg}
@@ -310,6 +332,14 @@ const AddRecipee = () => {
                     disabled={!takeOrders}
                     name="price"
                     value={recipeeData.price}
+                    onChange={handleRecipeeChange}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Calories"
+                    disabled={!takeOrders}
+                    name="calories"
+                    value={recipeeData.calories}
                     onChange={handleRecipeeChange}
                   />
                 </div>

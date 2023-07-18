@@ -132,6 +132,14 @@ export const resolvers = {
     getCategories: async (parent, args, context, info) => {
       return await Category.find({});
     },
+    getCategoriesByVeg: async (parent, { isNonVeg }, context, info) => {
+      // console.log(nonveg);
+      return await Category.find({ isNonVeg });
+    },
+    getCategoriesByCategory: async (parent, { category }, context, info) => {
+      const regex = new RegExp(category, "i");
+      return await Category.find({ category: regex });
+    },
     getCategoriesBySellerId: async (parent, { sellerId }, context, info) => {
       return await Category.find({ sellerId });
     }
@@ -185,28 +193,7 @@ export const resolvers = {
         };
       }
     },
-    // addToFavoriteDish: async (parent, args, context, info) => {
-    //   try {
-    //     const new_favorite_item = new favoriteDishes({
-    //       dish: await Dishes.findById(args.id)
-    //     });
-    //     const saved = await new_favorite_item.save();
-    //     const dish = await favoriteDishes.find();
-    //     return {
-    //       code: 200,
-    //       success: true,
-    //       message: "Item added",
-    //       dish: dish
-    //     };
-    //   } catch {
-    //     return {
-    //       code: 500,
-    //       success: false,
-    //       message: "Internal server error",
-    //       dish: await favoriteDishes.find()
-    //     };
-    //   }
-    // },
+
     addToFavorites: async (parent, args, context, info) => {
       const { user, item, type } = args;
       try {
@@ -364,6 +351,7 @@ export const resolvers = {
         weight,
         nutrients,
         nonveg,
+        calories,
         category,
         tags
       } = args.dish;
@@ -374,6 +362,7 @@ export const resolvers = {
         price,
         image,
         weight,
+        calories,
         nutrients,
         nonveg,
         category,
@@ -521,6 +510,7 @@ export const resolvers = {
         nutrients,
         isNonVeg,
         dishes,
+        calories,
         ingredients,
         tags
       } = args.category;
@@ -536,6 +526,7 @@ export const resolvers = {
         nutrients,
         isNonVeg,
         dishes,
+        calories,
         ingredients,
         tags
       });

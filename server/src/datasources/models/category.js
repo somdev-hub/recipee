@@ -23,6 +23,7 @@ const Category = mongoose.model("Category", {
   ],
   price: String,
   weight: String,
+  calories: String,
   sellerId: String
 });
 

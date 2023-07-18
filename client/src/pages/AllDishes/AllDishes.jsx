@@ -17,20 +17,15 @@ const AllDishes = () => {
   const [pos, setPos] = useState(false);
   const [info, setInfo] = useState({});
   const [rightbarView, setRightbarView] = useState(false);
-  const {
-    loading: vegLoading,
-    error,
-    data: vegDishes
-  } = useQuery(GET_VEG_DISHES, {
+  const { loading: vegLoading, data: vegDishes } = useQuery(GET_VEG_DISHES, {
     variables: { nonveg: false }
   });
-  const {
-    loading: nonVegLoading,
-    error: nonVegError,
-    data: nonVegDishes
-  } = useQuery(GET_VEG_DISHES, {
-    variables: { nonveg: true }
-  });
+  const { loading: nonVegLoading, data: nonVegDishes } = useQuery(
+    GET_VEG_DISHES,
+    {
+      variables: { nonveg: true }
+    }
+  );
   const { loading: breakfastLoading, data: breakfastData } = useQuery(
     GET_DISHES_BY_CATEGORY,
     {

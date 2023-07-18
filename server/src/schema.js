@@ -20,6 +20,8 @@ const typeDefs = gql`
     getRecipeesByCategory(category: String!): [Recipees]
     getRecipeesByVeg(nonveg: Boolean!): [Recipees]
     getCategories: [Category]
+    getCategoriesByVeg(isNonVeg: Boolean!): [Category]
+    getCategoriesByCategory(category: String!): [Category]
     getCategoriesBySellerId(sellerId: String!): [Category]
   }
 
@@ -175,7 +177,8 @@ const typeDefs = gql`
     image: String
     dishDescription: String
     category: String
-    weight: String
+    weight: String,
+    calories: String,
     nutrients: [Nutrients]
     tags: [String]
     nonveg: Boolean
@@ -189,6 +192,7 @@ const typeDefs = gql`
     dishDescription: String!
     category: String!
     weight: String!
+    calories: String!
     nutrients: [NutrientsInput]
     nonveg: Boolean!
     tags: [String]
@@ -241,6 +245,7 @@ const typeDefs = gql`
     sellerId: String!
     category: String!
     weight: String!
+    calories: String!
     isNonVeg: Boolean!
     price: String!
   }
@@ -256,6 +261,7 @@ const typeDefs = gql`
     category: String!
     weight: String!
     isNonVeg: Boolean!
+    calories: String!
     price: String!
     dishes: [CategoryDishInput]
   }

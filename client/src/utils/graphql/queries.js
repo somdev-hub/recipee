@@ -367,3 +367,40 @@ export const GET_BASKET_NUTRIENTS = gql`
     }
   }
 `;
+
+export const GET_BASKET_CALORIES = gql`
+  query Basket($user: String!) {
+    basket(user: $user) {
+      dish {
+        calories
+      }
+    }
+  }
+`;
+
+export const GET_CATEGORY_BY_VEG = gql`
+  query GetCategoriesByVeg($isNonVeg: Boolean!) {
+    getCategoriesByVeg(isNonVeg: $isNonVeg) {
+      id
+      name
+      image
+      ingredients
+      description
+      tags
+      dishes {
+        name
+        image
+        price
+      }
+      nutrients {
+        name
+        quantity
+      }
+      sellerId
+      category
+      weight
+      isNonVeg
+      price
+    }
+  }
+`;

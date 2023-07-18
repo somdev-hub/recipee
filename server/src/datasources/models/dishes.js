@@ -13,6 +13,7 @@ const Dishes = mongoose.model("Dishes", {
   sellerId: String,
   dishDescription: String,
   category: String,
+  calories: String,
   weight: String,
   nutrients: [{ name: String, quantity: String }],
   tags: [String],

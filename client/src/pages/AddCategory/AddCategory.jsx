@@ -35,6 +35,7 @@ const AddCategory = () => {
     ],
     price: "",
     weight: "",
+    calories: "",
     sellerId: localStorage.getItem("email")
   });
   const [compliance, setCompliance] = useState(false);
@@ -108,6 +109,7 @@ const AddCategory = () => {
       nutrients,
       price,
       weight,
+      calories,
       sellerId
     } = categoryData;
     const categoryDishes = await Promise.all(
@@ -132,6 +134,7 @@ const AddCategory = () => {
             nutrients,
             price,
             weight,
+            calories,
             sellerId,
             dishes: categoryDishes && categoryDishes,
             image: catImg
@@ -396,6 +399,14 @@ const AddCategory = () => {
                     // disabled={!takeOrders}
                     name="price"
                     value={categoryData.price}
+                    onChange={handleCategoryChange}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Calories per serving"
+                    // disabled={!takeOrders}
+                    name="price"
+                    value={categoryData.calories}
                     onChange={handleCategoryChange}
                   />
                 </div>

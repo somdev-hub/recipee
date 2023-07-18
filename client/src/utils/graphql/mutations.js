@@ -128,20 +128,6 @@ export const ADD_DISH = gql`
       code
       success
       message
-      # dish {
-      #   name
-      #   price
-      #   image
-      #   dishDescription
-      #   category
-      #   weight
-      #   nutrients {
-      #     name
-      #     quantity
-      #   }
-      #   tags
-      #   nonveg
-      # }
     }
   }
 `;

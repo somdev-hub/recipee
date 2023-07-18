@@ -5,18 +5,18 @@ import { BsSliders2Vertical } from "react-icons/bs";
 import ad1 from "../../utils/ad1.png";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import Dish from "../../components/Dish/Dish";
-import { favorites } from "../../utils/providers/favorites";
+// import { favorites } from "../../utils/providers/favorites";
 import Choices from "../../components/Choices/Choices";
 import RightBar from "../../components/RightBar/RightBar";
 import InfoCard from "../../components/InfoCard/InfoCard";
 import InfoCard2 from "../../components/InfoCard2/InfoCard2";
-import { choice } from "../../utils/providers/choice";
+// import { choice } from "../../utils/providers/choice";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_CATEGORIES, GET_DISHES } from "../../utils/graphql/queries";
-import Loader from "../../components/Loader/Loader";
-import logo from "../../utils/recipee_logo-cropped.png";
-import { CgOptions } from "react-icons/cg";
-import { GiHamburgerMenu } from "react-icons/gi";
+// import Loader from "../../components/Loader/Loader";
+// import logo from "../../utils/recipee_logo-cropped.png";
+// import { CgOptions } from "react-icons/cg";
+// import { GiHamburgerMenu } from "react-icons/gi";
 import { SEARCH_ARTICLE, SEARCH_ITEM } from "../../utils/graphql/mutations";
 import Posts from "../../components/Posts/Posts";
 import Loader2 from "../../components/Loader2/Loader2";
@@ -25,12 +25,9 @@ import FilterBar from "../../components/FilterBar/FilterBar";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 
 const Dashboard = () => {
-  const { loading: dishesLoading, error, data } = useQuery(GET_DISHES);
-  const {
-    loading: categoryLoading,
-    error: categoryError,
-    data: categoryData
-  } = useQuery(GET_CATEGORIES);
+  const { loading: dishesLoading, data } = useQuery(GET_DISHES);
+  const { loading: categoryLoading, data: categoryData } =
+    useQuery(GET_CATEGORIES);
   const [getSearchItems, { loading: itemLoading }] = useMutation(SEARCH_ITEM);
   const [getSearchArticles, { loading: articleLoading }] =
     useMutation(SEARCH_ARTICLE);
@@ -43,7 +40,7 @@ const Dashboard = () => {
   const [searchResults, setSearchResults] = useState(null);
   const [searchArticles, setSearchArticles] = useState(null);
   const [filterBar, setFilterBar] = useState(false);
-  const [searchBar, setSearchBar] = useState(false);
+  // const [searchBar, setSearchBar] = useState(false);
   const [search, setSearch] = useState("");
 
   const searchChangeHandler = async (e) => {
@@ -100,7 +97,7 @@ const Dashboard = () => {
                 placeholder="Search here"
                 className="mr-3 text-sm"
                 onChange={searchChangeHandler}
-                onClick={() => setSearchBar(true)}
+                // onClick={() => setSearchBar(true)}
               />
 
               <div
@@ -196,10 +193,12 @@ const Dashboard = () => {
           <div className="choices">
             <div className="flex justify-between items-center mt-10">
               <h3 className="">Based on your choices</h3>
-              <p className="flex items-center gap-3 view">
-                View all
-                <AiOutlineArrowRight />
-              </p>
+              <Link to="/all-categories">
+                <p className="flex items-center gap-3 view cursor-pointer">
+                  View all
+                  <AiOutlineArrowRight />
+                </p>
+              </Link>
             </div>
             <div className="choice-container mt-10 overflow-x-auto">
               {categoryLoading && <Loader2 />}
