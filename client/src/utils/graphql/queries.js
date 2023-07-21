@@ -58,6 +58,19 @@ export const GET_BASKET = gql`
   }
 `;
 
+export const GET_BASKET_HEAD = gql`
+  query Basket($user: String!) {
+    basket(user: $user) {
+      id
+      dish {
+        name
+        price
+      }
+      quantity
+    }
+  }
+`;
+
 export const GET_FAVORITES = gql`
   query GetFavorites($user: String!) {
     getFavorites(user: $user) {
@@ -127,6 +140,20 @@ export const GET_PROFILE_HEAD = gql`
       lastName
       email
       image
+    }
+  }
+`;
+
+export const GET_PROFILE_ADDRESS = gql`
+  query GetProfile($email: String!) {
+    getProfile(email: $email) {
+      id
+      firstName
+      lastName
+      email
+      address
+      city
+      pin
     }
   }
 `;
@@ -402,5 +429,11 @@ export const GET_CATEGORY_BY_VEG = gql`
       isNonVeg
       price
     }
+  }
+`;
+
+export const GET_SECRET_KEY = gql`
+  query Query($amount: Int!, $currency: String!) {
+    getClientSecret(amount: $amount, currency: $currency)
   }
 `;

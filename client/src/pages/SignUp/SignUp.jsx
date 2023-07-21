@@ -6,6 +6,10 @@ import { CREATE_PROFILE } from "../../utils/graphql/mutations";
 import { useMutation } from "@apollo/client";
 import { convertToBase64 } from "../../utils/base64";
 import { useNavigate } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import welcome_banner1 from "../../utils/welcome_banner1.png";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -112,11 +116,43 @@ const SignUp = () => {
         />
       </div>
       <div className="welcome-img sm:w-1/2 sm:h-screen">
-        <img
-          className="h-full w-full object-cover"
-          src="https://marleyspoon.com/media/recipes/53977/main_photos/large/mexican_chicken_pizzas-f681a95cd4526aa0d0b0def8ddcce973.jpeg"
-          alt=""
-        />
+        <Swiper
+          pagination={{ clickable: true }}
+          navigation={true}
+          centeredSlides={true}
+          spaceBetween={30}
+          // autoplay={{
+          //   delay: 2500,
+          //   disableOnInteraction: false
+          // }}
+          modules={[Autoplay, Pagination, Navigation]}
+          className="h-full"
+        >
+          {/* <SwiperSlide>
+            <img
+              className="h-full w-full object-cover"
+              src={welcome_banner1}
+              alt=""
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img
+              className="h-full w-full object-cover"
+              src={welcome_banner2}
+              alt=""
+            />
+          </SwiperSlide> */}
+          <SwiperSlide>
+            {/* <img
+              className="h-full w-full object-cover"
+              src={welcome_banner2}
+              alt=""
+            /> */}
+            <video className="h-full w-full object-cover" autoPlay={true}>
+              <source src={welcome_banner1} type="video/mp4" />
+            </video>
+          </SwiperSlide>
+        </Swiper>
       </div>
     </div>
   );

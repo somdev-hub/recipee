@@ -3,13 +3,14 @@ import { Basket } from "./datasources/models/basket.js";
 import { Favorites } from "./datasources/models/favorites.js";
 import { Profile } from "./datasources/models/profile.js";
 import GraphQLUpload from "graphql-upload/GraphQLUpload.mjs";
-import { createWriteStream } from "fs";
-import { join } from "path";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { Recipees } from "./datasources/models/recipees.js";
 import { Posts } from "./datasources/models/posts.js";
 import Category from "./datasources/models/category.js";
+import Stripe from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const resolvers = {
   Upload: GraphQLUpload,
@@ -142,6 +143,18 @@ export const resolvers = {
     },
     getCategoriesBySellerId: async (parent, { sellerId }, context, info) => {
       return await Category.find({ sellerId });
+    },
+    getClientSecret: async (parent, { amount, currency }, context, info) => {
+      const paymentIntent = await stripe.paymentIntents.create(
+        {
+          amount,
+          currency
+        },
+        {
+          apiKey: process.env.STRIPE_SECRET_KEY
+        }
+      );
+      return paymentIntent.client_secret;
     }
   },
 
@@ -539,6 +552,86 @@ export const resolvers = {
           category: await Category.find()
         };
       } catch {
+        return {
+          code: 500,
+          success: false,
+          message: error
+        };
+      }
+    },
+    makePayment: async (parent, args, context, info) => {
+      const { user } = args;
+      const basketItems = await Basket.find({ user });
+      const lineItems = await Promise.all(
+        basketItems.map(async (item) => {
+          if (item.type === "dish") {
+            const dish = await Dishes.findOne({ _id: item.basketItem });
+            return {
+              price_data: {
+                currency: "inr",
+                product_data: {
+                  name: dish.name
+                },
+                unit_amount: parseInt(dish.price) * 100
+              },
+              quantity: item.quantity
+            };
+          } else if (item.type === "category") {
+            const category = await Category.findOne({ _id: item.basketItem });
+            return {
+              price_data: {
+                currency: "inr",
+                product_data: {
+                  name: category.name
+                },
+                unit_amount: parseInt(category.price) * 100
+              },
+              quantity: item.quantity
+            };
+          }
+        })
+      );
+
+      const paymentIntent = await stripe.paymentIntents.create(
+        {
+          amount: lineItems.reduce(
+            (acc, item) => acc + item.price_data.unit_amount * item.quantity,
+            0
+          ),
+          currency: "inr"
+        },
+        {
+          apiKey: process.env.STRIPE_SECRET_KEY
+        }
+      );
+      const referenceNumber = paymentIntent.id;
+      const paymentDateTime = new Date(paymentIntent.created * 1000);
+      const amount = paymentIntent.amount / 100;
+      const successUrl = `recipee-client.onrender.com/success?refNumber=${referenceNumber}&paymentDateTime=${paymentDateTime}&amount=${amount}`;
+
+      try {
+        const session = await stripe.checkout.sessions.create(
+          {
+            // api_key: process.env.STRIPE_SECRET_KEY,
+            line_items: lineItems,
+            mode: "payment",
+            // success_url: `http://localhost:3000/success?refNumber=${referenceNumber}&paymentDateTime=${paymentDateTime}&amount=${amount}`,
+            success_url: successUrl,
+            cancel_url: "recipee-client.onrender.com/cancel"
+          },
+          {
+            apiKey: process.env.STRIPE_SECRET_KEY
+          }
+        );
+
+        return {
+          code: 200,
+          success: true,
+          message: "Payment successful",
+          redirect: session.url
+        };
+      } catch (error) {
+        console.log(error);
         return {
           code: 500,
           success: false,

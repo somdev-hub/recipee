@@ -1,0 +1,55 @@
+.success-head,
+.success-body,
+.success-tail {
+    background-color: var(--dark-gray);
+    border-radius: 20px;
+}
+
+.success-head {
+    height: 12rem;
+    width: 25rem;
+}
+
+.success-body {
+    height: 20rem;
+    width: 25rem;
+}
+
+.success-tail {
+    /* height: 5rem; */
+    width: 25rem;
+}
+
+.success-body-data {
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.success-tail-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    background-color: var(--text-gray);
+}
+
+.success-tail p {
+    color: var(--text-gray);
+}
+
+@media (max-width: 640px) {
+    .success {
+        padding: 5%;
+    }
+
+    .success-head,
+    .success-body,
+    .success-tail {
+        width: 100%;
+    }
+
+    .success-tail {
+        height: auto;
+    }
+    .dashboard-btn {
+        background-color: var(--yellow);
+        border-radius: 10px;
+    }
+}

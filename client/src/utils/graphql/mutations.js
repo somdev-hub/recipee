@@ -207,3 +207,14 @@ export const ADD_CATEGORY = gql`
     }
   }
 `;
+
+export const MAKE_PAYMENT = gql`
+  mutation MakePayment($user: String!) {
+    makePayment(user: $user) {
+      code
+      success
+      message
+      redirect
+    }
+  }
+`;

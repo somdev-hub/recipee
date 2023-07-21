@@ -2,8 +2,15 @@ import React from "react";
 import "./Checkout.css";
 import { baskets } from "../../utils/providers/baskets";
 import Draggable from "react-draggable";
+import Loader from "../Loader/Loader";
 
-const Checkout = ({ items, loading, rightbarView }) => {
+const Checkout = ({
+  items,
+  loading,
+  rightbarView,
+  checkout,
+  paymentLoading
+}) => {
   return (
     <div
       className="checkout flex flex-col fixed h-screen transition-all"
@@ -65,7 +72,9 @@ const Checkout = ({ items, loading, rightbarView }) => {
       <Draggable axis="y" bounds={{ top: -200, bottom: 0 }}>
         <div className="payment mt-10 flex flex-col items-center absolute">
           <div className="bar bg-white mt-3"></div>
-          <button className="pay-button border-none mt-10">Pay Now</button>
+          <button className="pay-button border-none mt-10" onClick={checkout}>
+            {paymentLoading ? <span className="loader"></span> : "Pay Now"}
+          </button>
           <div className="more-options mt-5 w-full">
             <h3 className="text-left text-white ml-5">More options</h3>
             <div className="button-container flex flex-col items-center mt-5">

@@ -18,6 +18,9 @@ import Profile from "./pages/Profile/Profile";
 import AllRecipees from "./pages/AllRecipees/AllRecipees";
 import AddCategory from "./pages/AddCategory/AddCategory";
 import AllCategories from "./pages/AllCategories/AllCategories";
+import PaymentGateway from "./pages/PaymentGateway/PaymentGateway";
+import Success from "./pages/Success/Success";
+import { ViewInvoice } from "./components/Invoice/Invoice";
 
 const client = new ApolloClient({
   // https://recipee-server.onrender.com
@@ -62,7 +65,10 @@ function App() {
         {token && <Route path="/all-dishes" element={<AllDishes />} />}
         {token && <Route path="/all-recipees" element={<AllRecipees />} />}
         {token && <Route path="/all-categories" element={<AllCategories />} />}
+        {token && <Route path="/payment" element={<PaymentGateway />} />}
+        {token && <Route path="/success" element={<Success />} />}
         {token && <Route path="/profile" element={<Profile />} />}
+        {token && <Route path="/view-invoice" element={<ViewInvoice />} />}
         {token && (
           <Route path="/community/article/:articleId" element={<Article />} />
         )}

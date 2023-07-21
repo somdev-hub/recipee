@@ -2,6 +2,10 @@
   border-radius: 5% 0 0 5%;
 }
 
+.welcome-img video{
+  
+}
+
 @media (max-width: 640px) {
   .welcome-img {
     height: 50vh;

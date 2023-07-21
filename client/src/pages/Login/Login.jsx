@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { GET_LOGIN } from "../../utils/graphql/mutations";
 import { Link, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import welcome_banner1 from "../../utils/welcome_banner1.png"
 
 const Login = () => {
   const navigate = useNavigate();
@@ -91,7 +92,7 @@ const Login = () => {
               </p>
               <div className="signup-forms-btns flex flex-col w-full mt-7">
                 <button type="submit" className="cursor-pointer">
-                  {loading ? <span class="loader"></span> : "Continue"}
+                  {loading ? <span className="loader"></span> : "Continue"}
                 </button>
                 <button className="mt-3">Continue with Google</button>
               </div>
@@ -102,7 +103,7 @@ const Login = () => {
       <div className="welcome-img sm:w-1/2 h-screen">
         <img
           className="h-full w-full object-cover"
-          src="https://marleyspoon.com/media/recipes/53977/main_photos/large/mexican_chicken_pizzas-f681a95cd4526aa0d0b0def8ddcce973.jpeg"
+          src={welcome_banner1}
           alt=""
         />
       </div>

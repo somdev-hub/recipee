@@ -20,51 +20,44 @@ import { Link } from "react-router-dom";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { BiDownArrow } from "react-icons/bi";
 import Choices from "../../components/Choices/Choices";
+import profile_background from "../../utils/profile_background.png";
 
 const Profile = () => {
-  const {
-    loading: profileLoading,
-    error,
-    data: profile
-  } = useQuery(GET_PROFILE, {
+  const { loading: profileLoading, data: profile } = useQuery(GET_PROFILE, {
     variables: { email: localStorage.getItem("email") }
   });
-  const {
-    loading: dishLoading,
-    error: dishError,
-    data: dishes
-  } = useQuery(GET_DISHES_BY_SELLERID, {
-    variables: {
-      sellerId: localStorage.getItem("email")
+  const { loading: dishLoading, data: dishes } = useQuery(
+    GET_DISHES_BY_SELLERID,
+    {
+      variables: {
+        sellerId: localStorage.getItem("email")
+      }
     }
-  });
-  const {
-    loading: recipeeLoading,
-    error: recipeeError,
-    data: recipees
-  } = useQuery(GET_RECIPEES_BY_AUTHOR, {
-    variables: {
-      author: localStorage.getItem("email")
+  );
+  const { loading: recipeeLoading, data: recipees } = useQuery(
+    GET_RECIPEES_BY_AUTHOR,
+    {
+      variables: {
+        author: localStorage.getItem("email")
+      }
     }
-  });
-  const {
-    loading: postLoading,
-    error: postError,
-    data: posts
-  } = useQuery(GET_POSTS_BY_AUTHORMAIL, {
-    variables: {
-      authorMail: localStorage.getItem("email")
+  );
+  const { loading: postLoading, data: posts } = useQuery(
+    GET_POSTS_BY_AUTHORMAIL,
+    {
+      variables: {
+        authorMail: localStorage.getItem("email")
+      }
     }
-  });
-  const {
-    loading: categoryLoading,
-    error: categoryError,
-    data: categories
-  } = useQuery(GET_CATEGORIES_BY_SELLERID, {
-    variables: {
-      sellerId: localStorage.getItem("email")
+  );
+  const { loading: categoryLoading, data: categories } = useQuery(
+    GET_CATEGORIES_BY_SELLERID,
+    {
+      variables: {
+        sellerId: localStorage.getItem("email")
+      }
     }
-  });
+  );
   const [collection, setCollection] = useState({
     dishes: true,
     recipees: false,
@@ -113,7 +106,7 @@ const Profile = () => {
             <div className="profile-head w-full relative pb-5">
               <div className="profile-background">
                 <img
-                  src="https://thumbs.dreamstime.com/b/fresh-food-ingredients-vegetarian-kitchen-wooden-background-top-view-raw-vegetable-143531625.jpg"
+                  src={profile_background}
                   alt=""
                   className="w-full h-full object-cover"
                 />

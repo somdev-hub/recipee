@@ -23,6 +23,7 @@ const typeDefs = gql`
     getCategoriesByVeg(isNonVeg: Boolean!): [Category]
     getCategoriesByCategory(category: String!): [Category]
     getCategoriesBySellerId(sellerId: String!): [Category]
+    getClientSecret(amount: Int!, currency: String!): String
   }
 
   type Mutation {
@@ -50,6 +51,14 @@ const typeDefs = gql`
     searchItem(search: String!): searchItemResponse!
     searchArticle(search: String!): searchArticleResponse!
     addCategory(category: CategoryInput!): AddCategoryResponse!
+    makePayment(user: String!): PaymentResponse!
+  }
+
+  type PaymentResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    redirect: String
   }
 
   type AddProfileResponse {
@@ -106,6 +115,13 @@ const typeDefs = gql`
     success: Boolean!
     message: String!
     recipee: [Recipees]
+  }
+
+  input PaymentInput {
+    customerEmail: String!
+    # itemType: String!
+    # itemId: String!
+    # quantity: Int!
   }
 
   input LoginDetails {
@@ -177,8 +193,8 @@ const typeDefs = gql`
     image: String
     dishDescription: String
     category: String
-    weight: String,
-    calories: String,
+    weight: String
+    calories: String
     nutrients: [Nutrients]
     tags: [String]
     nonveg: Boolean
