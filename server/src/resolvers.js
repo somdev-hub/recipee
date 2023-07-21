@@ -607,7 +607,7 @@ export const resolvers = {
       const referenceNumber = paymentIntent.id;
       const paymentDateTime = new Date(paymentIntent.created * 1000);
       const amount = paymentIntent.amount / 100;
-      const successUrl = `recipee-client.onrender.com/success?refNumber=${referenceNumber}&paymentDateTime=${paymentDateTime}&amount=${amount}`;
+      const successUrl = `https://recipee-client.onrender.com/success?refNumber=${referenceNumber}&paymentDateTime=${paymentDateTime}&amount=${amount}`;
 
       try {
         const session = await stripe.checkout.sessions.create(
@@ -617,7 +617,7 @@ export const resolvers = {
             mode: "payment",
             // success_url: `http://localhost:3000/success?refNumber=${referenceNumber}&paymentDateTime=${paymentDateTime}&amount=${amount}`,
             success_url: successUrl,
-            cancel_url: "recipee-client.onrender.com/cancel"
+            cancel_url: "https://recipee-client.onrender.com/cancel"
           },
           {
             apiKey: process.env.STRIPE_SECRET_KEY
