@@ -131,11 +131,11 @@ const Invoice = (props) => {
               }}
             >
               <View style={styles.text}>
-                <Text>Invoice number: </Text>
+                <Text>Invoice number : </Text>
                 <Text>{props.refNumber}</Text>
               </View>
               <View style={styles.text}>
-                <Text>Date: </Text>
+                <Text>Date : </Text>
                 <Text>{props.paymentDataTime}</Text>
               </View>
               <View

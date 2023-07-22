@@ -31,14 +31,15 @@ const RightBar = (props) => {
       }
     }
   );
-  const { loading: caloriesLoading, data: caloriesData } = useQuery(
-    GET_BASKET_CALORIES,
-    {
-      variables: {
-        user: localStorage.getItem("email")
-      }
+  const {
+    error: calorieError,
+    loading: caloriesLoading,
+    data: caloriesData
+  } = useQuery(GET_BASKET_CALORIES, {
+    variables: {
+      user: localStorage.getItem("email")
     }
-  );
+  });
   const [nutrientArray, setNutrientArray] = useState([]);
 
   useEffect(() => {
@@ -71,6 +72,8 @@ const RightBar = (props) => {
     0
   );
   console.log(calories);
+
+  if(calorieError)console.log(calorieError);
 
   const [popup, setPopup] = useState(false);
 

@@ -143,14 +143,11 @@ const SignUp = () => {
             />
           </SwiperSlide> */}
           <SwiperSlide>
-            {/* <img
+            <img
               className="h-full w-full object-cover"
-              src={welcome_banner2}
+              src={welcome_banner1}
               alt=""
-            /> */}
-            <video className="h-full w-full object-cover" autoPlay={true}>
-              <source src={welcome_banner1} type="video/mp4" />
-            </video>
+            />
           </SwiperSlide>
         </Swiper>
       </div>

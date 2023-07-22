@@ -1,23 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import "./Basket.css";
 // import { basket } from "../../utils/providers/baskets";
 import BasketCard from "../../components/BasketCard/BasketCard";
 import Checkout from "../../components/Checkout/Checkout";
-import { useQuery, gql, useMutation } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { GET_BASKET } from "../../utils/graphql/queries";
 import Loader from "../../components/Loader/Loader";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
-import { GET_DISHES_BY_ID, MAKE_PAYMENT } from "../../utils/graphql/mutations";
+import { MAKE_PAYMENT } from "../../utils/graphql/mutations";
 
 const Basket = () => {
-  const { loading, data: basketData } = useQuery(GET_BASKET, {
+  const { error,loading, data: basketData } = useQuery(GET_BASKET, {
     variables: {
       user: localStorage.getItem("email")
     }
   });
   const [makePayment, { loading: paymentLoading }] = useMutation(MAKE_PAYMENT);
 
+  // console.log(basketData);
+  if(error){
+    console.log(error);
+  }
   // console.log(basketData?.basket[0].dish.name);
 
   const [checkoutBar, setCheckoutBar] = useState(false);

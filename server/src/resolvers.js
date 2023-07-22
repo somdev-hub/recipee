@@ -27,10 +27,13 @@ export const resolvers = {
     },
     basket: async (parent, args, context, info) => {
       const user = args.user;
+      console.log(user);
       try {
         const BasketData = await Basket.find({ user });
+        console.log(BasketData);
         const basketItems = BasketData.map(async (item) => {
           if (item.type === "dish") {
+            // console.log(await Dishes.findOne({ _id: item.basketItem }));
             return {
               id: item._id,
               dish: await Dishes.findOne({ _id: item.basketItem }),
@@ -47,7 +50,7 @@ export const resolvers = {
             return {
               id: null,
               dish: null,
-              quantity: null
+              quantity: -99
             };
           }
         });

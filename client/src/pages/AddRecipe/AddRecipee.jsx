@@ -92,6 +92,13 @@ const AddRecipee = () => {
       price,
       dishDescription
     } = recipeeData;
+
+    for (const property in recipeeData) {
+      if (recipeeData[property] === "" || recipeeData[property].length === 0) {
+        alert("Please fill all the fields");
+        return;
+      }
+    }
     const base64 = await convertToBase64(image);
     try {
       const response = await addRecipee({
