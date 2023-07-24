@@ -24,11 +24,11 @@ import { ViewInvoice } from "./components/Invoice/Invoice";
 
 const client = new ApolloClient({
   // https://recipee-server.onrender.com
-  // uri: "https://recipee-server.onrender.com",
-  uri: "http://localhost:4000",
+  uri: "https://recipee-server.onrender.com",
+  // uri: "http://localhost:4000",
   cache: new InMemoryCache(),
-  // link: createUploadLink({ uri: "https://recipee-server.onrender.com/" }),
-  link: createUploadLink({ uri: "http://localhost:4000/" }),
+  link: createUploadLink({ uri: "https://recipee-server.onrender.com/" }),
+  // link: createUploadLink({ uri: "http://localhost:4000/" }),
   onError: ({ networkError, graphQLErrors }) => {
     console.log("graphQLErrors", graphQLErrors);
     console.log("networkError", networkError);

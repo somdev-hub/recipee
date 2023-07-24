@@ -233,7 +233,6 @@ export const resolvers = {
             })
           };
         });
-        // console.log(finalOrder);
         return {
           code: 200,
           success: true,
@@ -247,16 +246,6 @@ export const resolvers = {
           message: error
         };
       }
-      // return {
-      //   code: 200,
-      //   success: true,
-      //   message: "Orders fetched",
-      //   orders: {
-      //     user: orders[0].user,
-      //     date: orders[0].date,
-      //     basketItems: finalOrder,
-      //   }
-      // }
     }
   },
 
@@ -711,7 +700,7 @@ export const resolvers = {
       const paymentDateTime = new Date(paymentIntent.created * 1000);
       console.log(paymentDateTime.toLocaleDateString());
       const amount = paymentIntent.amount / 100;
-      const successUrl = `http://localhost:3000/success?refNumber=${referenceNumber}&paymentDate=${paymentDateTime.toLocaleDateString()}&paymentTime=${paymentDateTime.toLocaleTimeString()}&amount=${amount}`;
+      const successUrl = `https://recipee-client.onrender.com/success?refNumber=${referenceNumber}&paymentDate=${paymentDateTime.toLocaleDateString()}&paymentTime=${paymentDateTime.toLocaleTimeString()}&amount=${amount}`;
 
       try {
         const session = await stripe.checkout.sessions.create(
