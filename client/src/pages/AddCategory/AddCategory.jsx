@@ -425,7 +425,7 @@ const AddCategory = () => {
                 <div className="add-recipee-buttons mt-10 flex gap-5 justify-end">
                   <button onClick={clear}>Clear</button>
                   <button type="submit" disabled={!compliance}>
-                    {loading ? <span class="loader"></span> : "Submit"}
+                    {loading ? <span className="loader"></span> : "Submit"}
                   </button>
                 </div>
               </form>

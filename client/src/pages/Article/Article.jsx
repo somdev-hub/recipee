@@ -66,7 +66,9 @@ const Article = () => {
       ) : (
         <div
           className={`article-content mt-5 text-white ${
-            sidebarView || rightbarView ? "h-screen-dvh overflow-hidden brightness-50 transition-all" : ""
+            sidebarView || rightbarView
+              ? "h-screen-dvh overflow-hidden brightness-50 transition-all"
+              : ""
           }`}
         >
           <MobileNavbar
@@ -159,16 +161,19 @@ const Article = () => {
                   </form>
                 </div>
                 <div className="comments-container my-10">
-                  {data?.getPost.comments.map((comment, index) => {
-                    return (
-                      <Comment
-                        key={index}
-                        userMail={comment?.userMail}
-                        user={comment?.user}
-                        comment={comment?.comment}
-                      />
-                    );
-                  })}
+                  {data?.getPost.comments
+                    .slice()
+                    .reverse()
+                    .map((comment, index) => {
+                      return (
+                        <Comment
+                          key={index}
+                          userMail={comment?.userMail}
+                          user={comment?.user}
+                          comment={comment?.comment}
+                        />
+                      );
+                    })}
                 </div>
               </div>
             </div>

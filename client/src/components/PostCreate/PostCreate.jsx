@@ -155,7 +155,7 @@ const PostCreate = (props) => {
             <div className="add-recipee-buttons mt-5 flex gap-5 justify-end">
               <button>Clear</button>
               <button type="submit">
-                {loading ? <span class="loader"></span> : "Submit"}
+                {loading ? <span className="loader"></span> : "Submit"}
               </button>
             </div>
           </form>

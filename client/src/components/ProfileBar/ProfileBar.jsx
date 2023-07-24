@@ -96,7 +96,7 @@ const ProfileBar = (props) => {
 
   return (
     <div
-      className="profile-bar h-screen fixed p-5 text-white transition-all"
+      className="profile-bar h-screen fixed p-5 text-white transition-all overflow-y-auto no-scrollbar"
       style={
         window.innerWidth < 640
           ? { right: props.rightbarView ? "0" : "-100%" }
@@ -113,17 +113,26 @@ const ProfileBar = (props) => {
         <h3>Recent orders</h3>
       </div>
       {orderLoading && <Loader2 />}
-      <div className="profile-bar-main mt-5">
-        {orderData?.getOrders.orders.map((order, index) => {
-          return (
-            <OrderCard
-              date={order.date}
-              invoice={order.invoice}
-              items={order.basketItems}
-              key={index}
-            />
-          );
-        })}
+      {orderErr && (
+        <p className="mt-5 text-center text-sm">Something went wrong</p>
+      )}
+      {orderData?.getOrders?.orders.length === 0 && (
+        <p className="text-center mt-10 text-sm">No orders placed</p>
+      )}
+      <div className="profile-bar-main mt-10 overflow-y-auto">
+        {orderData?.getOrders?.orders
+          .slice()
+          .reverse()
+          .map((order, index) => {
+            return (
+              <OrderCard
+                date={order?.date}
+                invoice={order?.invoice}
+                items={order?.basketItems}
+                key={index}
+              />
+            );
+          })}
       </div>
     </div>
   );

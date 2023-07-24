@@ -44,11 +44,11 @@ const Community = () => {
             setRightbarView(false);
           }}
         >
-          <nav>
+          <nav>``
             <h2 className="text-white">Community</h2>
           </nav>
           <div className="community-posts mt-10">
-            {data?.getPostList.map((item, index) => {
+            {data?.getPostList.slice().reverse().map((item, index) => {
               return <Posts props={item} key={index} />;
             })}
           </div>

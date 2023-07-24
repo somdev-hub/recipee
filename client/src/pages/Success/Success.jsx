@@ -95,7 +95,8 @@ const Success = () => {
         invoice: base64PDF,
         date: paymentDate,
         refNumber: refNumber
-      }
+      },
+      enabled: !!base64PDF && basketData?.basket?.length > 0 && !!userData
     }
   );
 

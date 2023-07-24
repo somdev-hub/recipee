@@ -382,7 +382,7 @@ const AddRecipee = () => {
                   <button onClick={clearRecipeeData}>Clear</button>
                   <button type="submit" disabled={!compliance}>
                     {recipeeLoading || dishLoading ? (
-                      <span class="loader"></span>
+                      <span className="loader"></span>
                     ) : (
                       "Submit"
                     )}
