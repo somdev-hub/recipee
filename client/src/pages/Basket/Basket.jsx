@@ -103,6 +103,7 @@ const Basket = () => {
         items={basketData?.basket}
         loading={loading}
         rightbarView={checkoutBar}
+        setRightbarView={setCheckoutBar}
         checkout={checkout}
         paymentLoading={paymentLoading}
       />

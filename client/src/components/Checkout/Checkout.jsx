@@ -1,11 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import "./Checkout.css";
-import Draggable from "react-draggable";
+// import Draggable from "react-draggable";
+import { RxCross2 } from "react-icons/rx";
 
 const Checkout = ({
   items,
   loading,
   rightbarView,
+  setRightbarView,
   checkout,
   paymentLoading
 }) => {
@@ -18,7 +20,15 @@ const Checkout = ({
           : { right: "0" }
       }
     >
-      <h3 className="text-white mt-5 ml-5">Checkout</h3>
+      <div className="flex items-center text-white mt-5 ml-5 gap-3">
+        {window.innerWidth < 640 && (
+          <RxCross2
+            className="text-2xl"
+            onClick={() => setRightbarView(false)}
+          />
+        )}
+        <h3 className="">Checkout</h3>
+      </div>
       <div className="flex flex-col justify-between">
         <div className="total-container mt-10 flex flex-col items-center">
           <div className="total-cost  flex items-center ">

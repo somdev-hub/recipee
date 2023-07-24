@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Success.css";
 import Lottie from "lottie-react";
 import Green_tick from "../../utils/lottie/green_tick.json";
@@ -7,13 +7,15 @@ import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { PiDownloadSimpleBold } from "react-icons/pi";
 import { Link, useLocation } from "react-router-dom";
 import { Invoice } from "../../components/Invoice/Invoice";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import { PDFDownloadLink, PDFViewer, usePDF } from "@react-pdf/renderer";
 import { useQuery } from "@apollo/client";
 import {
   GET_BASKET_HEAD,
-  GET_PROFILE_ADDRESS
+  GET_PROFILE_ADDRESS,
+  ON_PAYMENT_SUCCESS
 } from "../../utils/graphql/queries";
 import { BiArrowBack } from "react-icons/bi";
+import { convertToBase64 } from "../../utils/base64";
 
 const style = {
   height: "7rem",
@@ -21,31 +23,84 @@ const style = {
 };
 
 const Success = () => {
-  const {
-    loading,
-    error,
-    data: basketData
-  } = useQuery(GET_BASKET_HEAD, {
+  const { data: basketData } = useQuery(GET_BASKET_HEAD, {
     variables: {
       user: localStorage.getItem("email")
     }
   });
-  const { data: userData } = useQuery(GET_PROFILE_ADDRESS, {
-    variables: {
-      email: localStorage.getItem("email")
+  const { error: profile_error, data: userData } = useQuery(
+    GET_PROFILE_ADDRESS,
+    {
+      variables: {
+        email: localStorage.getItem("email")
+      }
     }
-  });
+  );
   const purchasedItems = basketData?.basket?.map((item) => {
     return [item.dish.name, item.quantity, item.dish.price];
   });
-  console.log(purchasedItems);
+  // console.log(purchasedItems);
   // const { refNumber, paymentDataTime, amount } = useParams();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const refNumber = searchParams.get("refNumber");
-  const paymentDataTime = searchParams.get("paymentDataTime");
+  const paymentDate = searchParams.get("paymentDate");
+  const paymentTime = searchParams.get("paymentTime");
   const amount = searchParams.get("amount");
-  const paymentDataTime1 = new Date(paymentDataTime);
+  // const paymentDataTime1 = new Date(paymentDataTime);
+
+  // console.log(paymentDataTime.toLocaleDateString());
+  // console.log(refNumber, paymentDate, paymentTime, amount);
+
+  const invoice = (
+    <Invoice
+      amount={amount}
+      refNumber={refNumber}
+      paymentDataTime={paymentDate}
+      purchasedItems={purchasedItems}
+      user={
+        userData?.getProfile.firstName + " " + userData?.getProfile.lastName
+      }
+      userEmail={localStorage.getItem("email")}
+      userAddress={
+        userData?.getProfile.address +
+        ", " +
+        userData?.getProfile.city +
+        ", " +
+        userData?.getProfile.pin
+      }
+    />
+  );
+
+  if (profile_error) console.log(profile_error);
+  // console.log(userData?.getProfile.firstName);
+
+  const [instance, updateInstance] = usePDF({
+    document: invoice
+  });
+  // console.log(instance.loading);
+  const [base64PDF, setBase64PDF] = React.useState(null);
+  if (!instance.loading) {
+    convertToBase64(instance.blob).then((res) => {
+      setBase64PDF(res);
+    });
+  }
+  // console.log(base64PDF);
+
+  const { error: successError, data: successData } = useQuery(
+    ON_PAYMENT_SUCCESS,
+    {
+      variables: {
+        user: localStorage.getItem("email"),
+        invoice: base64PDF,
+        date: paymentDate,
+        refNumber: refNumber
+      }
+    }
+  );
+
+  // if (successError) console.log(successError);
+  console.log(successData?.onPaymentSuccess);
 
   return (
     <div className="success text-white relative">
@@ -84,11 +139,11 @@ const Success = () => {
               </div>
               <div className="flex justify-between text-sm mt-5">
                 <h4>Payment date</h4>
-                <p>{paymentDataTime1.toLocaleDateString()}</p>
+                <p>{paymentDate}</p>
               </div>
               <div className="flex justify-between text-sm mt-5">
                 <h4>Payment time</h4>
-                <p>{paymentDataTime1.toLocaleTimeString()}</p>
+                <p>{paymentTime}</p>
               </div>
             </div>
             <div className="total-payment mt-5 flex justify-between">
@@ -106,30 +161,8 @@ const Success = () => {
             </div>
             <MdOutlineArrowForwardIos className="text-xl font-thin" />
           </div>
-          <PDFDownloadLink
-            document={
-              <Invoice
-                amount={amount}
-                refNumber={refNumber}
-                paymentDataTime={paymentDataTime1.toLocaleDateString()}
-                purchasedItems={purchasedItems}
-                user={
-                  userData?.getProfile.firstName +
-                  " " +
-                  userData?.getProfile.lastName
-                }
-                userEmail={localStorage.getItem("email")}
-                userAddress={
-                  userData?.getProfile.address +
-                  ", " +
-                  userData?.getProfile.city +
-                  ", " +
-                  userData?.getProfile.pin
-                }
-              />
-            }
-            fileName="invoice.pdf"
-          >
+
+          <PDFDownloadLink document={invoice} fileName="invoice.pdf">
             {({ blob, url, loading, error }) => {
               return loading ? (
                 <p className="mt-5 text-center text-sm">Loading document...</p>
@@ -144,6 +177,8 @@ const Success = () => {
               );
             }}
           </PDFDownloadLink>
+          {/* <PDFViewer>{invoice}</PDFViewer> */}
+
           <div className="sm:hidden block mt-5">
             <Link to="/">
               <button className="dashboard-btn w-full h-12">Dashboard</button>

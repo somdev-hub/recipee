@@ -9,6 +9,7 @@ import { Recipees } from "./datasources/models/recipees.js";
 import { Posts } from "./datasources/models/posts.js";
 import Category from "./datasources/models/category.js";
 import Stripe from "stripe";
+import { Orders } from "./datasources/models/orders.js";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -27,10 +28,10 @@ export const resolvers = {
     },
     basket: async (parent, args, context, info) => {
       const user = args.user;
-      console.log(user);
+      // console.log(user);
       try {
         const BasketData = await Basket.find({ user });
-        console.log(BasketData);
+        // console.log(BasketData);
         const basketItems = BasketData.map(async (item) => {
           if (item.type === "dish") {
             // console.log(await Dishes.findOne({ _id: item.basketItem }));
@@ -158,6 +159,104 @@ export const resolvers = {
         }
       );
       return paymentIntent.client_secret;
+    },
+    onPaymentSuccess: async (
+      parent,
+      { user, invoice, date, refNumber },
+      context,
+      info
+    ) => {
+      // console.log(user);
+      console.log(date, refNumber);
+      const basketItems = await Basket.find({ user });
+      const items = basketItems.map(({ user, ...rest }) => rest);
+      console.log(items);
+      if (basketItems) {
+        try {
+          const addOrders = new Orders({
+            user,
+            basketItems: items,
+            invoice,
+            date,
+            _id: refNumber
+          });
+          const saved = await Orders.find({ refNumber: refNumber });
+          // console.log(saved);
+          if (saved.length === 0) {
+            await addOrders.save();
+            await Basket.deleteMany({ user });
+            return {
+              code: 200,
+              success: true,
+              message: "Payment successful"
+            };
+          } else {
+            return {
+              code: 500,
+              success: false,
+              message: "Payment already done"
+            };
+          }
+        } catch (error) {
+          return {
+            code: 500,
+            success: false,
+            message: error
+          };
+        }
+      }
+    },
+    getOrders: async (parent, { user }, context, info) => {
+      try {
+        const orders = await Orders.find({ user });
+        const finalOrder = orders.map((order) => {
+          console.log(order.date);
+          const date = new Date(order.date);
+          console.log(date.toLocaleDateString());
+          return {
+            date: date.toLocaleDateString(),
+            invoice: order.invoice,
+            basketItems: order.basketItems.map(async (item) => {
+              if (item.type === "dish") {
+                return {
+                  id: item._id,
+                  dish: await Dishes.findOne({ _id: item.basketItem }),
+                  quantity: item.quantity
+                };
+              } else if (item.type === "category") {
+                return {
+                  id: item._id,
+                  dish: await Category.findOne({ _id: item.basketItem }),
+                  quantity: item.quantity
+                };
+              }
+            })
+          };
+        });
+        // console.log(finalOrder);
+        return {
+          code: 200,
+          success: true,
+          message: "Orders fetched",
+          orders: finalOrder
+        };
+      } catch (error) {
+        return {
+          code: 500,
+          success: false,
+          message: error
+        };
+      }
+      // return {
+      //   code: 200,
+      //   success: true,
+      //   message: "Orders fetched",
+      //   orders: {
+      //     user: orders[0].user,
+      //     date: orders[0].date,
+      //     basketItems: finalOrder,
+      //   }
+      // }
     }
   },
 
@@ -607,10 +706,12 @@ export const resolvers = {
           apiKey: process.env.STRIPE_SECRET_KEY
         }
       );
+      console.log(paymentIntent.created);
       const referenceNumber = paymentIntent.id;
       const paymentDateTime = new Date(paymentIntent.created * 1000);
+      console.log(paymentDateTime.toLocaleDateString());
       const amount = paymentIntent.amount / 100;
-      const successUrl = `https://recipee-client.onrender.com/success?refNumber=${referenceNumber}&paymentDateTime=${paymentDateTime}&amount=${amount}`;
+      const successUrl = `http://localhost:3000/success?refNumber=${referenceNumber}&paymentDate=${paymentDateTime.toLocaleDateString()}&paymentTime=${paymentDateTime.toLocaleTimeString()}&amount=${amount}`;
 
       try {
         const session = await stripe.checkout.sessions.create(

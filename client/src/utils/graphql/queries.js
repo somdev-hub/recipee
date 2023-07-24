@@ -437,3 +437,43 @@ export const GET_SECRET_KEY = gql`
     getClientSecret(amount: $amount, currency: $currency)
   }
 `;
+
+export const ON_PAYMENT_SUCCESS = gql`
+  query OnPaymentSuccess(
+    $user: String!
+    $invoice: String!
+    $date: String!
+    $refNumber: String!
+  ) {
+    onPaymentSuccess(
+      user: $user
+      invoice: $invoice
+      date: $date
+      refNumber: $refNumber
+    ) {
+      code
+      success
+      message
+    }
+  }
+`;
+
+export const GET_ORDERS = gql`
+  query GetOrders($user: String!) {
+    getOrders(user: $user) {
+      orders {
+        date
+        invoice
+        basketItems {
+          quantity
+          id
+          dish {
+            name
+            price
+            image
+          }
+        }
+      }
+    }
+  }
+`;

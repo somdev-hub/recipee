@@ -13,8 +13,6 @@ import paid from "../../utils/paid.png";
 import calibriRegular from "../../utils/fonts/calibri-font-family/calibri-regular.ttf";
 import calibriBold from "../../utils/fonts/calibri-font-family/calibri-bold.ttf";
 import calibriBoldItalic from "../../utils/fonts/calibri-font-family/calibri-bold-italic.ttf";
-import { GET_BASKET_HEAD } from "../../utils/graphql/queries";
-import { useQuery } from "@apollo/client";
 
 const styles = StyleSheet.create({
   flex: {

@@ -292,7 +292,10 @@ const Profile = () => {
           </div>
         </div>
       )}
-      <ProfileBar rightbarView={rightbarView} />
+      <ProfileBar
+        rightbarView={rightbarView}
+        setRightbarView={setRightbarView}
+      />
     </div>
   );
 };

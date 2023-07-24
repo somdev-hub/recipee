@@ -4,8 +4,27 @@
     right: 0;
 }
 
+.order-card {
+    background-color: var(--dark-blue);
+    border-radius: 20px;
+}
+
+.order-dish-img {
+    width: 23%;
+    height: 4rem;
+    border-radius: 20px;
+}
+
+.order-dish-img img {
+    border-radius: 20px;
+}
+
+.order-meta-data {
+    color: var(--light-gray);
+}
+
 @media (max-width: 640px) {
     .profile-bar {
-        width: 75%;
+        width: 100%;
     }
 }

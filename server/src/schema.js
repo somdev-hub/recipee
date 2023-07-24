@@ -7,7 +7,6 @@ const typeDefs = gql`
     nutrients: [Nutrients!]!
     recipees: [Recipees!]!
     basket(user: String!): [BasketOutput!]!
-    # favoriteDishes: [FavoriteDish!]!
     getFavorites(user: String!): [FavoritesOutput!]!
     getProfile(email: String!): Profile!
     getPostList: [Posts]
@@ -24,6 +23,13 @@ const typeDefs = gql`
     getCategoriesByCategory(category: String!): [Category]
     getCategoriesBySellerId(sellerId: String!): [Category]
     getClientSecret(amount: Int!, currency: String!): String
+    onPaymentSuccess(
+      user: String!
+      invoice: String!
+      date: String!
+      refNumber: String!
+    ): PaymentResponse!
+    getOrders(user: String!): OrderResults
   }
 
   type Mutation {
@@ -52,6 +58,22 @@ const typeDefs = gql`
     searchArticle(search: String!): searchArticleResponse!
     addCategory(category: CategoryInput!): AddCategoryResponse!
     makePayment(user: String!): PaymentResponse!
+  }
+
+  type OrderData {
+    date: String!
+    invoice: String!
+    basketItems: [BasketItems]
+  }
+
+  type BasketItems {
+    id: ID!
+    dish: Dishes
+    quantity: Int
+  }
+
+  type OrderResults {
+    orders: [OrderData]
   }
 
   type PaymentResponse {
@@ -373,6 +395,14 @@ const typeDefs = gql`
     city: String!
     pin: String!
     image: String
+  }
+
+  type Orders {
+    user: String!
+    date: String!
+    _id: String!
+    basketItems: [BasketOutput]
+    invoice: String
   }
 `;
 

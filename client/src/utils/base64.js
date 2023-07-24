@@ -4,6 +4,18 @@ export const convertToBase64 = async (file) => {
   if (file != null) {
     // console.log("originalFile instanceof Blob", file instanceof Blob); // true
     // console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
+    if (file.type === "application/pdf") {
+      return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+          resolve(fileReader.result);
+        };
+        fileReader.onerror = (error) => {
+          reject(error);
+        };
+      });
+    }
 
     const options = {
       maxSizeMB: 1,

@@ -52,7 +52,7 @@
 
 @media (max-width: 640px) {
   .checkout {
-    width: 80%;
+    width: 100%;
     /* right: -100%; */
   }
   .total-container{
