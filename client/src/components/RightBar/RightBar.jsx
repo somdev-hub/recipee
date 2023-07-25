@@ -73,7 +73,7 @@ const RightBar = (props) => {
   );
   console.log(calories);
 
-  if(calorieError)console.log(calorieError);
+  if (calorieError) console.log(calorieError);
 
   const [popup, setPopup] = useState(false);
 
@@ -84,15 +84,15 @@ const RightBar = (props) => {
   const screenWidth = window.innerWidth;
   return (
     <div
-      className="rightbar flex h-screen flex-col fixed right-0 transition-all"
+      className="rightbar flex h-screen flex-col fixed right-0 transition-all p-5"
       style={
         screenWidth < 640
           ? { right: props.rightbarView ? "0" : "-100%" }
           : { right: "0" }
       }
     >
-      <div className="profile-icon flex mt-5 justify-end">
-        <div className="icons flex justify-center items-center mr-5 relative">
+      <div className="profile-icon flex justify-end">
+        <div className="icons flex justify-center items-center relative">
           <BsFillBellFill className="text-2xl text-white mr-3" />
           <span
             className="profile-img cursor-pointer"
@@ -129,65 +129,76 @@ const RightBar = (props) => {
           </div>
         </div>
       </div>
-      <div className="meter">
-        <div className="flex flex-col justify-between ml-5 mt-7">
-          <h3 className="text-white mb-2">Nutrient meter</h3>
-          {caloriesLoading ? (
-            <p className="view">Loading...</p>
-          ) : (
-            <p className="view">
-              {caloriesData?.basket?.reduce(
-                (prev, curr) => prev + parseInt(curr?.dish.calories),
-                0
-              )}{" "}
-              calories today, 15000 this week
-            </p>
-          )}
-        </div>
+      <div className=" h-full flex flex-col justify-between mt-7">
+        <div className="meter flex-1">
+          <div className="flex flex-col justify-between ">
+            <h3 className="text-white mb-2">Nutrient meter</h3>
+            {caloriesLoading ? (
+              <p className="view">Loading...</p>
+            ) : (
+              <p className="view">
+                {caloriesData?.basket?.reduce(
+                  (prev, curr) => prev + parseInt(curr?.dish.calories),
+                  0
+                )}{" "}
+                calories today, 15000 this week
+              </p>
+            )}
+          </div>
 
-        <div className="flex justify-center">
-          <PieChart
-            width={screenWidth < 640 ? 250 : 300}
-            height={screenWidth < 640 ? 250 : 300}
-            // width={300}
-            // height={300}
-          >
-            <Pie
-              dataKey="value"
-              isAnimationActive={false}
-              data={nutrientArray && nutrientArray}
-              cx="50%"
-              cy="50%"
-              outerRadius={80}
-              fill="#f5a504"
-              label
-              blendStroke={false}
-            />
+          <div className="flex justify-center h-full">
+            {/* {nutrientLoading ? <p>Loading...</p> :} */}
+            {nutrientArray.length === 0 ? (
+              <div className="h-full flex items-center">
+                <p className="text-white text-center text-sm">
+                  Add some items to your basket to see your nutrient meter
+                </p>
+              </div>
+            ) : (
+              <PieChart
+                width={screenWidth < 640 ? 250 : 300}
+                height={screenWidth < 640 ? 250 : 300}
+                // width={300}
+                // height={300}
+              >
+                <Pie
+                  dataKey="value"
+                  isAnimationActive={false}
+                  data={nutrientArray && nutrientArray}
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  fill="#f5a504"
+                  label
+                  blendStroke={false}
+                />
 
-            <Tooltip />
-          </PieChart>
+                <Tooltip />
+              </PieChart>
+            )}
+          </div>
+          {/* </ResponsiveContainer> */}
         </div>
-        {/* </ResponsiveContainer> */}
-      </div>
-      <div className="more-recipies h-full">
-        <div className="flex justify-between ml-5 mt-7">
-          <h3 className="text-white">More recipees</h3>
-          <Link to="/all-recipees">
-            <p className="flex items-center gap-3 view mr-3">
-              View all
-              <AiOutlineArrowRight />
-            </p>
-          </Link>
-        </div>
-        <div className="recipe-container mt-5 ml-5 overflow-x-auto h-full">
-          <div className="mx-5">{recipeeLoading && <Loader2 />}</div>
-          {recipeeData && (
-            <div className="recipies flex">
-              {recipeeData?.recipees.slice(0, 4).map((item, index) => {
-                return <RecipeCard props={item} key={index} />;
-              })}
-            </div>
-          )}
+        <div className="more-recipees h-full flex flex-col justify-end flex-1">
+          <div className="flex justify-between">
+            <h3 className="text-white">More recipees</h3>
+            <Link to="/all-recipees">
+              <p className="flex items-center gap-3 view mr-3">
+                View all
+                <AiOutlineArrowRight />
+              </p>
+            </Link>
+          </div>
+          <div className="recipe-container mt-5 overflow-x-auto">
+            <div className="mx-5">{recipeeLoading && <Loader2 />}</div>
+            {recipeeData && (
+              <div className="recipies flex">
+                {recipeeData?.recipees.slice(0, 4).map((item, index) => {
+                  return <RecipeCard props={item} key={index} />;
+                })}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

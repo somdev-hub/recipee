@@ -13,9 +13,9 @@ const BasketCard = (props) => {
     }
   });
   return (
-    <div className="basketcard flex flex-1 items-center mb-5 px-2">
+    <div className="basketcard flex flex-1 items-center mb-5 p-2 w-full">
       <div className="item-img-container flex items-center justify-center sm:mr-0 mr-3">
-        <div className="item-img sm:mr-5 flex items-center justify-center">
+        <div className="item-img sm:mr-5 flex items-center justify-center w-full">
           <img src={props.img} alt="" className="w-full h-full object-cover" />
         </div>
       </div>

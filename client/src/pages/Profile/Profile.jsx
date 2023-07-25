@@ -18,9 +18,9 @@ import Loader2 from "../../components/Loader2/Loader2";
 import Posts from "../../components/Posts/Posts";
 import { Link } from "react-router-dom";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
-import { BiDownArrow } from "react-icons/bi";
 import Choices from "../../components/Choices/Choices";
 import profile_background from "../../utils/profile_background.png";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const Profile = () => {
   const { loading: profileLoading, data: profile } = useQuery(GET_PROFILE, {
@@ -158,7 +158,7 @@ const Profile = () => {
                     onClick={() => setMobileOptions(!mobileOptions)}
                   >
                     <h3 className="font-semibold">Options</h3>
-                    <BiDownArrow className="text-xl" />
+                    <MdOutlineKeyboardArrowDown className="text-xl" />
                   </div>
                 )}
                 <ul

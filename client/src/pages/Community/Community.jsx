@@ -3,7 +3,7 @@ import "./Community.css";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import CreatePost from "../../components/CreatePost/CreatePost";
 import "./Community.css";
-import { posts } from "../../utils/providers/posts";
+// import { posts } from "../../utils/providers/posts";
 import Posts from "../../components/Posts/Posts";
 import PostCreate from "../../components/PostCreate/PostCreate";
 import { useQuery } from "@apollo/client";
@@ -44,7 +44,7 @@ const Community = () => {
             setRightbarView(false);
           }}
         >
-          <nav>``
+          <nav>
             <h2 className="text-white">Community</h2>
           </nav>
           <div className="community-posts mt-10">

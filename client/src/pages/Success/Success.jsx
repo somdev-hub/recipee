@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Success.css";
 import Lottie from "lottie-react";
 import Green_tick from "../../utils/lottie/green_tick.json";
@@ -51,9 +51,11 @@ const Success = () => {
 
   // console.log(paymentDataTime.toLocaleDateString());
   // console.log(refNumber, paymentDate, paymentTime, amount);
+  const [ready, setReady] = useState(false);
 
   const invoice = (
     <Invoice
+      setReady={setReady}
       amount={amount}
       refNumber={refNumber}
       paymentDataTime={paymentDate}
@@ -85,7 +87,6 @@ const Success = () => {
       setBase64PDF(res);
     });
   }
-  // console.log(base64PDF);
 
   const { error: successError, data: successData } = useQuery(
     ON_PAYMENT_SUCCESS,
@@ -96,11 +97,12 @@ const Success = () => {
         date: paymentDate,
         refNumber: refNumber
       },
-      enabled: !!base64PDF && basketData?.basket?.length > 0 && !!userData
+      skip:
+        !!ready && !!base64PDF && basketData?.basket?.length > 0 && !!userData
     }
   );
 
-  // if (successError) console.log(successError);
+  if (successError) console.log(successError);
   console.log(successData?.onPaymentSuccess);
 
   return (

@@ -16,17 +16,17 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 export const resolvers = {
   Upload: GraphQLUpload,
   Query: {
-    dishes: async (parent, args, context, info) => {
+    dishes: async (__, args, _) => {
       return await Dishes.find({});
       // return "Hello World"
     },
-    nutrients: async (parent, args, context, info) => {
+    nutrients: async (__, args, _) => {
       return await Nutrients.find({});
     },
-    recipees: async (parent, args, context, info) => {
+    recipees: async (__, args, _) => {
       return await Recipees.find({});
     },
-    basket: async (parent, args, context, info) => {
+    basket: async (__, args, _) => {
       const user = args.user;
       // console.log(user);
       try {
@@ -67,7 +67,7 @@ export const resolvers = {
         };
       }
     },
-    getFavorites: async (parent, args, context, info) => {
+    getFavorites: async (__, args, _) => {
       const user = args.user;
       const FavoritesData = await Favorites.find({ user });
       const FavoritesItems = FavoritesData.map(async (item) => {
@@ -99,56 +99,72 @@ export const resolvers = {
       });
       return FavoritesItems;
     },
-
-    getProfile: async (parent, { email }, context, info) => {
+    searchFavorites: async (__, args, _) => {
+      const { user, id } = args;
+      const data = await Favorites.findOne({ user, item: id });
+      if (data) {
+        return {
+          code: 200,
+          success: true,
+          message: "Item exists"
+        };
+      } else {
+        return {
+          code: 500,
+          success: false,
+          message: "Item does not exist"
+        };
+      }
+    },
+    getProfile: async (__, { email }, _) => {
       const user = await Profile.findOne({ email });
       return user;
     },
-    getPostList: async (parent, args, context, info) => {
+    getPostList: async (__, args, _) => {
       return await Posts.find({});
     },
-    getPost: async (parent, { id }, context, info) => {
+    getPost: async (__, { id }, _) => {
       return await Posts.findOne({ _id: id });
     },
-    getDishesByCategory: async (parent, { category }, context, info) => {
+    getDishesByCategory: async (__, { category }, _) => {
       const regex = new RegExp(category, "i");
       return await Dishes.find({ category: regex });
     },
-    getDishesByVeg: async (parent, { nonveg }, context, info) => {
+    getDishesByVeg: async (__, { nonveg }, _) => {
       return await Dishes.find({ nonveg: nonveg });
     },
 
-    getDishesBySellerId: async (parent, { sellerId }, context, info) => {
+    getDishesBySellerId: async (__, { sellerId }, _) => {
       return await Dishes.find({ sellerId });
     },
-    getRecipeesByAuthor: async (parent, { author }, context, info) => {
+    getRecipeesByAuthor: async (__, { author }, _) => {
       return await Recipees.find({ author });
     },
-    getPostByAuthorMail: async (parent, { authorMail }, context, info) => {
+    getPostByAuthorMail: async (__, { authorMail }, _) => {
       return await Posts.find({ authorMail });
     },
-    getRecipeesByCategory: async (parent, { category }, context, info) => {
+    getRecipeesByCategory: async (__, { category }, _) => {
       const regex = new RegExp(category, "i");
       return await Recipees.find({ category: regex });
     },
-    getRecipeesByVeg: async (parent, { nonveg }, context, info) => {
+    getRecipeesByVeg: async (__, { nonveg }, _) => {
       return await Recipees.find({ nonveg: nonveg });
     },
-    getCategories: async (parent, args, context, info) => {
+    getCategories: async (__, args, _) => {
       return await Category.find({});
     },
-    getCategoriesByVeg: async (parent, { isNonVeg }, context, info) => {
+    getCategoriesByVeg: async (__, { isNonVeg }, _) => {
       // console.log(nonveg);
       return await Category.find({ isNonVeg });
     },
-    getCategoriesByCategory: async (parent, { category }, context, info) => {
+    getCategoriesByCategory: async (__, { category }, _) => {
       const regex = new RegExp(category, "i");
       return await Category.find({ category: regex });
     },
-    getCategoriesBySellerId: async (parent, { sellerId }, context, info) => {
+    getCategoriesBySellerId: async (__, { sellerId }, _) => {
       return await Category.find({ sellerId });
     },
-    getClientSecret: async (parent, { amount, currency }, context, info) => {
+    getClientSecret: async (__, { amount, currency }, _) => {
       const paymentIntent = await stripe.paymentIntents.create(
         {
           amount,
@@ -160,17 +176,12 @@ export const resolvers = {
       );
       return paymentIntent.client_secret;
     },
-    onPaymentSuccess: async (
-      parent,
-      { user, invoice, date, refNumber },
-      context,
-      info
-    ) => {
+    onPaymentSuccess: async (__, { user, invoice, date, refNumber }, _) => {
       // console.log(user);
-      console.log(date, refNumber);
+      // console.log(date, refNumber);
       const basketItems = await Basket.find({ user });
       const items = basketItems.map(({ user, ...rest }) => rest);
-      console.log(items);
+      // console.log(items);
       if (basketItems) {
         try {
           const addOrders = new Orders({
@@ -206,13 +217,13 @@ export const resolvers = {
         }
       }
     },
-    getOrders: async (parent, { user }, context, info) => {
+    getOrders: async (__, { user }, _) => {
       try {
         const orders = await Orders.find({ user });
         const finalOrder = orders.map((order) => {
-          console.log(order.date);
+          // console.log(order.date);
           const date = new Date(order.date);
-          console.log(date.toLocaleDateString());
+          // console.log(date.toLocaleDateString());
           return {
             date: date.toLocaleDateString(),
             invoice: order.invoice,
@@ -250,10 +261,10 @@ export const resolvers = {
   },
 
   Mutation: {
-    getDishById: async (parent, { id }, context, info) => {
+    getDishById: async (__, { id }, _) => {
       return await Dishes.findOne({ _id: id });
     },
-    deleteBasketItem: async (parent, args, context, info) => {
+    deleteBasketItem: async (__, args, _) => {
       // console.log(args.id);
       try {
         await Basket.deleteOne({ _id: args.id });
@@ -272,7 +283,7 @@ export const resolvers = {
         };
       }
     },
-    addBasketItem: async (parent, args, context, info) => {
+    addBasketItem: async (__, args, _) => {
       try {
         const new_basket_item = new Basket({
           user: args.user,
@@ -298,7 +309,7 @@ export const resolvers = {
       }
     },
 
-    addToFavorites: async (parent, args, context, info) => {
+    addToFavorites: async (__, args, _) => {
       const { user, item, type } = args;
       try {
         const new_favorite_item = new Favorites({
@@ -306,14 +317,21 @@ export const resolvers = {
           item,
           type
         });
-        await new_favorite_item.save();
-        // const favorites = await Favorites.find({ user });
-        return {
-          code: 200,
-          success: true,
-          message: "Item added"
-          // favorites: favorites
-        };
+        if (await Favorites.findOne({ user, item, type })) {
+          await Favorites.deleteOne({ user, item, type });
+          return {
+            code: 200,
+            success: true,
+            message: "Item removed"
+          };
+        } else {
+          await new_favorite_item.save();
+          return {
+            code: 200,
+            success: true,
+            message: "Item added"
+          };
+        }
       } catch (error) {
         return {
           code: 500,
@@ -323,7 +341,7 @@ export const resolvers = {
         };
       }
     },
-    addProfile: async (parent, args, context, info) => {
+    addProfile: async (__, args, _) => {
       const {
         firstName,
         lastName,
@@ -381,7 +399,7 @@ export const resolvers = {
         };
       }
     },
-    getLogin: async (parent, { input }, context, info) => {
+    getLogin: async (__, { input }, _) => {
       const { email, password } = input;
 
       const user = await Profile.findOne({ email });
@@ -405,7 +423,7 @@ export const resolvers = {
         token
       };
     },
-    addRecipee: async (parent, args, context, info) => {
+    addRecipee: async (__, args, _) => {
       const {
         name,
         description,
@@ -446,7 +464,7 @@ export const resolvers = {
         };
       }
     },
-    addDish: async (parent, args, context, info) => {
+    addDish: async (__, args, _) => {
       const {
         name,
         dishDescription,
@@ -489,7 +507,7 @@ export const resolvers = {
         };
       }
     },
-    addPost: async (parent, args, context, info) => {
+    addPost: async (__, args, _) => {
       const {
         title,
         description,
@@ -528,7 +546,7 @@ export const resolvers = {
         };
       }
     },
-    addComment: async (parent, args, context, info) => {
+    addComment: async (__, args, _) => {
       const { user, userMail, comment } = args.comment;
       // console.log(args.comment);
       const update = { $push: { comments: { user, userMail, comment } } };
@@ -552,7 +570,7 @@ export const resolvers = {
         };
       }
     },
-    searchItem: async (parent, args, context, info) => {
+    searchItem: async (__, args, _) => {
       const { search } = args;
       // console.log(search);
       try {
@@ -577,7 +595,7 @@ export const resolvers = {
         };
       }
     },
-    searchArticle: async (parent, args, context, info) => {
+    searchArticle: async (__, args, _) => {
       const { search } = args;
       // console.log(search);
       try {
@@ -602,7 +620,7 @@ export const resolvers = {
         };
       }
     },
-    addCategory: async (parent, args, context, info) => {
+    addCategory: async (__, args, _) => {
       const {
         name,
         image,
@@ -650,7 +668,7 @@ export const resolvers = {
         };
       }
     },
-    makePayment: async (parent, args, context, info) => {
+    makePayment: async (__, args, _) => {
       const { user } = args;
       const basketItems = await Basket.find({ user });
       const lineItems = await Promise.all(
@@ -695,11 +713,12 @@ export const resolvers = {
           apiKey: process.env.STRIPE_SECRET_KEY
         }
       );
-      console.log(paymentIntent.created);
+      // console.log(paymentIntent.created);
       const referenceNumber = paymentIntent.id;
       const paymentDateTime = new Date(paymentIntent.created * 1000);
-      console.log(paymentDateTime.toLocaleDateString());
+      // console.log(paymentDateTime.toLocaleDateString());
       const amount = paymentIntent.amount / 100;
+      // const successUrl = `http://localhost:3000/success?refNumber=${referenceNumber}&paymentDate=${paymentDateTime.toLocaleDateString()}&paymentTime=${paymentDateTime.toLocaleTimeString()}&amount=${amount}`;
       const successUrl = `https://recipee-client.onrender.com/success?refNumber=${referenceNumber}&paymentDate=${paymentDateTime.toLocaleDateString()}&paymentTime=${paymentDateTime.toLocaleTimeString()}&amount=${amount}`;
 
       try {

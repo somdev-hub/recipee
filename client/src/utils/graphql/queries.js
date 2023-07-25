@@ -477,3 +477,13 @@ export const GET_ORDERS = gql`
     }
   }
 `;
+
+export const SEARCH_FAVORITES = gql`
+  query SearchFavorites($user: String!, $item: String!) {
+    searchFavorites(user: $user, id: $item) {
+      code
+      success
+      message
+    }
+  }
+`;

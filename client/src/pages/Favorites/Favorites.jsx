@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Favorites.css";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { favorites } from "../../utils/providers/favorites";
 import Dish from "../../components/Dish/Dish";
-import { recipe } from "../../utils/providers/recipe";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import Suggested from "../../components/Suggested/Suggested";
 import { useQuery } from "@apollo/client";
@@ -55,7 +53,7 @@ const Favorites = () => {
     }
   }, [data, favCategories, favDishes, favPosts, favRecipes]);
 
-  console.log(favDishes);
+  // console.log(favDishes);
 
   return (
     <div className="favorites flex">
@@ -101,7 +99,7 @@ const Favorites = () => {
               <div className="dishes-fav-container sm:flex sm:flex-wrap grid grid-cols-2 gap-5 mt-10">
                 {favDishes.length > 0 &&
                   favDishes.map((item, index) => {
-                    return <Dish props={item.dish} />;
+                    return <Dish props={item.dish} key={index}/>;
                   })}
               </div>
 
@@ -111,6 +109,7 @@ const Favorites = () => {
                   favRecipes.map((item, index) => {
                     return (
                       <RecipeCard
+                        key={index}
                         img={item.recipee.image}
                         name={item.recipee.name}
                       />
@@ -123,7 +122,7 @@ const Favorites = () => {
                 {favCategories.length > 0 &&
                   favCategories.map((item, index) => {
                     return (
-                      <div className="mb-5">
+                      <div className="mb-5" key={index}>
                         <Choices item={item.category} />
                       </div>
                     );
@@ -133,7 +132,10 @@ const Favorites = () => {
           </div>
         )}
       </div>
-      <Suggested rightbarView={rightbarView} />
+      <Suggested
+        rightbarView={rightbarView}
+        setRightbarView={setRightbarView}
+      />
     </div>
   );
 };

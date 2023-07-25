@@ -8,6 +8,7 @@ const typeDefs = gql`
     recipees: [Recipees!]!
     basket(user: String!): [BasketOutput!]!
     getFavorites(user: String!): [FavoritesOutput!]!
+    searchFavorites(user: String!, id: String!): SearchFavOutput!
     getProfile(email: String!): Profile!
     getPostList: [Posts]
     getPost(id: ID!): Posts
@@ -58,6 +59,12 @@ const typeDefs = gql`
     searchArticle(search: String!): searchArticleResponse!
     addCategory(category: CategoryInput!): AddCategoryResponse!
     makePayment(user: String!): PaymentResponse!
+  }
+
+  type SearchFavOutput {
+    code: Int!
+    success: Boolean!
+    message: String!
   }
 
   type OrderData {

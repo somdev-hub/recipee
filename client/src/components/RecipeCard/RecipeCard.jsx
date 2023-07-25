@@ -2,10 +2,13 @@ import React from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import "./RecipeCard.css";
 
-const RecipeCard = ({ props }) => {
+const RecipeCard = ({ props, click }) => {
   // console.log(props.image);
   return (
-    <div className="recipe-card flex flex-col items-center mr-5 cursor-pointer">
+    <div
+      className="recipe-card flex flex-col items-center mr-5 cursor-pointer"
+      onClick={click}
+    >
       <div className="recipe-img mt-2">
         <img
           src={props.image}

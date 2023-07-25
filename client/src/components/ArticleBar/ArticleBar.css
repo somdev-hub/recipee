@@ -12,7 +12,8 @@
 }
 
 .article-card-img {
-    width: 30%;
+    width: 35%;
+    height: 7rem;
     border-radius: 20px;
 }
 

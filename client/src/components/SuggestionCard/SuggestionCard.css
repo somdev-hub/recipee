@@ -1,13 +1,13 @@
 .suggestion-card {
-  height: 7rem;
-  width: 95%;
+  height: 7.5rem;
+  /* width: 95%; */
   border-radius: 20px;
   background-color: var(--dark-blue);
 }
 
 .suggestion-image {
   height: 100%;
-  width: 32%;
+  width: 35%;
   border: 5px solid var(--dark-blue);
   border-radius: 10px;
 }

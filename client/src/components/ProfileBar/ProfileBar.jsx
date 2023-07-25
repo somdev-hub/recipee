@@ -6,36 +6,6 @@ import { GET_ORDERS } from "../../utils/graphql/queries";
 import { useQuery } from "@apollo/client";
 import Loader2 from "../Loader2/Loader2";
 
-const orderItem = {
-  date: "12/12/2021",
-  items: [
-    {
-      img: "https://www.allrecipes.com/thmb/5JVfA7MxfTUPfRerQMdF-nGKsLY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/25473-the-perfect-basic-burger-DDMFS-4x3-56eaba3833fd4a26a82755bcd0be0c54.jpg",
-      name: "Veg cheese burger",
-      plates: 2,
-      price: 200
-    },
-    {
-      img: "https://www.allrecipes.com/thmb/5JVfA7MxfTUPfRerQMdF-nGKsLY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/25473-the-perfect-basic-burger-DDMFS-4x3-56eaba3833fd4a26a82755bcd0be0c54.jpg",
-      name: "Veg cheese burger",
-      plates: 2,
-      price: 200
-    },
-    {
-      img: "https://www.allrecipes.com/thmb/5JVfA7MxfTUPfRerQMdF-nGKsLY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/25473-the-perfect-basic-burger-DDMFS-4x3-56eaba3833fd4a26a82755bcd0be0c54.jpg",
-      name: "Veg cheese burger",
-      plates: 2,
-      price: 200
-    },
-    {
-      img: "https://www.allrecipes.com/thmb/5JVfA7MxfTUPfRerQMdF-nGKsLY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/25473-the-perfect-basic-burger-DDMFS-4x3-56eaba3833fd4a26a82755bcd0be0c54.jpg",
-      name: "Veg cheese burger",
-      plates: 2,
-      price: 200
-    }
-  ]
-};
-
 const OrderCard = (props) => {
   return (
     <div className="order-card w-full mb-5">
@@ -92,7 +62,8 @@ const ProfileBar = (props) => {
     }
   });
 
-  console.log(orderData?.getOrders.orders[0].basketItems[0].dish);
+  // console.log(orderData?.getOrders.orders[0].basketItems[0].dish);
+  
 
   return (
     <div
@@ -116,7 +87,7 @@ const ProfileBar = (props) => {
       {orderErr && (
         <p className="mt-5 text-center text-sm">Something went wrong</p>
       )}
-      {orderData?.getOrders?.orders.length === 0 && (
+      {(orderData?.getOrders?.orders.length === 0) && (
         <p className="text-center mt-10 text-sm">No orders placed</p>
       )}
       <div className="profile-bar-main mt-10 overflow-y-auto">

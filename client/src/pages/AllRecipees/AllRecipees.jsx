@@ -9,6 +9,8 @@ import { useQuery } from "@apollo/client";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import Loader from "../../components/Loader/Loader";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
+import DishFilter from "../../components/DishFilter/DishFilter";
+import RecipeeInfo from "../../components/RecipeeInfo/RecipeeInfo";
 
 const AllRecipees = () => {
   const { loading: vegRecipeeLoading, data: vegRecipeeData } = useQuery(
@@ -35,6 +37,8 @@ const AllRecipees = () => {
     });
   const [sidebarView, setSidebarView] = useState(false);
   const [rightbarView, setRightbarView] = useState(false);
+  const [info, setInfo] = useState(null);
+  const [pos, setPos] = useState(false);
   return (
     <div className="all-recipees flex">
       <Sidebar sidebarView={sidebarView} />
@@ -66,9 +70,18 @@ const AllRecipees = () => {
             </nav>
             <div className="veg-recipees mt-10">
               <h3>Vegetarian recipes</h3>
-              <div className="veg-recipees-container sm:flex grid grid-cols-2 gap-5 mt-5">
+              <div className="veg-recipees-container sm:flex sm:flex-wrap grid grid-cols-2 gap-5 mt-5">
                 {vegRecipeeData?.getRecipeesByVeg.map((item, index) => {
-                  return <RecipeCard props={item} key={index} />;
+                  return (
+                    <RecipeCard
+                      props={item}
+                      key={index}
+                      click={() => {
+                        setInfo(item);
+                        setPos(!pos);
+                      }}
+                    />
+                  );
                 })}
               </div>
             </div>
@@ -76,7 +89,16 @@ const AllRecipees = () => {
               <h3>Non-Vegetarian recipes</h3>
               <div className="veg-recipees-container sm:flex grid grid-cols-2 gap-5 mt-5">
                 {nonvegRecipeeData?.getRecipeesByVeg.map((item, index) => {
-                  return <RecipeCard props={item} key={index} />;
+                  return (
+                    <RecipeCard
+                      props={item}
+                      key={index}
+                      click={() => {
+                        setInfo(item);
+                        setPos(!pos);
+                      }}
+                    />
+                  );
                 })}
               </div>
             </div>
@@ -87,6 +109,13 @@ const AllRecipees = () => {
           </div>
         </div>
       )}
+      <DishFilter rightbarView={rightbarView} />
+      <RecipeeInfo
+        pos={pos ? "0" : "-50%"}
+        posMini={pos ? "0" : "-110%"}
+        info={info}
+        onClick={() => setPos(false)}
+      />
     </div>
   );
 };

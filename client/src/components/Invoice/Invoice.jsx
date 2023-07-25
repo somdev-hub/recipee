@@ -93,6 +93,14 @@ Font.register({
 });
 
 const Invoice = (props) => {
+  // if (
+  //   props?.purchasedItems?.length > 0 &&
+  //   props?.user &&
+  //   props?.userEmail &&
+  //   props?.userAddress
+  // ) {
+  //   props.setReady(true);
+  // }
   return (
     <Document>
       <Page size="A4" style={styles.page}>

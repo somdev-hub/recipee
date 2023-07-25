@@ -24,7 +24,7 @@ const Choices = (props) => {
   const [mouseOver, setMouseOver] = React.useState(false);
   return (
     <div
-      className="choice flex flex-col sm:flex-row items-center mb-5"
+      className="choice flex flex-col sm:flex-row items-center mb-5 cursor-pointer"
       onClick={props.click}
     >
       <div className="main flex flex-col justify-center items-center pt-2 sm:p-2">
