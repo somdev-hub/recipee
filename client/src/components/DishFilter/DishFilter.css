@@ -4,6 +4,23 @@
     background-color: var(--dark-gray);
 }
 
+.dish-filter-form select {
+    border: transparent;
+    border-bottom: 1px solid var(--yellow);
+    background-color: transparent;
+    outline: none !important;
+    color: var(--light-gray);
+}
+
+.dish-filter-form select:focus {
+    outline: none;
+}
+
+.dish-filter-form select option {
+    background-color: var(--dark-gray);
+    color: var(--light-gray);
+}
+
 @media (max-width: 640px) {
     .dish-filter {
         width: 75%;

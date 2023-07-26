@@ -79,3 +79,10 @@
     height: 2rem;
   }
 }
+
+@media ((max-width: 768px) and (min-width: 641px)) {
+  .rightbar {
+    width: 50%;
+    right: -100%;
+  }
+}

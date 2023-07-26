@@ -56,3 +56,30 @@
     margin-top: 5%;
   }
 }
+
+@media ((max-width: 768px) and (min-width: 641px)) {
+  .signup-form-container {
+    margin-left: 0;
+    padding: 3%;
+    top: 50%;
+    width: 100%;
+    margin-top: 5%;
+    font-size: 1.5rem;
+  }
+
+  .signup-form-container input {
+    font-size: 1.5rem;
+  }
+
+  .signup-forms-btns {
+    flex-direction: row;
+    gap: 5%;
+    align-items: center;
+  }
+
+  .signup-forms-btns button {
+    flex: 1;
+    margin-top: 0;
+    height: 3.5rem;
+  }
+}

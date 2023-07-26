@@ -15,7 +15,7 @@ const Checkout = ({
     <div
       className="checkout flex flex-col fixed h-screen-dvh transition-all"
       style={
-        window.innerWidth < 640
+        window.innerWidth <= 768
           ? { right: rightbarView ? "0" : "-100%" }
           : { right: "0" }
       }
@@ -29,7 +29,7 @@ const Checkout = ({
         )}
         <h3 className="">Checkout</h3>
       </div>
-      <div className="flex flex-col justify-between">
+      <div className="flex flex-col justify-between md:h-full">
         <div className="total-container mt-10 flex flex-col items-center">
           <div className="total-cost  flex items-center ">
             <div className="total-col flex justify-between w-full mx-10">

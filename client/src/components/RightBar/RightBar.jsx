@@ -86,7 +86,7 @@ const RightBar = (props) => {
     <div
       className="rightbar flex h-screen flex-col fixed right-0 transition-all p-5"
       style={
-        screenWidth < 640
+        screenWidth <= 768
           ? { right: props.rightbarView ? "0" : "-100%" }
           : { right: "0" }
       }

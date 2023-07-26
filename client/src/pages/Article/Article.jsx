@@ -77,7 +77,13 @@ const Article = () => {
             rightbarView={rightbarView}
             setRightbarView={setRightbarView}
           />
-          <div className="" onClick={() => setSidebarView(false)}>
+          <div
+            className=""
+            onClick={() => {
+              setSidebarView(false);
+              setRightbarView(false);
+            }}
+          >
             <div className="article-image">
               <img
                 src={data?.getPost.image}

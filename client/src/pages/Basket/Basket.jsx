@@ -11,7 +11,11 @@ import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { MAKE_PAYMENT } from "../../utils/graphql/mutations";
 
 const Basket = () => {
-  const { error,loading, data: basketData } = useQuery(GET_BASKET, {
+  const {
+    error,
+    loading,
+    data: basketData
+  } = useQuery(GET_BASKET, {
     variables: {
       user: localStorage.getItem("email")
     }
@@ -19,7 +23,7 @@ const Basket = () => {
   const [makePayment, { loading: paymentLoading }] = useMutation(MAKE_PAYMENT);
 
   // console.log(basketData);
-  if(error){
+  if (error) {
     console.log(error);
   }
   // console.log(basketData?.basket[0].dish.name);
@@ -33,7 +37,7 @@ const Basket = () => {
         user: localStorage.getItem("email")
       }
     });
-    console.log(data);
+    // console.log(data);
     if (data?.makePayment?.success) {
       window.location.href = data.makePayment.redirect;
     }

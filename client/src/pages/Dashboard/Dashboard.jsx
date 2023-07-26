@@ -61,7 +61,7 @@ const Dashboard = () => {
       <Sidebar blur={pos || pos2} sidebarView={sidebarView} />
 
       <div
-        className={`main-content mt-5 ${
+        className={`main-content lg:mt-5 ${
           pos || pos2 || sidebarView || rightbarView
             ? "brightness-50 transition-all"
             : ""
@@ -73,9 +73,6 @@ const Dashboard = () => {
           rightbarView={rightbarView}
           setRightbarView={setRightbarView}
         />
-        {/* {dishesLoading ? (
-          <Loader position={"no-pos"} />
-        ) : ( */}
         <div
           className=""
           onClick={() => {

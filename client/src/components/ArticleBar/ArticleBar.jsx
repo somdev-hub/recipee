@@ -44,6 +44,8 @@ const ArticleBar = (props) => {
       style={
         window.innerWidth < 640
           ? { width: "100%", right: props.rightbarView ? "0" : "-100%" }
+          : window.innerWidth <= 768
+          ? { width: "50%", right: props.rightbarView ? "0" : "-100%" }
           : { right: "0" }
       }
     >

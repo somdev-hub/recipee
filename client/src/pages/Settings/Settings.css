@@ -29,3 +29,14 @@
     width: 100%;
   }
 }
+
+@media ((max-width: 768px) and (min-width: 641px)) {
+  .settings-container {
+    margin-left: 0;
+    width: 100%;
+    padding: 3%;
+  }
+  .setting-table {
+    width: 100%;
+  }
+}

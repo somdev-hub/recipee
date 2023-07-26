@@ -3,7 +3,6 @@ import "./Community.css";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import CreatePost from "../../components/CreatePost/CreatePost";
 import "./Community.css";
-// import { posts } from "../../utils/providers/posts";
 import Posts from "../../components/Posts/Posts";
 import PostCreate from "../../components/PostCreate/PostCreate";
 import { useQuery } from "@apollo/client";

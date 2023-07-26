@@ -80,3 +80,11 @@
         width: 20%;
     }
 }
+
+@media ((max-width: 768px) and (min-width: 641px)) {
+    .article-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 3%;
+    }
+}

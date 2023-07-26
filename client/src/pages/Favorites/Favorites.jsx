@@ -60,7 +60,7 @@ const Favorites = () => {
       <Sidebar sidebarView={sidebarView} />
       {loading && <Loader />}
       <div
-        className={`favorites-content sm:mt-5 ${
+        className={`favorites-content lg:mt-5 ${
           sidebarView || rightbarView
             ? "h-screen-dvh overflow-hidden brightness-50 transition-all"
             : ""

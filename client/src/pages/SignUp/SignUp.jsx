@@ -6,9 +6,6 @@ import { CREATE_PROFILE } from "../../utils/graphql/mutations";
 import { useMutation } from "@apollo/client";
 import { convertToBase64 } from "../../utils/base64";
 import { useNavigate } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import welcome_banner1 from "../../utils/welcome_banner1.png";
 
 const SignUp = () => {
@@ -98,8 +95,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signup flex sm:flex-row flex-col-reverse">
-      <div className="signup-form sm:w-1/2 flex items-center relative">
+    <div className="signup flex lg:flex-row flex-col-reverse">
+      <div className="signup-form lg:w-1/2 flex items-center relative">
         <SignUpForm
           pos={pos ? "full" : "auto"}
           click={clickPos}
@@ -115,41 +112,12 @@ const SignUp = () => {
           loading={loading}
         />
       </div>
-      <div className="welcome-img sm:w-1/2 sm:h-screen">
-        <Swiper
-          pagination={{ clickable: true }}
-          navigation={true}
-          centeredSlides={true}
-          spaceBetween={30}
-          // autoplay={{
-          //   delay: 2500,
-          //   disableOnInteraction: false
-          // }}
-          modules={[Autoplay, Pagination, Navigation]}
-          className="h-full"
-        >
-          {/* <SwiperSlide>
-            <img
-              className="h-full w-full object-cover"
-              src={welcome_banner1}
-              alt=""
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              className="h-full w-full object-cover"
-              src={welcome_banner2}
-              alt=""
-            />
-          </SwiperSlide> */}
-          <SwiperSlide>
-            <img
-              className="h-full w-full object-cover"
-              src={welcome_banner1}
-              alt=""
-            />
-          </SwiperSlide>
-        </Swiper>
+      <div className="welcome-img lg:w-1/2 lg:h-screen">
+        <img
+          className="h-full w-full object-cover"
+          src={welcome_banner1}
+          alt=""
+        />
       </div>
     </div>
   );

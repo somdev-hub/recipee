@@ -63,13 +63,12 @@ const ProfileBar = (props) => {
   });
 
   // console.log(orderData?.getOrders.orders[0].basketItems[0].dish);
-  
 
   return (
     <div
       className="profile-bar h-screen fixed p-5 text-white transition-all overflow-y-auto no-scrollbar"
       style={
-        window.innerWidth < 640
+        window.innerWidth <= 768
           ? { right: props.rightbarView ? "0" : "-100%" }
           : { right: "0" }
       }
@@ -87,7 +86,7 @@ const ProfileBar = (props) => {
       {orderErr && (
         <p className="mt-5 text-center text-sm">Something went wrong</p>
       )}
-      {(orderData?.getOrders?.orders.length === 0) && (
+      {orderData?.getOrders?.orders.length === 0 && (
         <p className="text-center mt-10 text-sm">No orders placed</p>
       )}
       <div className="profile-bar-main mt-10 overflow-y-auto">

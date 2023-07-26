@@ -6,10 +6,12 @@ import { RxCross2 } from "react-icons/rx";
 const CreatePost = (props) => {
   return (
     <div
-      className="create-post fixed h-screen flex-col transition-all"
+      className={`create-post fixed h-screen flex-col transition-all`}
       style={
         window.innerWidth < 640
           ? { width: "100%", right: props.rightbarView ? "0" : "-100%" }
+          : window.innerWidth <= 768
+          ? { width: "50%", right: props.rightbarView ? "0" : "-100%" }
           : { right: "0" }
       }
     >

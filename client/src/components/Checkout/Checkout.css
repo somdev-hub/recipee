@@ -55,7 +55,13 @@
     width: 100%;
     /* right: -100%; */
   }
-  .total-container{
+  .total-container {
     font-size: 14px;
+  }
+}
+
+@media ((max-width: 768px) and (min-width: 641px)) {
+  .checkout {
+    width: 70%;
   }
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { MdDelete } from "react-icons/md";
 import "./BasketCard.css";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { DELETE_ITEM } from "../../utils/graphql/mutations";
 
 const BasketCard = (props) => {

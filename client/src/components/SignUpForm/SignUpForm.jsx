@@ -76,7 +76,7 @@ const SignUpForm = (props) => {
             <span className="font-bold cursor-pointer">Login</span>
           </Link>
         </p>
-        <div className="signup-forms-btns flex flex-col w-full mt-7">
+        <div className="signup-forms-btns flex flex-col w-full mt-7 ">
           <button
             type="submit"
             onClick={props.click}

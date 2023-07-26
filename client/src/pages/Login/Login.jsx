@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { GET_LOGIN } from "../../utils/graphql/mutations";
 import { Link, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import welcome_banner1 from "../../utils/welcome_banner1.png"
+import welcome_banner1 from "../../utils/welcome_banner1.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -40,8 +40,8 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex sm:flex-row flex-col-reverse login">
-      <div className="login-form sm:w-1/2 flex items-center relative">
+    <div className="flex lg:flex-row flex-col-reverse login">
+      <div className="login-form lg:w-1/2 flex items-center relative">
         <div className="signup-form-container ml-10 absolute">
           <div className="signup-header">
             <h2 className="text-3xl mb-3 font-md">Welcome to Recipee</h2>
@@ -100,7 +100,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div className="welcome-img sm:w-1/2 h-screen">
+      <div className="welcome-img lg:w-1/2 h-screen">
         <img
           className="h-full w-full object-cover"
           src={welcome_banner1}

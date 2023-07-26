@@ -2,11 +2,16 @@
   border-radius: 5% 0 0 5%;
 }
 
-.welcome-img video{
-  
+@media (max-width: 640px) {
+  .welcome-img {
+    height: 50vh;
+  }
+  .welcome-img img {
+    border-radius: 5% 5% 0 0;
+  }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .welcome-img {
     height: 50vh;
   }

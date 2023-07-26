@@ -14,3 +14,11 @@
     padding: 5%;
   }
 }
+
+@media ((max-width: 768px) and (min-width: 641px)) {
+  .favorites-content {
+    width: 100%;
+    padding: 3%;
+    margin-left: 0;
+  }
+}

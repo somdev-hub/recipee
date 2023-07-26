@@ -61,7 +61,7 @@ const Sidebar = ({ blur, sidebarView }) => {
       className={`sidebar flex transition-all flex-col justify-around fixed sm:z-10 ${
         blur ? "brightness-50 transition-all" : ""
       }`}
-      style={{ left: screenWidth < 640 ? (sidebarView ? "0" : "-100%") : "" }}
+      style={{ left: screenWidth <= 768 ? (sidebarView ? "0" : "-100%") : "" }}
     >
       <div className=" flex flex-col justify-between h-3/5">
         <div className="sidebar-logo flex justify-center my-5 mx-auto w-full items-center">

@@ -14,7 +14,7 @@ const Suggested = (props) => {
     <div
       className="suggested flex flex-col  h-screen fixed transition-all overflow-y-auto no-scrollbar p-5"
       style={
-        window.innerWidth < 640
+        window.innerWidth <= 768
           ? { right: props.rightbarView ? "0" : "-100%" }
           : { right: "0" }
       }
