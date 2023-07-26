@@ -105,7 +105,7 @@ const AddRecipee = () => {
         variables: {
           recipee: {
             name,
-            author,
+            author: localStorage.getItem("email"),
 
             category,
             description,
@@ -129,7 +129,7 @@ const AddRecipee = () => {
             dish: {
               name,
               price,
-              sellerId: author,
+              sellerId: localStorage.getItem("email"),
               image: base64,
               dishDescription,
               weight,

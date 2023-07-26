@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import "./InfoCard2.css";
-import {
-  AiOutlineHeart,
-  AiFillHeart,
-} from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { ADD_BASKET, SET_FAVORITES } from "../../utils/graphql/mutations";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import { SEARCH_FAVORITES } from "../../utils/graphql/queries";
 
-const InfoCard2 = ({ props, pos2, onClick,posMini }) => {
+const InfoCard2 = ({ props, pos2, onClick, posMini }) => {
   const [quantity, setQuantity] = useState(1);
   const [nutrientBar, setNutrientBar] = useState(false);
   const [liked, setLiked] = useState(false);
-  const [addBasketItem, { loading }] = useMutation(ADD_BASKET, {
+  const [addBasketItem] = useMutation(ADD_BASKET, {
     variables: {
       user: localStorage.getItem("email"),
       addBasketItemId: props.id,
@@ -28,7 +26,14 @@ const InfoCard2 = ({ props, pos2, onClick,posMini }) => {
       item: props.id
     }
   });
-  const screenWidth=window.innerWidth;
+  const { data: searchFavorite } = useQuery(SEARCH_FAVORITES, {
+    variables: {
+      user: localStorage.getItem("email"),
+      item: props.id
+    }
+  });
+  console.log(searchFavorite);
+  const screenWidth = window.innerWidth;
   return (
     <div
       className="infocard2 h-screen fixed flex flex-col items-center"
@@ -51,10 +56,16 @@ const InfoCard2 = ({ props, pos2, onClick,posMini }) => {
               });
             }}
           >
-            {liked ? (
-              <AiFillHeart className="mr-2 text-white text-2xl cursor-pointer" />
+            {searchFavorite?.searchFavorites?.success ? (
+              liked ? (
+                <AiOutlineHeart className="mr-2 text-white text-2xl cursor-pointer m-auto" />
+              ) : (
+                <AiFillHeart className="mr-2 text-white text-2xl cursor-pointer m-auto" />
+              )
+            ) : liked ? (
+              <AiFillHeart className="mr-2 text-white text-2xl cursor-pointer m-auto" />
             ) : (
-              <AiOutlineHeart className="mr-2 text-white text-2xl cursor-pointer" />
+              <AiOutlineHeart className="mr-2 text-white text-2xl cursor-pointer m-auto" />
             )}
           </div>
         </div>

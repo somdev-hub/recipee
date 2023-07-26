@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./InfoCard.css";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
 import { useMutation, useQuery } from "@apollo/client";
-import {
-  ADD_BASKET,
-  SET_FAVORITES,
-  SET_FAVORITE_DISH
-} from "../../utils/graphql/mutations";
-// import { GET_FAVORITE_DISHES } from "../../utils/graphql/queries";
+import { ADD_BASKET, SET_FAVORITES } from "../../utils/graphql/mutations";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { SEARCH_FAVORITES } from "../../utils/graphql/queries";
 
 const InfoCard = ({ props, pos, posMini, onClick }) => {
   const [quantity, setQuantity] = useState(1);
@@ -27,6 +23,12 @@ const InfoCard = ({ props, pos, posMini, onClick }) => {
     variables: {
       user: localStorage.getItem("email"),
       type: "dish",
+      item: props.id
+    }
+  });
+  const { data: searchFavorite } = useQuery(SEARCH_FAVORITES, {
+    variables: {
+      user: localStorage.getItem("email"),
       item: props.id
     }
   });
@@ -131,10 +133,16 @@ const InfoCard = ({ props, pos, posMini, onClick }) => {
             });
           }}
         >
-          {liked ? (
-            <AiFillHeart className="mr-2 text-white text-2xl cursor-pointer" />
+          {searchFavorite?.searchFavorites?.success ? (
+            liked ? (
+              <AiOutlineHeart className=" text-white text-2xl cursor-pointer m-auto" />
+            ) : (
+              <AiFillHeart className=" text-white text-2xl cursor-pointer m-auto" />
+            )
+          ) : liked ? (
+            <AiFillHeart className=" text-white text-2xl cursor-pointer m-auto" />
           ) : (
-            <AiOutlineHeart className="mr-2 text-white text-2xl cursor-pointer" />
+            <AiOutlineHeart className=" text-white text-2xl cursor-pointer m-auto" />
           )}
         </button>
       </div>

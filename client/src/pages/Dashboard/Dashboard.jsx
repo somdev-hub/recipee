@@ -166,18 +166,22 @@ const Dashboard = () => {
             <div className="fav-container overflow-x-auto mt-10">
               {dishesLoading && <Loader2 />}
               <div className="fav flex">
-                {data?.dishes.slice(0, 5).map((item, index) => {
-                  return (
-                    <Dish
-                      props={item}
-                      key={index}
-                      click={() => {
-                        setInfo(item);
-                        setPos(!pos);
-                      }}
-                    />
-                  );
-                })}
+                {data?.dishes
+                  .slice()
+                  .reverse()
+                  .slice(0, 5)
+                  .map((item, index) => {
+                    return (
+                      <Dish
+                        props={item}
+                        key={index}
+                        click={() => {
+                          setInfo(item);
+                          setPos(!pos);
+                        }}
+                      />
+                    );
+                  })}
               </div>
             </div>
           </div>

@@ -473,6 +473,7 @@ export const resolvers = {
         weight,
         nutrients,
         nonveg,
+        sellerId,
         calories,
         category,
         tags
@@ -484,6 +485,7 @@ export const resolvers = {
         price,
         image,
         weight,
+        sellerId,
         calories,
         nutrients,
         nonveg,

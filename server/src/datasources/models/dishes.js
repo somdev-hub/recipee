@@ -10,7 +10,7 @@ const Dishes = mongoose.model("Dishes", {
   name: String,
   price: Number,
   image: String,
-  sellerId: String,
+  sellerId: { String, required: true },
   dishDescription: String,
   category: String,
   calories: String,
