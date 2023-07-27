@@ -10,6 +10,9 @@
     background-color: transparent;
     outline: none !important;
     color: var(--light-gray);
+    appearance: none;
+    background-image: none;
+    cursor: pointer;
 }
 
 .dish-filter-form select:focus {

@@ -7,6 +7,8 @@ export const Recipees = mongoose.model("recipees", {
   image: String,
   description: String,
   ingredients: [String],
+  likes: Number,
+  likedBy: [String],
   nutrients: [{ name: String, quantity: String }],
   nonveg: Boolean,
   category: String,

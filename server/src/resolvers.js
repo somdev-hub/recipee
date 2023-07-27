@@ -83,13 +83,15 @@ export const resolvers = {
             category: await Category.findOne({ _id: item.item }),
             type: item.type
           };
-        } else if (item.type === "recipees") {
+        } else if (item.type === "recipee") {
+          // console.log(item.item);
+          // console.log(await Recipees.findOne({ _id: item.item }));
           return {
             id: item._id,
-            recipees: await Recipees.findOne({ _id: item.item }),
+            recipee: await Recipees.findOne({ _id: item.item }),
             type: item.type
           };
-        } else if (item.type === "posts") {
+        } else if (item.type === "post") {
           return {
             id: item._id,
             posts: await Posts.findOne({ _id: item.item }),
@@ -341,6 +343,54 @@ export const resolvers = {
         };
       }
     },
+    addLike: async (__, args, _) => {
+      const { item, type, user } = args;
+      if (type === "recipee") {
+        const present = await Recipees.findOne({ _id: item });
+        let mark = false;
+        present.likedBy.forEach((element) => {
+          if (element === user) {
+            mark = true;
+          }
+        });
+        if (mark) {
+          try {
+            await Recipees.findOneAndUpdate(
+              { _id: item },
+              { $inc: { likes: -1 }, $pull: { likedBy: user } },
+              { new: true }
+            );
+            return {
+              code: 200,
+              success: true,
+              message: "unliked"
+            };
+          } catch (error) {
+            console.log(error);
+          }
+        } else {
+          try {
+            await Recipees.findOneAndUpdate(
+              { _id: item },
+              { $inc: { likes: 1 }, $push: { likedBy: user } },
+              { new: true }
+            );
+            return {
+              code: 200,
+              success: true,
+              message: "liked"
+            };
+          } catch (error) {
+            console.log(error);
+            return {
+              code: 500,
+              success: false,
+              message: error
+            };
+          }
+        }
+      }
+    },
     addProfile: async (__, args, _) => {
       const {
         firstName,
@@ -442,6 +492,8 @@ export const resolvers = {
         image,
         ingredients,
         author,
+        likes: 0,
+        likedBy: [],
         nutrients,
         nonveg,
         category,

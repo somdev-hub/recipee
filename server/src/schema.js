@@ -59,6 +59,13 @@ const typeDefs = gql`
     searchArticle(search: String!): searchArticleResponse!
     addCategory(category: CategoryInput!): AddCategoryResponse!
     makePayment(user: String!): PaymentResponse!
+    addLike(item: String!, type: String!, user: String!): AddLikeResponse!
+  }
+
+  type AddLikeResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
   }
 
   type SearchFavOutput {
@@ -256,6 +263,8 @@ const typeDefs = gql`
     category: String
     description: String!
     tags: [String]
+    likes: Int
+    likedBy: [String]
     ingredients: [String]
     nutrients: [Nutrients]
   }
@@ -267,6 +276,7 @@ const typeDefs = gql`
     category: String
     description: String!
     tags: [String]
+    likes: Int
     ingredients: [String]
     nutrients: [NutrientsInput]
     nonveg: Boolean!

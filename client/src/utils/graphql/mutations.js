@@ -218,3 +218,13 @@ export const MAKE_PAYMENT = gql`
     }
   }
 `;
+
+export const ADD_LIKE = gql`
+  mutation AddLike($item: String!, $type: String!, $user: String!) {
+    addLike(item: $item, type: $type, user: $user) {
+      code
+      success
+      message
+    }
+  }
+`;

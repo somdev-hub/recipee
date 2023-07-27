@@ -17,6 +17,7 @@ const Favorites = () => {
       user: localStorage.getItem("email")
     }
   });
+  console.log(error);
   const [favDishes, setFavDishes] = useState([]);
   const [favCategories, setFavCategories] = useState([]);
   const [favRecipes, setFavRecipes] = useState([]);
@@ -44,7 +45,7 @@ const Favorites = () => {
         ) {
           setFavCategories((prev) => [...prev, item]);
         } else if (
-          item.type === "posts" &&
+          item.type === "post" &&
           !favPosts.some((post) => post.id === item.id)
         ) {
           setFavPosts((prev) => [...prev, item]);
@@ -53,7 +54,7 @@ const Favorites = () => {
     }
   }, [data, favCategories, favDishes, favPosts, favRecipes]);
 
-  // console.log(favDishes);
+  console.log(favRecipes[0]?.recipee.name);
 
   return (
     <div className="favorites flex">
@@ -99,20 +100,18 @@ const Favorites = () => {
               <div className="dishes-fav-container sm:flex sm:flex-wrap grid grid-cols-2 gap-5 mt-10">
                 {favDishes.length > 0 &&
                   favDishes.map((item, index) => {
-                    return <Dish props={item.dish} key={index}/>;
+                    return <Dish props={item.dish} key={index} />;
                   })}
               </div>
 
-              <h3 className="text-white mt-10">Recipes</h3>
+              <h3 className="text-white mt-10">Recipees</h3>
               <div className="recipees-fav-container sm:flex sm:flex-wrap grid grid-cols-2 gap-5 mt-10">
                 {favRecipes.length > 0 &&
                   favRecipes.map((item, index) => {
+                    // console.log(item.recipee.image);
                     return (
-                      <RecipeCard
-                        key={index}
-                        img={item.recipee.image}
-                        name={item.recipee.name}
-                      />
+                      // <RecipeCard
+                      <RecipeCard key={index} props={item.recipee} />
                     );
                   })}
               </div>

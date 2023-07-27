@@ -27,6 +27,8 @@ export const GET_RECIPEES = gql`
       author
       name
       image
+      likes
+      likedBy
       category
       description
       tags
@@ -309,6 +311,8 @@ export const GET_RECIPEES_BY_CATEGORY = gql`
       category
       description
       tags
+      likes
+      likedBy
       ingredients
       nutrients {
         name
@@ -328,6 +332,8 @@ export const GET_RECIPEES_BY_VEG = gql`
       category
       description
       tags
+      likes
+      likedBy
       ingredients
       nutrients {
         name
