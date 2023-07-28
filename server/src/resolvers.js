@@ -879,6 +879,73 @@ export const resolvers = {
           message: error
         };
       }
+    },
+    deleteAccount: async (__, args, _) => {
+      const { email, password } = args;
+      const user = await Profile.findOne({ email });
+      const valid = await bcrypt.compare(password, user.password);
+      if (!user || !valid) {
+        return {
+          code: 401,
+          success: false,
+          message: "Invalid email or password"
+        };
+      }
+      try {
+        await Profile.deleteOne({ email });
+        await Basket.deleteMany({ user: email });
+        await Orders.deleteMany({ user: email });
+        await Dishes.deleteMany({ sellerId: email });
+        await Category.deleteMany({ sellerId: email });
+        await Posts.deleteMany({ author: email });
+        await Recipees.deleteMany({ author: email });
+        await OrderPlaced.deleteMany({ customerEmail: email });
+        await Favorites.deleteMany({ user: email });
+        return {
+          code: 200,
+          success: true,
+          message: "Account deleted"
+        };
+      } catch (error) {
+        return {
+          code: 500,
+          success: false,
+          message: error
+        };
+      }
+    },
+    deleteContent: async (__, args, _) => {
+      const { email, password } = args;
+      const user = await Profile.findOne({ email });
+      const valid = await bcrypt.compare(password, user.password);
+      if (!user || !valid) {
+        return {
+          code: 401,
+          success: false,
+          message: "Invalid email or password"
+        };
+      }
+      try {
+        await Basket.deleteMany({ user: email });
+        await Orders.deleteMany({ user: email });
+        await Dishes.deleteMany({ sellerId: email });
+        await Category.deleteMany({ sellerId: email });
+        await Posts.deleteMany({ author: email });
+        await Recipees.deleteMany({ author: email });
+        await OrderPlaced.deleteMany({ customerEmail: email });
+        await Favorites.deleteMany({ user: email });
+        return {
+          code: 200,
+          success: true,
+          message: "Content deleted"
+        };
+      } catch (error) {
+        return {
+          code: 500,
+          success: false,
+          message: error
+        };
+      }
     }
   }
 };

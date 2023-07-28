@@ -66,22 +66,15 @@ const RightBar = (props) => {
     }
   }, [nutrientData]);
 
-  // console.log(nutrientArray);
-  // const calories = caloriesData?.basket?.reduce(
-  //   (prev, curr) => prev + parseInt(curr?.dish.calories),
-  //   0
-  // );
-  // console.log(calories);
-
-  // if (calorieError) console.log(calorieError);
-
   const [popup, setPopup] = useState(false);
 
   const logOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("email");
     window.location.reload();
   };
   const screenWidth = window.innerWidth;
+  const userName = `${data?.getProfile.firstName} ${data?.getProfile.lastName}`;
   return (
     <div
       className="rightbar flex h-screen flex-col fixed right-0 transition-all p-5"
@@ -116,8 +109,18 @@ const RightBar = (props) => {
                 />
               </div>
               <div className="profile-pop-up-name">
-                <h3 className="sm:text-lg text-sm">{`${data?.getProfile.firstName} ${data?.getProfile.lastName}`}</h3>
-                <p className="text-sm">{`${data?.getProfile.email}`}</p>
+                <h3 className="sm:text-lg text-sm">
+                  {userName.length > 10
+                    ? `${userName.slice(0, 14)}...`
+                    : userName}
+                </h3>
+                <p className="text-sm">
+                  {data?.getProfile.email.length > 18
+                    ? `${data?.getProfile.email.slice(0, 18)}...`
+                    : `
+                ${data?.getProfile.email}
+                `}
+                </p>
               </div>
             </div>
             <div className="profile-pop-up-buttons flex justify-between">

@@ -24,6 +24,6 @@
 
 @media (max-width: 640px) {
     .placed-order-card {
-        width: 20rem;
+        width: 100%;
     }
 }

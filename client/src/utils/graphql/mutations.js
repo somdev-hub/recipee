@@ -228,3 +228,23 @@ export const ADD_LIKE = gql`
     }
   }
 `;
+
+export const DELETE_ACCOUNT = gql`
+  mutation DeleteAccount($email: String!, $password: String) {
+    deleteAccount(email: $email, password: $password) {
+      code
+      success
+      message
+    }
+  }
+`;
+
+export const DELETE_CONTENT = gql`
+  mutation DeleteContent($email: String!) {
+    deleteContent(email: $email) {
+      code
+      success
+      message
+    }
+  }
+`;

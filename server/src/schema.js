@@ -67,6 +67,20 @@ const typeDefs = gql`
     addCategory(category: CategoryInput!): AddCategoryResponse!
     makePayment(user: String!): PaymentResponse!
     addLike(item: String!, type: String!, user: String!): AddLikeResponse!
+    deleteAccount(email: String!, password: String): DeleteAccountResponse!
+    deleteContent(email: String!, password: String): DeleteContentResponse!
+  }
+
+  type DeleteContentResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+  }
+
+  type DeleteAccountResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
   }
 
   type OrderPlacedResponse {
