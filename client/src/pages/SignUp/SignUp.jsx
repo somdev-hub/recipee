@@ -20,6 +20,7 @@ const SignUp = () => {
     address: "",
     city: "",
     pin: "",
+    client: "",
     image: null
   });
   const [createProfile, { loading }] = useMutation(CREATE_PROFILE);
@@ -45,13 +46,22 @@ const SignUp = () => {
       address,
       city,
       pin,
+      client,
       image
     } = formData;
 
     if (
-      [firstName, lastName, email, password, phone, address, city, pin].some(
-        (field) => field === ""
-      )
+      [
+        firstName,
+        lastName,
+        email,
+        password,
+        phone,
+        address,
+        city,
+        client,
+        pin
+      ].some((field) => field === "")
     ) {
       alert("Please fill all the fields");
       return;
@@ -71,6 +81,7 @@ const SignUp = () => {
             address,
             city,
             pin,
+            client,
             image: base64Image
           }
         }

@@ -47,11 +47,18 @@ const Success = () => {
   const paymentDate = searchParams.get("paymentDate");
   const paymentTime = searchParams.get("paymentTime");
   const amount = searchParams.get("amount");
-  // const paymentDataTime1 = new Date(paymentDataTime);
 
-  // console.log(paymentDataTime.toLocaleDateString());
-  // console.log(refNumber, paymentDate, paymentTime, amount);
   const [ready, setReady] = useState(false);
+
+  const { data: paymentData } = useQuery(ON_PAYMENT_SUCCESS, {
+    variables: {
+      customerEmail: localStorage.getItem("email"),
+      orderId: refNumber,
+      orderDate: paymentDate,
+      OrderStatus: "pending"
+    }
+  });
+  console.log(paymentData);
 
   const invoice = (
     <Invoice

@@ -1,0 +1,29 @@
+.placed-order-card {
+    background-color: var(--dark-blue);
+    border-radius: 20px;
+    width: 25rem;
+}
+
+.customer-profile p {
+    color: var(--light-gray);
+}
+
+.resolve-buttons button {
+    height: 2rem;
+    width: 5rem;
+    border-radius: 5px;
+}
+
+.resolve-buttons button:nth-child(1) {
+    border: 1px solid var(--yellow);
+}
+
+.resolve-buttons button:nth-child(2) {
+    background-color: var(--yellow);
+}
+
+@media (max-width: 640px) {
+    .placed-order-card {
+        width: 20rem;
+    }
+}

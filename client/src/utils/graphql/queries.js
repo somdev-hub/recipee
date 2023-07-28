@@ -130,6 +130,7 @@ export const GET_PROFILE = gql`
       address
       city
       pin
+      client
     }
   }
 `;
@@ -153,6 +154,7 @@ export const GET_PROFILE_ADDRESS = gql`
       firstName
       lastName
       email
+      image
       address
       city
       pin
@@ -490,6 +492,41 @@ export const SEARCH_FAVORITES = gql`
       code
       success
       message
+    }
+  }
+`;
+
+export const SET_ORDER_PLACED = gql`
+  query SetOrderPlaced(
+    $customerEmail: String!
+    $orderId: String!
+    $orderDate: String!
+    $orderStatus: String!
+  ) {
+    setOrderPlaced(
+      customerEmail: $customerEmail
+      orderId: $orderId
+      orderDate: $orderDate
+      orderStatus: $orderStatus
+    ) {
+      code
+      success
+      message
+    }
+  }
+`;
+
+export const GET_ORDER_PLACED = gql`
+  query GetOrdersPlaced($restaurantId: String!) {
+    getOrdersPlaced(restaurantId: $restaurantId) {
+      customerEmail
+      orderId
+      orderDate
+      orderStatus
+      orderItems {
+        name
+        quantity
+      }
     }
   }
 `;

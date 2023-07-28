@@ -50,13 +50,37 @@ const SignUpForm2 = (props) => {
             value={props.formData.city}
             onChange={props.handleFormChange}
           />
-          <label htmlFor="">PIN code</label>
-          <input
-            type="text"
-            name="pin"
-            value={props.formData.pin}
-            onChange={props.handleFormChange}
-          />
+          <div className="flex gap-5 justify-between items-center w-full mb-5">
+            <div className="flex-1 flex flex-col">
+              <label htmlFor="">PIN code</label>
+              <input
+                type="text"
+                name="pin"
+                value={props.formData.pin}
+                onChange={props.handleFormChange}
+              />
+            </div>
+            <div className="flex-1 flex flex-col">
+              <label htmlFor="">Register yourself as</label>
+              <select
+                name="client"
+                id=""
+                className=""
+                value={props.formData.client}
+                onChange={props.handleFormChange}
+              >
+                <option value="" disabled selected>
+                  Select
+                </option>
+                <option value="customer">Customer</option>
+                <option value="restaurant owner">Restaurant owner</option>
+              </select>
+            </div>
+          </div>
+          {/* <label htmlFor="">
+            Restaurant name (applicable only if your are a restaurant owner)
+          </label>
+          <input type="text" /> */}
           <p className="">
             Already have an account?{" "}
             <Link to="/login">

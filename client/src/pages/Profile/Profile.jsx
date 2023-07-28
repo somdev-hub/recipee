@@ -6,6 +6,7 @@ import { useQuery } from "@apollo/client";
 import {
   GET_CATEGORIES_BY_SELLERID,
   GET_DISHES_BY_SELLERID,
+  GET_ORDER_PLACED,
   GET_POSTS_BY_AUTHORMAIL,
   GET_PROFILE,
   GET_RECIPEES_BY_AUTHOR
@@ -21,6 +22,7 @@ import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import Choices from "../../components/Choices/Choices";
 import profile_background from "../../utils/profile_background.png";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import PlacedOrderCard from "../../components/PlacedOrderCard/PlacedOrderCard";
 
 const Profile = () => {
   const { loading: profileLoading, data: profile } = useQuery(GET_PROFILE, {
@@ -58,9 +60,20 @@ const Profile = () => {
       }
     }
   );
+  const { loading: placedOrdersLoading, data: placedOrders } = useQuery(
+    GET_ORDER_PLACED,
+    {
+      variables: {
+        restaurantId: localStorage.getItem("email")
+      }
+    }
+  );
+  // console.log(placedOrders);
+  const isCustomer = profile?.getProfile?.client === "customer";
+
   const [collection, setCollection] = useState({
-    dishes: true,
-    recipees: false,
+    dishes: isCustomer && false,
+    recipees: isCustomer && true,
     articles: false,
     categories: false
   });
@@ -126,7 +139,7 @@ const Profile = () => {
                       {profile?.getProfile.lastName}
                     </h2>
                     <p className="sm:mt-2 mt-1 text-base sm:text-lg">
-                      Customer
+                      {profile?.getProfile.client}
                     </p>
                   </div>
                   <AiOutlineEdit className="text-2xl" />
@@ -162,7 +175,9 @@ const Profile = () => {
                   </div>
                 )}
                 <ul
-                  className="flex sm:flex-row flex-col justify-between"
+                  className={`flex sm:flex-row flex-col ${
+                    isCustomer ? "justify-around" : "justify-between"
+                  }`}
                   style={
                     window.innerWidth < 640
                       ? {
@@ -175,6 +190,9 @@ const Profile = () => {
                     onClick={handleCollection}
                     data-collection="dishes"
                     className={collection.dishes ? "active" : ""}
+                    style={{
+                      display: isCustomer ? "none" : "block"
+                    }}
                   >
                     Dishes
                   </li>
@@ -196,6 +214,9 @@ const Profile = () => {
                     onClick={handleCollection}
                     data-collection="categories"
                     className={collection.categories ? "active" : ""}
+                    style={{
+                      display: isCustomer ? "none" : "block"
+                    }}
                   >
                     Categories
                   </li>
@@ -203,27 +224,28 @@ const Profile = () => {
               </div>
             </div>
             <div className="collection-container">
-              {dishLoading && collection.dishes ? (
-                <div className="mt-5">
-                  <Loader2 />
-                </div>
-              ) : (
-                <div
-                  className=""
-                  style={{ display: !collection.dishes ? "none" : "block" }}
-                >
-                  <div className="dish-collection sm:flex mt-10 grid grid-cols-2 gap-5">
-                    {dishes?.getDishesBySellerId.map((item, index) => {
-                      return <Dish props={item} key={index} />;
-                    })}
+              {!isCustomer &&
+                (dishLoading && collection.dishes ? (
+                  <div className="mt-5">
+                    <Loader2 />
                   </div>
-                  <div className="add-more my-10 flex justify-center">
-                    <Link to="/add-recipee">
-                      <button className="text-sm">Add Dish</button>
-                    </Link>
+                ) : (
+                  <div
+                    className=""
+                    style={{ display: !collection.dishes ? "none" : "block" }}
+                  >
+                    <div className="dish-collection sm:flex sm:flex-wrap mt-10 grid grid-cols-2 gap-5">
+                      {dishes?.getDishesBySellerId.map((item, index) => {
+                        return <Dish props={item} key={index} />;
+                      })}
+                    </div>
+                    <div className="add-more my-10 flex justify-center">
+                      <Link to="/add-recipee">
+                        <button className="text-sm">Add Dish</button>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              )}
+                ))}
               {recipeeLoading && collection.recipees ? (
                 <div className="mt-5">
                   <Loader2 />
@@ -266,29 +288,48 @@ const Profile = () => {
                   </div>
                 </div>
               )}
-              {categoryLoading && collection.categories ? (
-                <div className="mt-5">
+              {!isCustomer &&
+                (categoryLoading && collection.categories ? (
+                  <div className="mt-5">
+                    <Loader2 />
+                  </div>
+                ) : (
+                  <div
+                    className=""
+                    style={{
+                      display: !collection.categories ? "none" : "block"
+                    }}
+                  >
+                    <div className="articles-collection mt-10">
+                      {categories?.getCategoriesBySellerId.map(
+                        (item, index) => {
+                          // console.log(item);
+                          return <Choices item={item} key={index} />;
+                        }
+                      )}
+                    </div>
+                    <div className="add-more my-10 flex justify-center">
+                      <Link to="/add-category">
+                        <button className="text-sm">Add category</button>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+            </div>
+            {!isCustomer && (
+              <div className="order-placed-container mt-5">
+                <h3>Placed orders</h3>
+                {placedOrdersLoading ? (
                   <Loader2 />
-                </div>
-              ) : (
-                <div
-                  className=""
-                  style={{ display: !collection.categories ? "none" : "block" }}
-                >
-                  <div className="articles-collection mt-10">
-                    {categories?.getCategoriesBySellerId.map((item, index) => {
-                      // console.log(item);
-                      return <Choices item={item} key={index} />;
+                ) : (
+                  <div className="order-placed-main sm:grid sm:grid-cols-2 sm:gap-5 mt-5">
+                    {placedOrders?.getOrdersPlaced.map((item, index) => {
+                      return <PlacedOrderCard props={item} key={index} />;
                     })}
                   </div>
-                  <div className="add-more my-10 flex justify-center">
-                    <Link to="/add-category">
-                      <button className="text-sm">Add category</button>
-                    </Link>
-                  </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       )}

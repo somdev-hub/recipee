@@ -10,7 +10,8 @@ const Profile = mongoose.model("Profile", {
   image: String,
   address: String,
   city: String,
-  pin: String
+  pin: String,
+  client: String
 });
 
 // module.exports = { Profile };

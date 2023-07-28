@@ -10,6 +10,7 @@ import { Posts } from "./datasources/models/posts.js";
 import Category from "./datasources/models/category.js";
 import Stripe from "stripe";
 import { Orders } from "./datasources/models/orders.js";
+import { OrderPlaced } from "./datasources/models/order-placed.js";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -259,6 +260,82 @@ export const resolvers = {
           message: error
         };
       }
+    },
+    setOrderPlaced: async (__, args, _) => {
+      const { customerEmail, orderId, orderStatus, orderDate } = args;
+      const items = await Basket.find({ user: customerEmail });
+      // console.log(items);
+      try {
+        items.forEach(async (item) => {
+          let name;
+          let sellerId;
+          if (item.type === "dish") {
+            const dish = await Dishes.findOne({ _id: item.basketItem });
+            // console.log(dish.name);
+            name = dish.name;
+            sellerId = dish.sellerId;
+          } else if (item.type === "category") {
+            const category = await Category.findOne({ _id: item.basketItem });
+            // console.log(category.name);
+            name = category.name;
+            sellerId = category.sellerId;
+          }
+
+          // console.log(name, sellerId);
+          if (name && sellerId) {
+            if (
+              await OrderPlaced.findOne({
+                orderId,
+                restaurantId: sellerId,
+                customerEmail
+              })
+            ) {
+              await OrderPlaced.findOneAndUpdate(
+                { orderId },
+                {
+                  $push: {
+                    orderItems: { name: name, quantity: item.quantity }
+                  }
+                }
+              );
+            } else {
+              const orderPlaced = new OrderPlaced({
+                restaurantId: sellerId,
+                customerEmail,
+                orderId,
+                orderStatus,
+                orderDate,
+                orderItems: [
+                  {
+                    name: name,
+                    quantity: item.quantity
+                  }
+                ]
+              });
+              try {
+                await orderPlaced.save();
+              } catch (error) {
+                console.log(error);
+              }
+            }
+          }
+        });
+        return {
+          code: 200,
+          success: true,
+          message: "Order placed"
+        };
+      } catch (error) {
+        return {
+          code: 500,
+          success: false,
+          message: error
+        };
+      }
+    },
+    getOrdersPlaced: async (__, { restaurantId }, _) => {
+      // console.log(restaurantId);
+      return await OrderPlaced.find({ restaurantId });
     }
   },
 
@@ -401,7 +478,8 @@ export const resolvers = {
         image,
         address,
         city,
-        pin
+        pin,
+        client
       } = args.input;
       // console.log(args.input);
       const already = await Profile.findOne({ email });
@@ -424,7 +502,8 @@ export const resolvers = {
           image,
           address,
           city,
-          pin
+          pin,
+          client
         });
 
         await new_profile.save();
@@ -767,10 +846,8 @@ export const resolvers = {
           apiKey: process.env.STRIPE_SECRET_KEY
         }
       );
-      // console.log(paymentIntent.created);
       const referenceNumber = paymentIntent.id;
       const paymentDateTime = new Date(paymentIntent.created * 1000);
-      // console.log(paymentDateTime.toLocaleDateString());
       const amount = paymentIntent.amount / 100;
       // const successUrl = `http://localhost:3000/success?refNumber=${referenceNumber}&paymentDate=${paymentDateTime.toLocaleDateString()}&paymentTime=${paymentDateTime.toLocaleTimeString()}&amount=${amount}`;
       const successUrl = `https://recipee-client.onrender.com/success?refNumber=${referenceNumber}&paymentDate=${paymentDateTime.toLocaleDateString()}&paymentTime=${paymentDateTime.toLocaleTimeString()}&amount=${amount}`;
@@ -778,10 +855,8 @@ export const resolvers = {
       try {
         const session = await stripe.checkout.sessions.create(
           {
-            // api_key: process.env.STRIPE_SECRET_KEY,
             line_items: lineItems,
             mode: "payment",
-            // success_url: `http://localhost:3000/success?refNumber=${referenceNumber}&paymentDateTime=${paymentDateTime}&amount=${amount}`,
             success_url: successUrl,
             cancel_url: "https://recipee-client.onrender.com/cancel"
           },

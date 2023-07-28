@@ -31,6 +31,13 @@ const typeDefs = gql`
       refNumber: String!
     ): PaymentResponse!
     getOrders(user: String!): OrderResults
+    setOrderPlaced(
+      customerEmail: String!
+      orderId: String!
+      orderDate: String!
+      orderStatus: String!
+    ): OrderPlacedResponse!
+    getOrdersPlaced(restaurantId: String!): [OrderPlaced]
   }
 
   type Mutation {
@@ -60,6 +67,12 @@ const typeDefs = gql`
     addCategory(category: CategoryInput!): AddCategoryResponse!
     makePayment(user: String!): PaymentResponse!
     addLike(item: String!, type: String!, user: String!): AddLikeResponse!
+  }
+
+  type OrderPlacedResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
   }
 
   type AddLikeResponse {
@@ -400,6 +413,7 @@ const typeDefs = gql`
     address: String!
     city: String!
     pin: String!
+    client: String!
   }
 
   input ProfileInput {
@@ -411,6 +425,7 @@ const typeDefs = gql`
     address: String!
     city: String!
     pin: String!
+    client: String!
     image: String
   }
 
@@ -420,6 +435,20 @@ const typeDefs = gql`
     _id: String!
     basketItems: [BasketOutput]
     invoice: String
+  }
+
+  type OrderItems {
+    name: String!
+    quantity: Int!
+  }
+
+  type OrderPlaced {
+    restaurantId: String!
+    customerEmail: String!
+    orderId: String!
+    orderDate: String!
+    orderStatus: String!
+    orderItems: [OrderItems]
   }
 `;
 

@@ -67,13 +67,13 @@ const RightBar = (props) => {
   }, [nutrientData]);
 
   // console.log(nutrientArray);
-  const calories = caloriesData?.basket?.reduce(
-    (prev, curr) => prev + parseInt(curr?.dish.calories),
-    0
-  );
-  console.log(calories);
+  // const calories = caloriesData?.basket?.reduce(
+  //   (prev, curr) => prev + parseInt(curr?.dish.calories),
+  //   0
+  // );
+  // console.log(calories);
 
-  if (calorieError) console.log(calorieError);
+  // if (calorieError) console.log(calorieError);
 
   const [popup, setPopup] = useState(false);
 
