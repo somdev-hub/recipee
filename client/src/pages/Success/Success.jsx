@@ -12,7 +12,8 @@ import { useQuery } from "@apollo/client";
 import {
   GET_BASKET_HEAD,
   GET_PROFILE_ADDRESS,
-  ON_PAYMENT_SUCCESS
+  ON_PAYMENT_SUCCESS,
+  SET_ORDER_PLACED
 } from "../../utils/graphql/queries";
 import { BiArrowBack } from "react-icons/bi";
 import { convertToBase64 } from "../../utils/base64";
@@ -50,12 +51,12 @@ const Success = () => {
 
   const [ready, setReady] = useState(false);
 
-  const { data: paymentData } = useQuery(ON_PAYMENT_SUCCESS, {
+  const { data: paymentData } = useQuery(SET_ORDER_PLACED, {
     variables: {
       customerEmail: localStorage.getItem("email"),
       orderId: refNumber,
       orderDate: paymentDate,
-      OrderStatus: "pending"
+      orderStatus: "pending"
     }
   });
   console.log(paymentData);

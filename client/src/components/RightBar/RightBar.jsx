@@ -17,7 +17,7 @@ import { PieChart, Pie, Tooltip } from "recharts";
 // Chart.register(CategoryScale);
 
 const RightBar = (props) => {
-  const { data } = useQuery(GET_PROFILE_HEAD, {
+  const { loading, data } = useQuery(GET_PROFILE_HEAD, {
     variables: {
       email: localStorage.getItem("email")
     }
@@ -100,29 +100,34 @@ const RightBar = (props) => {
             className="profile-pop-up absolute p-5 flex-col justify-around z-50"
             style={{ display: popup ? "flex" : "none" }}
           >
-            <div className="profile-pop-up-head flex items-center">
-              <div className="profile-pop-up-img rounded-full mr-3">
-                <img
-                  src={data?.getProfile.image ? data?.getProfile.image : ""}
-                  alt=""
-                  className="w-full h-full rounded-full object-cover"
-                />
-              </div>
-              <div className="profile-pop-up-name">
-                <h3 className="sm:text-lg text-sm">
-                  {userName.length > 10
-                    ? `${userName.slice(0, 14)}...`
-                    : userName}
-                </h3>
-                <p className="text-sm">
-                  {data?.getProfile.email.length > 18
-                    ? `${data?.getProfile.email.slice(0, 18)}...`
-                    : `
+            {loading ? (
+              <p>loading...</p>
+            ) : (
+              <div className="profile-pop-up-head flex items-center">
+                <div className="profile-pop-up-img rounded-full mr-3">
+                  <img
+                    src={data?.getProfile.image ? data?.getProfile.image : ""}
+                    alt=""
+                    className="w-full h-full rounded-full object-cover"
+                  />
+                </div>
+
+                <div className="profile-pop-up-name">
+                  <h3 className="sm:text-lg text-sm">
+                    {userName.length > 10
+                      ? `${userName.slice(0, 14)}...`
+                      : userName}
+                  </h3>
+                  <p className="text-sm">
+                    {data?.getProfile.email.length > 18
+                      ? `${data?.getProfile.email.slice(0, 18)}...`
+                      : `
                 ${data?.getProfile.email}
                 `}
-                </p>
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
             <div className="profile-pop-up-buttons flex justify-between">
               <Link to="/profile">
                 <button>Profile</button>

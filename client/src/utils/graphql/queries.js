@@ -143,6 +143,7 @@ export const GET_PROFILE_HEAD = gql`
       lastName
       email
       image
+      client
     }
   }
 `;

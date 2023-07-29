@@ -263,6 +263,7 @@ export const resolvers = {
     },
     setOrderPlaced: async (__, args, _) => {
       const { customerEmail, orderId, orderStatus, orderDate } = args;
+      console.log(args);
       const items = await Basket.find({ user: customerEmail });
       // console.log(items);
       try {
@@ -335,6 +336,8 @@ export const resolvers = {
     },
     getOrdersPlaced: async (__, { restaurantId }, _) => {
       // console.log(restaurantId);
+      const date = await OrderPlaced.find({ restaurantId })[0];
+      console.log(new Date(date?.orderDate).toLocaleDateString());
       return await OrderPlaced.find({ restaurantId });
     }
   },
@@ -804,31 +807,47 @@ export const resolvers = {
     makePayment: async (__, args, _) => {
       const { user } = args;
       const basketItems = await Basket.find({ user });
+      const taxRates = await stripe.taxRates.create(
+        {
+          display_name: "GST",
+          description: "GST",
+          jurisdiction: "IN",
+          percentage: 5,
+          inclusive: false
+        },
+        {
+          apiKey: process.env.STRIPE_SECRET_KEY
+        }
+      );
       const lineItems = await Promise.all(
         basketItems.map(async (item) => {
           if (item.type === "dish") {
             const dish = await Dishes.findOne({ _id: item.basketItem });
+            const price = parseInt(dish.price);
             return {
               price_data: {
                 currency: "inr",
                 product_data: {
                   name: dish.name
                 },
-                unit_amount: parseInt(dish.price) * 100
+                unit_amount: parseInt(price) * 100
               },
-              quantity: item.quantity
+              quantity: item.quantity,
+              tax_rates: [taxRates.id]
             };
           } else if (item.type === "category") {
             const category = await Category.findOne({ _id: item.basketItem });
+            const price = parseInt(category.price);
             return {
               price_data: {
                 currency: "inr",
                 product_data: {
                   name: category.name
                 },
-                unit_amount: parseInt(category.price) * 100
+                unit_amount: parseInt(price) * 100
               },
-              quantity: item.quantity
+              quantity: item.quantity,
+              tax_rates: [taxRates.id]
             };
           }
         })
@@ -846,9 +865,10 @@ export const resolvers = {
           apiKey: process.env.STRIPE_SECRET_KEY
         }
       );
+
       const referenceNumber = paymentIntent.id;
       const paymentDateTime = new Date(paymentIntent.created * 1000);
-      const amount = paymentIntent.amount / 100;
+      const amount = (paymentIntent.amount / 100)+(0.05*(paymentIntent.amount / 100));
       // const successUrl = `http://localhost:3000/success?refNumber=${referenceNumber}&paymentDate=${paymentDateTime.toLocaleDateString()}&paymentTime=${paymentDateTime.toLocaleTimeString()}&amount=${amount}`;
       const successUrl = `https://recipee-client.onrender.com/success?refNumber=${referenceNumber}&paymentDate=${paymentDateTime.toLocaleDateString()}&paymentTime=${paymentDateTime.toLocaleTimeString()}&amount=${amount}`;
 
@@ -856,6 +876,7 @@ export const resolvers = {
         const session = await stripe.checkout.sessions.create(
           {
             line_items: lineItems,
+
             mode: "payment",
             success_url: successUrl,
             cancel_url: "https://recipee-client.onrender.com/cancel"

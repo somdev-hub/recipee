@@ -22,11 +22,9 @@ const Basket = () => {
   });
   const [makePayment, { loading: paymentLoading }] = useMutation(MAKE_PAYMENT);
 
-  // console.log(basketData);
   if (error) {
     console.log(error);
   }
-  // console.log(basketData?.basket[0].dish.name);
 
   const [checkoutBar, setCheckoutBar] = useState(false);
   const [sidebarView, setSidebarView] = useState(false);

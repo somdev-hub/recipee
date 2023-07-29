@@ -11,6 +11,11 @@ const Checkout = ({
   checkout,
   paymentLoading
 }) => {
+  const itemsCost = items?.reduce(
+    (prev, next) => prev + next.quantity * next?.dish?.price,
+    0
+  );
+  const gst = itemsCost * 0.05;
   return (
     <div
       className="checkout flex flex-col fixed h-screen-dvh transition-all"
@@ -54,27 +59,20 @@ const Checkout = ({
           </div>
           <div className="calculate-sum mt-5 flex justify-between">
             <p className="text-white">Sum total: </p>
-            <p className="text-white">
-              Rs.{" "}
-              {items?.reduce(
-                (prev, next) => prev + next.quantity * next?.dish?.price,
-                0
-              )}
-              /-
-            </p>
+            <p className="text-white">{`Rs. ${itemsCost}/-`}</p>
           </div>
           <div className="calculate-sum mt-5 flex justify-between">
             <p className="text-white">SGST: </p>
-            <p className="text-white">Rs. 20/-</p>
+            <p className="text-white">{`Rs. ${gst / 2}/-`}</p>
           </div>
           <div className="calculate-sum mt-5 flex justify-between">
             <p className="text-white">CGST: </p>
-            <p className="text-white">Rs. 10/-</p>
+            <p className="text-white">{`Rs. ${gst / 2}/-`}</p>
           </div>
           <div className="total-cost  flex items-center mt-5">
             <div className="total-col flex justify-between w-full mx-10">
               <p className="text-white">Total</p>
-              <p className="text-white">Rs. 180/-</p>
+              <p className="text-white">{`Rs. ${itemsCost + gst}/-`}</p>
             </div>
           </div>
         </div>

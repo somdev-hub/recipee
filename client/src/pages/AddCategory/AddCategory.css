@@ -20,6 +20,9 @@
     border-radius: 10px;
     border: 2px solid var(--yellow);
     padding-left: 1rem;
+    appearance: none;
+    background-image: none;
+    color: var(--light-gray);
 }
 
 .type-ingredients select option {

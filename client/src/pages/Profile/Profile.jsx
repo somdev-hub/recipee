@@ -72,7 +72,7 @@ const Profile = () => {
   const isCustomer = profile?.getProfile?.client === "customer";
 
   const [collection, setCollection] = useState({
-    dishes: isCustomer && false,
+    dishes: isCustomer ? false : true,
     recipees: isCustomer && true,
     articles: false,
     categories: false

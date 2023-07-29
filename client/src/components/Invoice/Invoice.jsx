@@ -277,8 +277,20 @@ const Invoice = (props) => {
             </View>
           </View>
           <View style={{ fontSize: 12 }}>
-            <View style={styles.flex}>
-              <Text style={{ marginRight: 15 }}>Sub Total:</Text>
+            <View style={styles.flexBetween}>
+              <Text>Total:</Text>
+              <Text>Rs. {props.amount - 0.05 * props.amount}/-</Text>
+            </View>
+            <View style={styles.flexBetween}>
+              <Text style={{ marginTop: 3 }}>SGST:</Text>
+              <Text style={{ marginTop: 3 }}>2.5%</Text>
+            </View>
+            <View style={styles.flexBetween}>
+              <Text style={{ marginTop: 3 }}>CGST:</Text>
+              <Text style={{ marginTop: 3 }}>2.5%</Text>
+            </View>
+            <View style={styles.flexBetween}>
+              <Text>SubTotal:</Text>
               <Text>Rs. {props.amount}/-</Text>
             </View>
 

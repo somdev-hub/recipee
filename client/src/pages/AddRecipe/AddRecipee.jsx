@@ -3,10 +3,11 @@ import "./AddRecipee.css";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Switch from "react-switch";
 import { AiOutlinePlus } from "react-icons/ai";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { ADD_DISH, ADD_RECIPEE } from "../../utils/graphql/mutations";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { convertToBase64 } from "../../utils/base64";
+import { GET_PROFILE_HEAD } from "../../utils/graphql/queries";
 
 const AddRecipee = () => {
   const [nonveg, setNonVeg] = useState(false);
@@ -41,6 +42,12 @@ const AddRecipee = () => {
     calories: "",
     dishDescription: ""
   });
+  const { data: userData } = useQuery(GET_PROFILE_HEAD, {
+    variables: {
+      email: localStorage.getItem("email")
+    }
+  });
+  const isCustomer = userData?.getProfile?.client === "customer";
   const [addRecipee, { loading: recipeeLoading }] = useMutation(ADD_RECIPEE);
   const [addDish, { loading: dishLoading }] = useMutation(ADD_DISH);
 
@@ -311,59 +318,64 @@ const AddRecipee = () => {
                     </p>
                   </div>
                 </div>
-                <p className="mt-10">
-                  (Enter the fields below only if you take orders)
-                </p>
-                <div className="check-order flex mt-10 items-center">
-                  <input
-                    type="checkbox"
-                    className="mr-3 cursor-pointer"
-                    onChange={() => setTakeOrders(!takeOrders)}
-                  />
-                  <p className="text-sm">
-                    mark if you take orders for this recipe
+                <div
+                  className=""
+                  style={{ display: isCustomer ? "none" : "block" }}
+                >
+                  <p className="mt-10">
+                    (Enter the fields below only if you take orders)
                   </p>
-                </div>
-                <div className="add-recipee-order mt-10 flex sm:flex-row flex-col gap-5">
-                  <input
-                    type="text"
-                    placeholder="Weight per serving"
-                    disabled={!takeOrders}
-                    name="weight"
-                    value={recipeeData.weight}
-                    onChange={handleRecipeeChange}
-                  />
-                  <input
-                    type="text"
-                    placeholder="Price"
-                    disabled={!takeOrders}
-                    name="price"
-                    value={recipeeData.price}
-                    onChange={handleRecipeeChange}
-                  />
-                  <input
-                    type="text"
-                    placeholder="Calories"
-                    disabled={!takeOrders}
-                    name="calories"
-                    value={recipeeData.calories}
-                    onChange={handleRecipeeChange}
-                  />
-                </div>
+                  <div className="check-order flex mt-10 items-center">
+                    <input
+                      type="checkbox"
+                      className="mr-3 cursor-pointer"
+                      onChange={() => setTakeOrders(!takeOrders)}
+                    />
+                    <p className="text-sm">
+                      mark if you take orders for this recipe
+                    </p>
+                  </div>
+                  <div className="add-recipee-order mt-10 flex sm:flex-row flex-col gap-5">
+                    <input
+                      type="text"
+                      placeholder="Weight per serving"
+                      disabled={!takeOrders}
+                      name="weight"
+                      value={recipeeData.weight}
+                      onChange={handleRecipeeChange}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Price"
+                      disabled={!takeOrders}
+                      name="price"
+                      value={recipeeData.price}
+                      onChange={handleRecipeeChange}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Calories"
+                      disabled={!takeOrders}
+                      name="calories"
+                      value={recipeeData.calories}
+                      onChange={handleRecipeeChange}
+                    />
+                  </div>
 
-                <div className="mt-10">
-                  <p className="">Write the dish description</p>
-                  <textarea
-                    name="dishDescription"
-                    id=""
-                    cols="100"
-                    rows="10"
-                    className="mt-10 p-3"
-                    placeholder="Start writing here..."
-                    disabled={!takeOrders}
-                    value={recipeeData.dishDescription}
-                    onChange={handleRecipeeChange}
-                  ></textarea>
+                  <div className="mt-10">
+                    <p className="">Write the dish description</p>
+                    <textarea
+                      name="dishDescription"
+                      id=""
+                      cols="100"
+                      rows="10"
+                      className="mt-10 p-3"
+                      placeholder="Start writing here..."
+                      disabled={!takeOrders}
+                      value={recipeeData.dishDescription}
+                      onChange={handleRecipeeChange}
+                    ></textarea>
+                  </div>
                 </div>
 
                 <div className="check-order flex mt-10 items-center">

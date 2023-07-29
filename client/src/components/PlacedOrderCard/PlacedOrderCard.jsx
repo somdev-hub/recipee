@@ -4,11 +4,14 @@ import { GET_PROFILE_ADDRESS } from "../../utils/graphql/queries";
 import { useQuery } from "@apollo/client";
 
 const PlacedOrderCard = ({ props }) => {
-  const { loading, error, data } = useQuery(GET_PROFILE_ADDRESS, {
+  const { data } = useQuery(GET_PROFILE_ADDRESS, {
     variables: {
       email: props?.customerEmail
     }
   });
+  const orderDate = new Date(props?.orderDate * 1000);
+  // props.orderDate=1690482600000
+  console.log(orderDate);
   return (
     <div className="placed-order-card p-5 sm:mb-0 mb-5">
       <div className="placed-order-card-main">
@@ -27,14 +30,14 @@ const PlacedOrderCard = ({ props }) => {
             <p className="text-sm">{props?.customerEmail}</p>
           </div>
         </div>
-        <div className="placed-order-details flex justify-between mt-5 text-sm">
-          <p>
-            Order-Id:
+        <div className="placed-order-details mt-5 text-sm">
+          <p className="mb-1">
+            OrderId:
             <span>{props?.orderId}</span>
           </p>
           <p>
             Date:
-            <span>{props.orderDate}</span>
+            <span>{orderDate.toLocaleString()}</span>
           </p>
         </div>
         <div className="placed-order-address mt-5">

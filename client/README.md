@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+# Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The client part of the app is developed using react.js to build the main UI of the app. Along with react several other dependencies are employed to make several functionalities come to life. To help connect with the backend apollo client 3 is used which as a advantage provide support for the inMemoryCache functionality. Below are the list of all dependencies that have been used to develop the app.
 
-## Available Scripts
+## Dependencies
 
-In the project directory, you can run:
+- [@apollo/client](https://www.npmjs.com/package/@apollo/client): ^3.7.16
+- [@react-pdf/renderer](https://www.npmjs.com/package/@react-pdf/renderer): ^3.1.12
+- [@stripe/react-stripe-js](https://www.npmjs.com/package/@stripe/react-stripe-js): ^2.1.1
+- [@stripe/stripe-js](https://www.npmjs.com/package/@stripe/stripe-js): ^1.54.1
+- [@testing-library/jest-dom](https://www.npmjs.com/package/@testing-library/jest-dom): ^5.16.5
+- [@testing-library/react](https://www.npmjs.com/package/@testing-library/react): ^13.4.0
+- [@testing-library/user-event](https://www.npmjs.com/package/@testing-library/user-event): ^13.5.0
+- [apollo-upload-client](https://www.npmjs.com/package/apollo-upload-client): ^17.0.0
+- [browser-image-compression](https://www.npmjs.com/package/browser-image-compression): ^2.0.2
+- [chart.js](https://www.npmjs.com/package/chart.js): ^4.3.0
+- [graphql](https://www.npmjs.com/package/graphql): ^16.7.1
+- [jwt-decode](https://www.npmjs.com/package/jwt-decode): ^3.1.2
+- [lottie-react](https://www.npmjs.com/package/lottie-react): ^2.4.0
+- [react](https://www.npmjs.com/package/react): ^18.2.0
+- [react-chartjs-2](https://www.npmjs.com/package/react-chartjs-2): ^5.2.0
+- [react-dom](https://www.npmjs.com/package/react-dom): ^18.2.0
+- [react-draggable](https://www.npmjs.com/package/react-draggable): ^4.4.5
+- [react-icons](https://www.npmjs.com/package/react-icons): ^4.10.1
+- [react-router-dom](https://www.npmjs.com/package/react-router-dom): ^6.12.1
+- [react-scripts](https://www.npmjs.com/package/react-scripts): 5.0.1
+- [react-switch](https://www.npmjs.com/package/react-switch): ^7.0.0
+- [recharts](https://www.npmjs.com/package/recharts): ^2.7.2
+- [web-vitals](https://www.npmjs.com/package/web-vitals): ^2.1.4
 
-### `npm start`
+## Tech Stack
+- React.js (for ui development)
+- Apollo client 3 (for graphql queries and mutations)
+- React-router-dom (for routing)
+- React-icons (for icons)
+- Stripe (for payment)
+- recharts (for charts)
+- Lottie-react (for animations)
+- React-pdf (for pdf generation)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Design files
+- [Figma](https://www.figma.com/file/WOD57kY9NCnqhjLZ0lipIb/recipee?type=design&node-id=0%3A1&mode=design&t=3FsS3wK6kmwhfgSg-1)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Color Reference
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Color             | Hex                                                                |
+| ----------------- | ------------------------------------------------------------------ |
+| Yellow | ![#f5a504](https://via.placeholder.com/10/f5a504?text=+) #f5a504 |
+| Dark gray | ![#28282b](https://via.placeholder.com/10/28282b?text=+) #28282b |
+| Black | ![#1e1e1e](https://via.placeholder.com/10/1e1e1e?text=+) #1e1e1e |
+| Dark blue | ![#273b4a](https://via.placeholder.com/10/273b4a?text=+) #273b4a |
+| White | ![#ffffff](https://via.placeholder.com/10/fff?text=+) #ffffff |
+| Text gray | ![#686767](https://via.placeholder.com/10/686767?text=+) #686767 |
+| Light gray | ![#d9d9d9](https://via.placeholder.com/10/d9d9d9?text=+) #d9d9d9 |
 
-### `npm run build`
+## Run Locally
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Clone the project
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+  git clone https://https://github.com/somdev-hub/recipee
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Go to the project directory
 
-### `npm run eject`
+```bash
+  cd client
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Install dependencies
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+  npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Start the server
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+  npm run start
+```
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Screenshots
