@@ -29,6 +29,7 @@ The client part of the app is developed using react.js to build the main UI of t
 - [web-vitals](https://www.npmjs.com/package/web-vitals): ^2.1.4
 
 ## Tech Stack
+
 - React.js (for ui development)
 - Apollo client 3 (for graphql queries and mutations)
 - React-router-dom (for routing)
@@ -39,19 +40,19 @@ The client part of the app is developed using react.js to build the main UI of t
 - React-pdf (for pdf generation)
 
 ## Design files
-- [Figma](https://www.figma.com/file/WOD57kY9NCnqhjLZ0lipIb/recipee?type=design&node-id=0%3A1&mode=design&t=3FsS3wK6kmwhfgSg-1)
 
+- [Figma](https://www.figma.com/file/WOD57kY9NCnqhjLZ0lipIb/recipee?type=design&node-id=0%3A1&mode=design&t=3FsS3wK6kmwhfgSg-1)
 
 ## Color Reference
 
-| Color             | Hex                                                                |
-| ----------------- | ------------------------------------------------------------------ |
-| Yellow | ![#f5a504](https://via.placeholder.com/10/f5a504?text=+) #f5a504 |
-| Dark gray | ![#28282b](https://via.placeholder.com/10/28282b?text=+) #28282b |
-| Black | ![#1e1e1e](https://via.placeholder.com/10/1e1e1e?text=+) #1e1e1e |
-| Dark blue | ![#273b4a](https://via.placeholder.com/10/273b4a?text=+) #273b4a |
-| White | ![#ffffff](https://via.placeholder.com/10/fff?text=+) #ffffff |
-| Text gray | ![#686767](https://via.placeholder.com/10/686767?text=+) #686767 |
+| Color      | Hex                                                              |
+| ---------- | ---------------------------------------------------------------- |
+| Yellow     | ![#f5a504](https://via.placeholder.com/10/f5a504?text=+) #f5a504 |
+| Dark gray  | ![#28282b](https://via.placeholder.com/10/28282b?text=+) #28282b |
+| Black      | ![#1e1e1e](https://via.placeholder.com/10/1e1e1e?text=+) #1e1e1e |
+| Dark blue  | ![#273b4a](https://via.placeholder.com/10/273b4a?text=+) #273b4a |
+| White      | ![#ffffff](https://via.placeholder.com/10/fff?text=+) #ffffff    |
+| Text gray  | ![#686767](https://via.placeholder.com/10/686767?text=+) #686767 |
 | Light gray | ![#d9d9d9](https://via.placeholder.com/10/d9d9d9?text=+) #d9d9d9 |
 
 ## Run Locally
@@ -81,3 +82,33 @@ Start the server
 ```
 
 ## Screenshots
+
+- Basket page
+
+#
+
+![Basket](src/utils/screenshots/basket.png)
+
+- Favorites page
+
+#
+
+![Favorites](src/utils/screenshots/favorites.png)
+
+- Community page
+
+#
+
+![Community](src/utils/screenshots/community.png)
+
+- Article page
+
+#
+
+![Article](src/utils/screenshots/article.png)
+
+- Profile page
+
+#
+
+![Profile](src/utils/screenshots/profile.png)

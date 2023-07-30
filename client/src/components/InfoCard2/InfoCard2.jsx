@@ -11,7 +11,7 @@ const InfoCard2 = ({ props, pos2, onClick, posMini }) => {
   const [quantity, setQuantity] = useState(1);
   const [nutrientBar, setNutrientBar] = useState(false);
   const [liked, setLiked] = useState(false);
-  const [addBasketItem] = useMutation(ADD_BASKET, {
+  const [addBasketItem, { loading }] = useMutation(ADD_BASKET, {
     variables: {
       user: localStorage.getItem("email"),
       addBasketItemId: props.id,
@@ -176,10 +176,9 @@ const InfoCard2 = ({ props, pos2, onClick, posMini }) => {
             }
             setQuantity(1);
           }}
-          // disabled={loading}
+          disabled={loading}
         >
-          {/* {loading ? <span class="loader"></span> : "Add to basket"} */}
-          Add to basket
+          {loading ? <span class="loader"></span> : "Add to basket"}
         </button>
         <h4 className="text-white ml-2 ">Rs. 500/-</h4>
       </div>
