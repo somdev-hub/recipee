@@ -55,7 +55,7 @@ const Article = () => {
     }
   });
   const [comment, setComment] = useState("");
-  const [addComment] = useMutation(ADD_COMMENT);
+  const [addComment,{loading:commentLoading}] = useMutation(ADD_COMMENT);
   const [sidebarView, setSidebarView] = useState(false);
   const [rightbarView, setRightbarView] = useState(false);
   return (
@@ -163,7 +163,9 @@ const Article = () => {
                         }}
                       />
                     </div>
-                    <button type="submit">post</button>
+                    <button type="submit">
+                      {commentLoading?<span class="loader"></span> : "Post"}
+                    </button>
                   </form>
                 </div>
                 <div className="comments-container my-10">
