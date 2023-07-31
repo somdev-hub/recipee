@@ -255,7 +255,7 @@ const Profile = () => {
                   className=""
                   style={{ display: !collection.recipees ? "none" : "block" }}
                 >
-                  <div className="recipee-collection sm:flex mt-10 grid grid-cols-2 gap-5">
+                  <div className="recipee-collection sm:flex sm:flex-wrap mt-10 grid grid-cols-2 gap-5">
                     {recipees?.getRecipeesByAuthor.map((item, index) => {
                       return <RecipeCard props={item} key={index} />;
                     })}
