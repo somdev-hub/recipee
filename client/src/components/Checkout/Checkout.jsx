@@ -42,39 +42,44 @@ const Checkout = ({
               <p className="text-white">Cost</p>
             </div>
           </div>
-          {loading && <p className="text-white mt-5">Loading...</p>}
-          <div className="total-orders mt-5 pb-5">
-            {items?.map((item, index) => {
-              return (
-                <div className="flex justify-between mb-5" key={index}>
-                  <p className="text-white">
-                    {index + 1}. {item?.dish?.name}
-                  </p>
-                  <p className="text-white">
-                    {item?.quantity} x Rs. {item?.dish?.price}/-
-                  </p>
+          {loading ? (
+            <p className="text-white mt-5">Loading...</p>
+          ) : (
+            <>
+              <div className="total-orders mt-5 pb-5">
+                {items?.map((item, index) => {
+                  return (
+                    <div className="flex justify-between mb-5" key={index}>
+                      <p className="text-white">
+                        {index + 1}. {item?.dish?.name}
+                      </p>
+                      <p className="text-white">
+                        {item?.quantity} x Rs. {item?.dish?.price}/-
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="calculate-sum mt-5 flex justify-between">
+                <p className="text-white">Sum total: </p>
+                <p className="text-white">{`Rs. ${itemsCost}/-`}</p>
+              </div>
+              <div className="calculate-sum mt-5 flex justify-between">
+                <p className="text-white">SGST: </p>
+                <p className="text-white">{`Rs. ${gst / 2}/-`}</p>
+              </div>
+              <div className="calculate-sum mt-5 flex justify-between">
+                <p className="text-white">CGST: </p>
+                <p className="text-white">{`Rs. ${gst / 2}/-`}</p>
+              </div>
+              <div className="total-cost  flex items-center mt-5">
+                <div className="total-col flex justify-between w-full mx-10">
+                  <p className="text-white">Total</p>
+                  <p className="text-white">{`Rs. ${itemsCost + gst}/-`}</p>
                 </div>
-              );
-            })}
-          </div>
-          <div className="calculate-sum mt-5 flex justify-between">
-            <p className="text-white">Sum total: </p>
-            <p className="text-white">{`Rs. ${itemsCost}/-`}</p>
-          </div>
-          <div className="calculate-sum mt-5 flex justify-between">
-            <p className="text-white">SGST: </p>
-            <p className="text-white">{`Rs. ${gst / 2}/-`}</p>
-          </div>
-          <div className="calculate-sum mt-5 flex justify-between">
-            <p className="text-white">CGST: </p>
-            <p className="text-white">{`Rs. ${gst / 2}/-`}</p>
-          </div>
-          <div className="total-cost  flex items-center mt-5">
-            <div className="total-col flex justify-between w-full mx-10">
-              <p className="text-white">Total</p>
-              <p className="text-white">{`Rs. ${itemsCost + gst}/-`}</p>
-            </div>
-          </div>
+              </div>
+            </>
+          )}
         </div>
         {/* <Draggable axis="y" bounds={{ top: -200, bottom: 0 }}> */}
         <div className="payment mt-10 flex flex-col items-center overflow-y-auto no-scrollbar h-2/6 relative ">
