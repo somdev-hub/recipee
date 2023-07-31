@@ -870,7 +870,7 @@ export const resolvers = {
       const paymentDateTime = new Date(paymentIntent.created * 1000);
       const amount = (paymentIntent.amount / 100)+(0.05*(paymentIntent.amount / 100));
       // const successUrl = `http://localhost:3000/success?refNumber=${referenceNumber}&paymentDate=${paymentDateTime.toLocaleDateString()}&paymentTime=${paymentDateTime.toLocaleTimeString()}&amount=${amount}`;
-      const successUrl = `https://recipee-client.onrender.com/success?refNumber=${referenceNumber}&paymentDate=${paymentDateTime.toLocaleDateString()}&paymentTime=${paymentDateTime.toLocaleTimeString()}&amount=${amount}`;
+      
 
       try {
         const session = await stripe.checkout.sessions.create(

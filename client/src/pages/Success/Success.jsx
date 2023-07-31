@@ -188,7 +188,7 @@ const Success = () => {
               );
             }}
           </PDFDownloadLink>
-          <PDFViewer>{invoice}</PDFViewer>
+          {/* <PDFViewer>{invoice}</PDFViewer> */}
 
           <div className="sm:hidden block mt-5">
             <Link to="/">
