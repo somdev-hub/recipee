@@ -1,3 +1,10 @@
+/**
+ * @filename resolvers.js
+ * @createdBy Somdev Behera
+ * @fileoverview This file contains all the resolvers for the GraphQL API.
+ * @description GraphQl resolvers gives shape to the schema and are responsible for fetching, storing, modifying the data from the datasource. The resolvers are the functions that are responsible for fetching the data for a specific field that exists on a type definition. They are the functions that are tied to the fields on your schema types. They are what tell your schema where to get the data from when a query is executed. Below are the resolvers for the GraphQL API.
+ */
+
 import { Dishes, Nutrients } from "./datasources/models/dishes.js";
 import { Basket } from "./datasources/models/basket.js";
 import { Favorites } from "./datasources/models/favorites.js";
@@ -868,7 +875,8 @@ export const resolvers = {
 
       const referenceNumber = paymentIntent.id;
       const paymentDateTime = new Date(paymentIntent.created * 1000);
-      const amount = (paymentIntent.amount / 100)+(0.05*(paymentIntent.amount / 100));
+      const amount =
+        paymentIntent.amount / 100 + 0.05 * (paymentIntent.amount / 100);
       // const successUrl = `http://localhost:3000/success?refNumber=${referenceNumber}&paymentDate=${paymentDateTime.toLocaleDateString()}&paymentTime=${paymentDateTime.toLocaleTimeString()}&amount=${amount}`;
       const successUrl = `https://recipee-client.onrender.com/success?refNumber=${referenceNumber}&paymentDate=${paymentDateTime.toLocaleDateString()}&paymentTime=${paymentDateTime.toLocaleTimeString()}&amount=${amount}`;
 
