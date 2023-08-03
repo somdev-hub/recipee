@@ -1,3 +1,11 @@
+/**
+ * @module src/datasources/models/posts
+ * @filename posts.js
+ * @namespace Posts
+ * @fileoverview Posts model
+ * @description This file defines the posts model
+ */
+
 import mongoose from "mongoose";
 
 export const Posts = mongoose.model("Posts", {

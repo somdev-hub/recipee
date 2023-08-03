@@ -1,4 +1,12 @@
-// const mongoose = require("mongoose");
+/**
+ * @filename basket.js
+ * @module src/datasources/models/basket
+ * @fileoverview Basket model
+ * @requires mongoose
+ * @description This file defines the basket model
+ * 
+ */
+
 import mongoose from "mongoose";
 
 const Basket = mongoose.model("Basket", {
@@ -8,5 +16,4 @@ const Basket = mongoose.model("Basket", {
   quantity: Number
 });
 
-// module.exports = { Basket };
 export { Basket };

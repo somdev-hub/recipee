@@ -49,7 +49,6 @@ function App() {
       }
     }
   }, [navigate, token]);
-  // console.log(token);
   return (
     <ApolloProvider client={client}>
       {/* <React.Fragment id="app"> */}
@@ -75,7 +74,6 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" exact element={<Navigate replace to="/signup" />} />
-        {/* <Route path="/signup2" element={<SignUp />} /> */}
       </Routes>
 
       {/* </React.Fragment> */}

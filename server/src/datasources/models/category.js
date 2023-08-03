@@ -1,3 +1,11 @@
+/**
+ * @module src/datasources/models/category
+ * @filename category.js
+ * @namespace Category
+ * @fileoverview Category model
+ * @description This file defines the category model
+ */
+
 import mongoose from "mongoose";
 
 const Category = mongoose.model("Category", {

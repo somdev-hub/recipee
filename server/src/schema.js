@@ -466,6 +466,8 @@ const typeDefs = gql`
     post: Posts
     type: String
   }
+
+  scalar Upload
 `;
 
 export { typeDefs };

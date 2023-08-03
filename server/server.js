@@ -1,3 +1,11 @@
+/**
+ * @module server
+ * @filename server.js
+ * @namespace Server
+ * @fileoverview Server entry point
+ * @description This file defines the server entry point
+ */
+
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { resolvers } from "./src/resolvers.js";

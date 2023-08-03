@@ -1,10 +1,12 @@
-// const mongoose = require("mongoose");
-import mongoose from "mongoose";
+/**
+ * @module src/datasources/models/dishes
+ * @filename dishes.js
+ * @namespace Dishes
+ * @fileoverview Model for dishes and nutrients
+ * @description This file defines the dishes model
+ */
 
-const Nutrients = mongoose.model("Nutrients", {
-  dishName: String,
-  nutrients: [{ name: String, value: Number }]
-});
+import mongoose from "mongoose";
 
 const Dishes = mongoose.model("Dishes", {
   name: String,
@@ -20,5 +22,4 @@ const Dishes = mongoose.model("Dishes", {
   nonveg: Boolean
 });
 
-// module.exports = { Dishes, Nutrients, Recipees };
-export { Dishes, Nutrients };
+export { Dishes };

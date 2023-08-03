@@ -1,4 +1,11 @@
-// const mongoose = require("mongoose");
+/**
+ * @module src/datasources/database
+ * @filename database.js
+ * @namespace Database
+ * @fileoverview database connection
+ * @description This file contains the database connection
+ */
+
 import mongoose from "mongoose";
 
 const database = () => {

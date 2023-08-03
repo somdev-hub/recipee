@@ -1,3 +1,11 @@
+/**
+ * @module src/datasources/models/recipees
+ * @filename recipees.js
+ * @namespace Recipees
+ * @fileoverview Recipees model
+ * @description This file defines the recipees model
+ */
+
 import mongoose from "mongoose";
 
 export const Recipees = mongoose.model("recipees", {
@@ -12,5 +20,5 @@ export const Recipees = mongoose.model("recipees", {
   nutrients: [{ name: String, quantity: String }],
   nonveg: Boolean,
   category: String,
-  tags: [String],
+  tags: [String]
 });

@@ -1,3 +1,11 @@
+/**
+ * @module src/datasources/models/orders
+ * @filename orders.js
+ * @namespace Orders
+ * @fileoverview Orders model
+ * @description This file defines the orders model
+ */
+
 import mongoose from "mongoose";
 
 export const Orders = mongoose.model("Orders", {

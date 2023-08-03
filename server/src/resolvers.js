@@ -5,7 +5,7 @@
  * @description GraphQl resolvers gives shape to the schema and are responsible for fetching, storing, modifying the data from the datasource. The resolvers are the functions that are responsible for fetching the data for a specific field that exists on a type definition. They are the functions that are tied to the fields on your schema types. They are what tell your schema where to get the data from when a query is executed. Below are the resolvers for the GraphQL API.
  */
 
-import { Dishes, Nutrients } from "./datasources/models/dishes.js";
+import { Dishes } from "./datasources/models/dishes.js";
 import { Basket } from "./datasources/models/basket.js";
 import { Favorites } from "./datasources/models/favorites.js";
 import { Profile } from "./datasources/models/profile.js";
@@ -26,7 +26,6 @@ export const resolvers = {
   Query: {
     dishes: async (__, args, _) => {
       return await Dishes.find({});
-      // return "Hello World"
     },
     nutrients: async (__, args, _) => {
       return await Nutrients.find({});
@@ -42,14 +41,12 @@ export const resolvers = {
         // console.log(BasketData);
         const basketItems = BasketData.map(async (item) => {
           if (item.type === "dish") {
-            // console.log(await Dishes.findOne({ _id: item.basketItem }));
             return {
               id: item._id,
               dish: await Dishes.findOne({ _id: item.basketItem }),
               quantity: item.quantity
             };
           } else if (item.type === "category") {
-            // console.log(item.basketItem);
             return {
               id: item._id,
               dish: await Category.findOne({ _id: item.basketItem }),
@@ -63,7 +60,6 @@ export const resolvers = {
             };
           }
         });
-        // return await Basket.find({ user: args.user });
         return basketItems;
       } catch (error) {
         console.log(error);
@@ -92,8 +88,6 @@ export const resolvers = {
             type: item.type
           };
         } else if (item.type === "recipee") {
-          // console.log(item.item);
-          // console.log(await Recipees.findOne({ _id: item.item }));
           return {
             id: item._id,
             recipee: await Recipees.findOne({ _id: item.item }),

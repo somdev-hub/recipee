@@ -1,4 +1,11 @@
-// const mongoose = require("mongoose");
+/**
+ * @module src/datasources/models/profile
+ * @filename profile.js
+ * @namespace Profile
+ * @fileoverview Profile model
+ * @description This file defines the profile model
+ */
+
 import mongoose from "mongoose";
 
 const Profile = mongoose.model("Profile", {
@@ -14,5 +21,4 @@ const Profile = mongoose.model("Profile", {
   client: String
 });
 
-// module.exports = { Profile };
 export { Profile };
