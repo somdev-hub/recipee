@@ -1,6 +1,6 @@
 # Client
 
-The client part of the app is developed using react.js to build the main UI of the app. Along with react several other dependencies are employed to make several functionalities come to life. To help connect with the backend apollo client 3 is used which as a advantage provide support for the inMemoryCache functionality. Below are the list of all dependencies that have been used to develop the app.
+The client part of the app is developed using react.js to build the main UI of the app. Along with react several other dependencies are employed to make several functionalities come to life. To help connect with the backend apollo client 3 is used which as a advantage provides support for the inMemoryCache functionality. Below are the list of all dependencies that have been used to develop the app.
 
 ## Dependencies
 
@@ -30,7 +30,7 @@ The client part of the app is developed using react.js to build the main UI of t
 
 ## Tech Stack
 
-- React.js (for ui development)
+- React.js (for UI development)
 - Apollo client 3 (for graphql queries and mutations)
 - React-router-dom (for routing)
 - React-icons (for icons)

@@ -1,16 +1,15 @@
 
 # Recipee app
 
-Welcome to recipee app. Your all in one destination for foods. The main moto of developing this web app is to connect local users with a system where they can get and post their recipes seamlessly. Also if you are a buyer, you can also be a seller if you supply plates of your special cuisine. This is a great way to know about local restaurants and local cuisine that were once invisible to the mass.
+Welcome to the Recipee app, your one-stop destination for all things food! Our main goal in creating this web app is to connect local users with a platform where they can easily share and access recipes. And if you're a skilled cook, you can also become a seller by offering plates of your special cuisine. This is an excellent opportunity to discover hidden local restaurants and cuisines that may have been unknown to you before.
 
 # Folder structure
 
-The main file structure is divided into to subfolder i.e client(using react.js for the frontend part) and server(using node.js for the backend part).
-Further the subfolders are divided into subfolders based on their functionality. For example, the client folder is divided into components, pages, styles, utils, etc. The server folder is divided into models, resolvers, schemas, utils, etc.
+The main file structure is divided into to subfolders i.e. client(using react.js for the frontend part) and server(using node.js for the backend part). Further, the subfolders are divided into subfolders based on their functionality. For example, the client folder is divided into components, pages, styles, utils, etc. The server folder is divided into models, resolvers, schemas, utils, etc.
 
-The client folder is further divided into public, src and other necessary files. The src folder is the main folder which contains components, pages, styles, utils, etc. The components folder contains all the components that are used in the app. Each component folder is named after the the component name and further the component folder contains the main jsx file and the corresponding css file. The pages folder contains all the pages that are used in the app. The utils folder contains all the utility functions, images, graphql queries and mutations, fonts, lottie files and sample codes that are used in the app.
+The client folder is further divided into public, src, and other necessary files. The src folder is the main folder that contains components, pages, styles, utils, etc. The components folder contains all the components that are used in the app. Each component folder is named after the component name and further, the component folder contains the main jsx file and the corresponding css file. The pages folder contains all the pages that are used in the app. The utils folder contains all the utility functions, images, graphql queries and mutations, fonts, Lottie files, and sample codes that are used in the app.
 
-The server folder is further divided into subfolders out of which the src folders contains the main server codes. The src folder contains datasources (which further contains models), resolvers, schemas, etc. The models folder contains all the mongoose models that are used in the app. The resolvers folder contains all the resolvers that are used in the app. The schemas folder contains all the graphql schemas that are used in the app. The utils folder contains all the utility functions that are used in the app.
+The server folder is further divided into subfolders out of which the src folders contain the main server codes. The src folder contains datasources (which further contains models), resolvers, schemas, etc. The model's folder contains all the Mongoose models that are used in the app. The resolvers folder contains all the resolvers that are used in the app. The schemas folder contains all the graphql schemas that are used in the app. The utils folder contains all the utility functions that are used in the app.
 
 
 ## server
@@ -135,18 +134,17 @@ The server folder is further divided into subfolders out of which the src folder
 
 # Working
 
-The app make use of the robust GraphQL technology as an interface between the client and the server. The client make use of the latest apollo client 3 to run query and mutations to access the data from the backend. The server is composed of apollo server 4 which makes it possible to run queries and mutations on the server side. The server is connected to the MongoDB database using mongoose.
+The app makes use of robust GraphQL technology as an interface between the client and the server. The client makes use of the latest Apollo client 3 to run queries and mutations to access the data from the backend. The server is composed of apollo server 4 which makes it possible to run queries and mutations on the server side. The server is connected to the MongoDB database using Mongoose.
 
 # Features
 
 - Add recipes of your choice
 - Restaurant owners can add dishes
 - Anyone can post articles and comment on them
-- Can add items to basket and make orders
-- After successful order, you can download your invoice
+- Can add items to the basket and make orders after a successful order, you can download your invoice
 - Can view your nutrient consumption
-- Add dishes, categories, articles and recipes to favourites
-- View your posts and orders in profile page
+- Add dishes, categories, articles, and recipes to your favorites
+- View your posts and orders on the profile page
 - Delete your content or account if required
 
 # Screenshots

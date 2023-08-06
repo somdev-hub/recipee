@@ -1,18 +1,18 @@
 # Server
 
-The server of the project is built with Node.js. It used Apollo server 4 to host the graphql server. The database used is MongoDB. Apollo server 4 is a powerful tool to build graphql servers. It is easy to use and has a lot of features. The complete backend has a schema definition structure. That means for type of operation there exist a resolver function inside resolver.js file which can make changes and retrieve data from the data base according to the corresponding schema. The Schemas are defined in the schema.js file. The schema defines the basic structure of the resolver function i.e its input and outputs. 
+The server of the project is built with Node.js. It used Apollo Server 4 to host the graphql server. The database used is MongoDB. Apollo Server 4 is a powerful tool to build graphql servers. It is easy to use and has a lot of features. The complete backend has a schema definition structure. That means for the type of operation there exists a resolver function inside resolver.js file which can make changes and retrieve data from the database according to the corresponding schema. The Schemas are defined in the schema.js file. The schema defines the basic structure of the resolver function i.e. its input and outputs. 
 
 ## Database
 
-MongoDB is used here as the database to store the data in form of collections. All the data of this app is hosted on the MongoDB Atlas cloud service which makes it easier to access the data from anywhere. The database is hosted on the cloud and the connection string is stored in the .env file. The database is accessed using the mongoose library. The mongoose library is a wrapper around the MongoDB driver which makes it easier to access the database. The mongoose library also provides a lot of features like schema validation, data validation, etc. 
+MongoDB is used here as the database to store the data in the form of collections. All the data of this app is hosted on the MongoDB Atlas cloud service which makes it easier to access the data from anywhere. The database is hosted on the cloud and the connection string is stored in the .env file. The database is accessed using the Mongoose library. The Mongoose library is a wrapper around the MongoDB driver which makes it easier to access the database. The Mongoose library also provides a lot of features like schema validation, data validation, etc. 
 
 ### Models
 
-The models folders located inside the datasources folder contains the schema of the collections in the database. The schema is defined using the mongoose library. The schema defines the structure of the collection and also the validation of the data. The schema also defines the relationship between the collections. The schema is defined in the models folder. The schema is then exported and used in the resolvers to access the database.
+The model's folders located inside the datasources folder contain the schema of the collections in the database. The schema is defined using the Mongoose library. The schema defines the structure of the collection and also the validation of the data. The schema also defines the relationship between the collections. The schema is defined in the model's folder. The schema is then exported and used in the resolvers to access the database.
 
 ## GraphQL
 
-GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools. The graphql server is hosted using apollo server 4 which provide powerful tools like the graphql playground where one can test the queries and mutations.
+GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools. The graphql server is hosted using apollo server 4 which provides powerful tools like the graphql playground where one can test the queries and mutations.
 
 ## Dependencies
 
